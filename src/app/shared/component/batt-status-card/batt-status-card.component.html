@@ -1,0 +1,49 @@
+<div class="card card-batt-status"
+[ngClass]="{'batt-card-hover-active': _status === 'N' || _status === 'B' || _status === 'D', 'batt-card-hover-inactive': _status === 'I', 'batt-card-hover-alert': _status === 'A'}">
+    <div class="row">
+        <span class="text-no"
+            [ngClass]="{'text-no-active': _status === 'N' || _status === 'B' || _status === 'D', 'text-no-inactive': _status === 'I', 'text-no-alert': _status === 'A'}">No.{{_no}}</span>
+    </div>
+    <div class="row" style="justify-content: center;">
+        <div *ngIf="_status === 'N' || _status === 'B' || _status === 'D'" class="div-status div-status-active">active
+        </div>
+        <div *ngIf="_status === 'A'" class="div-status div-status-alert">alert</div>
+        <div *ngIf="_status === 'I'" class="div-status div-status-inactive">inactive</div>
+    </div>
+    <div class="row" style="justify-content: center;">
+        <img *ngIf="_status === 'N' || _status === 'B' || _status === 'D'" class="img-batt"
+            src="assets/img/batt-blue.png">
+        <img *ngIf="_status === 'A'" class="img-batt" src="assets/img/batt-red.png">
+        <img *ngIf="_status === 'I'" class="img-batt" src="assets/img/batt-gray.png">
+    </div>
+
+    <div class="row" style="justify-content: center; margin-top: 5px;">
+        <div class="col-6 col-card-batt" style="text-align: end; border-right: solid 1.5px #bbbbbb; padding-right: 2px;">
+            <span class="text-small">{{_volt}} V</span>
+        </div>
+        <div class="col-6 col-card-batt" style="text-align: start; padding-left: 4px;">
+            <span class="text-small">{{_amp}} A</span>
+        </div>
+    </div>
+    <hr class="hr-card">
+
+    <div class="row" style="margin-left: 5px; --bs-gutter-x: 0rem; margin-top: 10px;">
+        <div style="width: 62%; position:relative;">
+            <div class="progress" style="height:8px">
+                <div #ProgressBar class="progress-bar"
+                    [ngClass]="{'progress-active': _status === 'N' || _status === 'B' || _status === 'D', 'progress-inactive': _status === 'I', 'progress-alert': _status === 'A'}"
+                    style="height:4px" [style.width]="_soc+'%'"></div>
+                <div class="progress-point"
+                    [ngClass]="{'progress-point-active': _status === 'N' || _status === 'B' || _status === 'D', 'progress-point-inactive': _status === 'I', 'progress-point-alert': _status === 'A'}"
+                    [ngStyle]="{'left': 'calc(' + _soc + '% - 10px)' }">
+                </div>
+            </div>
+        </div>
+        <span class="text-soc">{{_soc}}%</span>
+
+        <img *ngIf="_status === 'A'" class="img-right-top" src="assets/img/alert-red.png">
+        <img *ngIf="_status === 'B'" class="img-right-top" src="assets/img/recovery.png">
+        <img *ngIf="_status === 'I'" class="img-right-top" src="assets/img/inactive.png">
+        <img *ngIf="_status === 'D'" class="img-right-top" src="assets/img/charge.png">
+    </div>
+</div>

@@ -1,0 +1,762 @@
+<admin-side-bar></admin-side-bar>
+<div class="body-admin">
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-3 mb-2 d-flex align-items-center">
+          <img src="./../../../../../../assets/img/admin/nm-module-icon.png">
+          <h5 class="text-tpp ms-2 mb-0">NM Module Management List</h5>
+        </div>
+        <div
+          class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-2 mb-2 d-flex align-items-center justify-content-end">
+          <div *ngIf="getSelected()" class="d-flex align-items-center">
+            <span class="font-size-2 me-2">{{getSelected()}} selected</span>
+            <span class="font-size-1 badge rounded-pill bg-danger d-flex align-items-center me-2">
+              <a class="me-1 text-light d-flex align-items-center" (click)="onClearAll()">
+                <i class='font-size-2 bx bx-x'></i>
+              </a>
+              Clear all
+            </span>
+            <a class="text-light d-flex align-items-center me-2">
+              <i class='font-size-3 text-tpp bx bx-revision bx-rotate-90'></i>
+            </a>
+            <a class="text-light d-flex align-items-center" (click)="openDeleteAllModal()">
+              <i class='font-size-3 text-tpp bx bx-trash'></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-12 mb-2 d-block d-sm-block d-md-block d-lg-block d-xl-block d-xxl-none"
+          style="padding-right: 0.2rem;">
+          <div class="form-group has-search me-2">
+            <span class="fa fa-search form-control-feedback"></span>
+            <input style="border-radius: 6px;" type="text" class="form-control" placeholder="Search"
+              [(ngModel)]="nmSearch" (keyup)="getModuleList('Y')">
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-7 mb-2">
+          <div class="d-flex align-items-center justify-content-end">
+            <div style="width: 10px; height: 38px;"
+              class="border-start border-2 border-tpp ps-3 ms-3 d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+            </div>
+            <div class="form-group has-search me-2 d-none d-sm-none d-md-none d-lg-none d-xl-none d-xxl-block">
+              <span class="fa fa-search form-control-feedback"></span>
+              <input style="border-radius: 6px;" type="text" class="form-control" placeholder="Search"
+                [(ngModel)]="nmSearch" (keyup)="getModuleList('Y')">
+            </div>
+            <button type="button" class="btn btn-outline-green me-2 d-flex align-items-center border-radius-6px"
+              (click)="openFilterModal()">
+              <i class='bx bx-filter-alt me-1'></i> Filter <span
+                class="font-size-1 ms-1">{{filterOption.region.length}}</span>
+            </button>
+            <button type="button" class="btn btn-outline-grey me-2 d-flex align-items-center border-radius-6px"
+              (click)="exportModuleList()">
+              <i class='bx bx-upload me-1'></i> Export
+            </button>
+            <button type="button" class="btn btn-outline-sky me-2 d-flex align-items-center border-radius-6px"
+              (click)="openAddModuleModal()">
+              <i class='bx bxs-plus-circle me-1'></i> Add 3rd Party
+            </button>
+            <button type="button" class="btn btn-outline-sky d-flex align-items-center border-radius-6px"
+              (click)="openAddRecModuleModal()">
+              <i class='bx bxs-plus-circle me-1'></i> Add Rectifier
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12rounded-pill mt-2 mb-3">
+      <div class="w-100 line-cut"></div>
+    </div>
+    <div class="col-12">
+      <div style="overflow-x:auto;">
+        <table class="table table-bordered table-module">
+          <thead>
+            <tr class="text-center header-table">
+              <th style="width: 30px" scope="col">
+                <div>
+                  <input class="border-tpp form-check-input" type="checkbox" [(ngModel)]="selectAll"
+                    (change)="onSelectAll()" id="selectAllUser">
+                </div>
+              </th>
+              <th style="width: 85px" scope="col">
+                <div class="d-flex justify-content-center">
+                  <span class="me-1">Log no.</span>
+                  <a class="text-body d-flex align-items-center"><i class='font-size-3'></i></a>
+                </div>
+              </th>
+              <th style="width: 100px" scope="col">
+                <div class="d-flex justify-content-center">
+                  <span class="me-1">Status</span>
+                  <a class="text-body d-flex align-items-center"><i class='font-size-3'></i></a>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex justify-content-center">
+                  <span class="me-1">Module S/N</span>
+                  <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex justify-content-center">
+                  <span class="me-1">Model name</span>
+                  <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex justify-content-center">
+                  <span class="me-1">Model type</span>
+                  <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex justify-content-center">
+                  <span class="me-1">Create date</span>
+                  <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex justify-content-center">
+                  <span class="me-1">Address</span>
+                  <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex justify-content-center">
+                  <span class="me-1">User create</span>
+                  <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex justify-content-center">
+                  <span class="me-1">Q'ty battery</span>
+                  <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex justify-content-center">
+                  <span class="me-1">3rd brand</span>
+                  <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex justify-content-center">
+                  <span class="me-1">3rd model</span>
+                  <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex justify-content-center">
+                  <span class="me-1">Customer name</span>
+                  <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex justify-content-center">
+                  <span class="me-1">Site name</span>
+                  <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex justify-content-center">
+                  <span class="me-1">Note 1</span>
+                  <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex justify-content-center">
+                  <span class="me-1">Note 2</span>
+                  <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+                </div>
+              </th>
+              <!-- <th scope="col">
+                <div class="d-flex justify-content-center">
+                  <span class="me-1">Site List</span>
+                  <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+                </div>
+              </th> -->
+              <th style="width: 80px" scope="col">
+
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let module of moduleList;let index = index"
+              [ngClass]="{'row-selected': module.checked, 'text-tpp': !module.checked, 'tr-odd': index%2 && !module.checked}">
+              <th>
+                <div style="width: 30px" class="text-center">
+                  <input class="border-tpp form-check-input" type="checkbox" [(ngModel)]="module.checked"
+                    id="selectAllUser">
+                </div>
+              </th>
+              <th class="text-center">{{module.logNo}}</th>
+              <td class="text-center">
+                <span class="badge rounded-pill bg-danger"
+                  *ngIf="module.modelType != '3rdParty' && module.status == 'I'">Inactive</span>
+                <span class="badge rounded-pill bg-primary"
+                  *ngIf="module.modelType != '3rdParty' && module.status == 'A'">Active</span>
+                <span class="badge rounded-pill bg-secondary" *ngIf="module.modelType == '3rdParty'">3rd Party</span>
+              </td>
+              <td class="text-center">{{module.moduleSN}}</td>
+              <td class="text-center">{{module.modelName}}</td>
+              <td class="text-center">{{module.modelType}}</td>
+              <td class="text-center">{{module.createDate}}</td>
+              <td class="text-center">{{(module.address != "null" && module.address != null) ? module.address : "-"}}
+              </td>
+              <td class="text-center">{{module.userCreate}}</td>
+              <td class="text-center">{{module.qtyBattery}}</td>
+              <td class="text-center">{{module['3rdBrand']}}</td>
+              <td class="text-center">{{module['3rdModel']}}</td>
+              <td class="text-center">{{module.customerName}}</td>
+              <td class="text-center">{{module.siteName}}</td>
+              <td class="text-center">{{(module.note1 != "null" && module.note1 != null && module.note1 != "") ?
+                module.note1 : "-"}}</td>
+              <td class="text-center">{{(module.note2 != "null" && module.note2 != null && module.note2 != "") ?
+                module.note2 : "-"}}</td>
+              <!-- <td class="text-center">text</td> -->
+              <!-- <td style="width: 80px" class="last-colunm-body-module"> -->
+              <td style="width: 80px">
+                <div class="d-flex justify-content-center">
+                  <a (click)="openEditModuleModal(module)"><i class='font-size-4 text-tpp bx bx-pencil me-3'></i></a>
+                  <a *ngIf="role != 'U'" (click)="openMessageDeleteModal(module)"><i
+                      class='font-size-4 text-tpp bx bx-trash'></i></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-6 d-flex justify-content-start align-items-center">
+      <strong class="me-2">Rows per page</strong>
+      <select style="width: 70px;" class="form-select me-2" [(ngModel)]="filterOption.limit" (change)="getModuleList()">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="40">40</option>
+        <option value="50">50</option>
+      </select>
+      <strong class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">Showing
+        {{(filterOption.page-1)*10+1}} - {{filterOption.totalResult > filterOption.limit*filterOption.page ?
+        filterOption.limit*filterOption.page : filterOption.totalResult}} of results
+        {{filterOption.totalResult}}</strong>
+    </div>
+    <div class="col-6">
+      <div class="rounded-pill d-flex group-ptt float-end">
+        <div><a class="font-size-3 text-light w-100 float-start pt-1" (click)="goPage(-1)"><i
+              class='bx bx-left-arrow-alt ms-2'></i></a>
+        </div>
+        <div class="font-size-2 w-100 text-center text-light pt-1">{{filterOption.page}} of {{filterOption.pageTotal}}
+        </div>
+        <div><a class="font-size-3 text-light w-100 float-end pt-1" (click)="goPage(1)"><i
+              class='bx bx-right-arrow-alt me-2'></i></a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Module From -->
+<div class="modal fade" id="moduleFromModal" tabindex="-1" aria-labelledby="moduleFromModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content border-radius-12px">
+      <div class="modal-header">
+        <h5 class="modal-title" id="moduleFromModalLabel"><strong class="text-tpp">3rdParty Information</strong></h5>
+        <a data-bs-dismiss="modal" aria-label="Close"><i class='text-tpp font-size-5 bx bxs-x-circle'></i></a>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6">
+            <h5 class="text-tpp"><strong>Please fill in detail</strong></h5>
+          </div>
+          <div class="col-6 d-flex justify-content-end">
+            <button *ngIf="!moduleForm.logNo || moduleForm.modelType === '3rdParty'" type="button"
+              class="btn btn-outline-sky d-flex align-items-center border-radius-6px" (click)="addEquipment()">
+              <i class='bx bxs-plus-circle me-1'></i> Add Equipment
+            </button>
+            <button *ngIf="moduleForm.logNo && role != 'U'" type="button"
+              class="btn btn-outline-grey d-flex align-items-center border-radius-6px ms-3"
+              (click)="openMessageDeleteModal(moduleForm)">
+              <i class='bx bx-trash me-1'></i> Remove
+            </button>
+          </div>
+        </div>
+        <div class="row mt-4 mb-5">
+          <div class="col-12 col-lg-7">
+            <div class="row">
+              <div class="col-4 d-flex align-items-center justify-content-center">
+                <img width="60%" src="./../../../../../../assets/img/admin/3rd-module-icon-xl.png">
+              </div>
+              <div class="col-8 border-end">
+                <div class="row border-bottom mx-2 pb-2">
+                  <div class="col-4 d-flex align-items-center p-0">
+                    <label for="inputModelSN" class="form-label text-tpp m-0"><strong>M-module S/N</strong></label>
+                  </div>
+                  <div class="col-8 p-0">
+                    <input type="text" class="form-control" id="inputModelSN" placeholder=""
+                      [(ngModel)]="moduleForm.modelSN" [disabled]="moduleForm.logNo" placeholder="">
+                  </div>
+                </div>
+                <div class="row mt-3 border-bottom mx-2 pb-2">
+                  <div class="col-4 d-flex align-items-center p-0">
+                    <label for="inputModelName" class="form-label text-tpp m-0"><strong>M-module name</strong></label>
+                  </div>
+                  <div class="col-8 p-0">
+                    <input type="text" class="form-control" id="inputModelName"
+                      [ngClass]="{'is-invalid': isVerify && !moduleForm.modelName}" [(ngModel)]="moduleForm.modelName"
+                      placeholder="">
+                  </div>
+                </div>
+                <div class="row mt-3 border-bottom mx-2 pb-2">
+                  <div class="col-4 d-flex align-items-center p-0">
+                    <label for="inputModelSite" class="form-label text-tpp m-0"><strong>Site name</strong></label>
+                  </div>
+                  <div class="col-8 p-0">
+                    <input type="text" class="form-control" id="inputModelSite" [(ngModel)]="moduleForm.siteName"
+                      placeholder="" disabled>
+                  </div>
+                </div>
+                <div class="row mt-3 border-bottom mx-2 pb-2">
+                  <div class="col-4 d-flex align-items-center p-0">
+                    <label for="inputModelBatteryBrand" class="form-label text-tpp m-0"><strong>3rd
+                        brand</strong></label>
+                  </div>
+                  <div class="col-8 p-0">
+                    <input type="text" class="form-control" id="inputModelBatteryBrand"
+                      [ngClass]="{'is-invalid': isVerify && !moduleForm['3rdBrand']}"
+                      [(ngModel)]="moduleForm['3rdBrand']" placeholder="">
+                  </div>
+                </div>
+                <div class="row mt-3 border-bottom mx-2 pb-2">
+                  <div class="col-4 d-flex align-items-center p-0">
+                    <label for="inputModelBatteryModel" class="form-label text-tpp m-0"><strong>3rd
+                        model</strong></label>
+                  </div>
+                  <div class="col-8 p-0">
+                    <input type="text" class="form-control" id="inputModelBatteryModel"
+                      [ngClass]="{'is-invalid': isVerify && !moduleForm['3rdModel']}"
+                      [(ngModel)]="moduleForm['3rdModel']" placeholder="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-5">
+            <div class="row border-bottom mx-2 pb-2">
+              <div class="col-3 d-flex align-items-center p-0">
+                <label for="inputModelNode1" class="form-label text-tpp m-0"><strong>Note 1</strong></label>
+              </div>
+              <div class="col-9 p-0">
+                <input type="text" class="form-control" id="inputModelNode1" [(ngModel)]="moduleForm.note1"
+                  placeholder="">
+              </div>
+            </div>
+            <div class="row mt-3 border-bottom mx-2 pb-2">
+              <div class="col-3 d-flex align-items-center p-0">
+                <label for="inputModelNode2" class="form-label text-tpp m-0"><strong>Note 2</strong></label>
+              </div>
+              <div class="col-9 p-0">
+                <input type="text" class="form-control" id="inputModelNode2" [(ngModel)]="moduleForm.note2"
+                  placeholder="">
+              </div>
+            </div>
+            <div class="row mt-3 border-bottom mx-2 pb-2">
+              <div class="col-3 d-flex align-items-center p-0">
+                <label for="inputModelSiteList" class="form-label text-tpp m-0"><strong>Site list</strong></label>
+              </div>
+              <div class="col-9 p-0">
+                <select class="form-select" id="inputModelSiteList" aria-label="Please select"
+                  (change)="onSelectSite($event)" [ngClass]="{'is-invalid': isVerify && !moduleForm.siteId}"
+                  [(ngModel)]="moduleForm.siteId">
+                  <option selected value="">Please select</option>
+                  <option value="{{site.siteId}}" *ngFor="let site of siteList">
+                    {{site.siteName}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-3 border-bottom mx-2 pb-2" *ngIf="moduleForm.logNo && role != 'U'">
+              <div class="col-3 d-flex align-items-center p-0">
+                <label for="inputModelStatus" class="form-label text-tpp m-0"><strong>Status</strong></label>
+              </div>
+              <div class="col-9 p-0">
+                <select class="form-select" id="inputModelSiteList" aria-label="Please select"
+                  (change)="onSelectSite($event)" [ngClass]="{'is-invalid': isVerify && !moduleForm.status}"
+                  [(ngModel)]="moduleForm.status">
+                  <option selected value="" hidden="hidden">Please select</option>
+                  <option value="{{s.status}}" *ngFor="let s of defaultStatus">
+                    {{s.statusName}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-3 border-bottom mx-2 pb-2">
+              <div class="col-3 d-flex align-items-center p-0">
+                <label for="inputModelAddress" class="form-label text-tpp m-0"><strong>Address</strong></label>
+              </div>
+              <div class="col-9 p-0">
+                <textarea type="text" class="form-control" id="inputModelAddress" rows="2"
+                  [(ngModel)]="moduleForm.address" placeholder=""></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4 border-top">
+          <div class="col-lg-7 col-12 mb-3" *ngFor="let module of moduleForm['3rdParty']">
+            <div class="row" style="align-items: end;">
+              <div class="col-4 align-items-center justify-content-center">
+                <div class="row" style="text-align: center;">
+                  <div class="col-12">
+                    <img width="60%" src="./../../../../../../assets/img/admin/module-icon.png">
+                  </div>
+                </div>
+                <div class="row" style="text-align: left;">
+                  <div class="col-12">
+                    <button *ngIf="!moduleForm.logNo || moduleForm.modelType === '3rdParty'" type="button"
+                      class="btn btn-outline-grey align-items-center border-radius-6px"
+                      (click)="remove3rdParty(module)">
+                      <i class='bx bx-trash'></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-8">
+                <div class="row mt-3 border-bottom mx-2 pb-2">
+                  <div class="col-4 d-flex align-items-center p-0">
+                    <label for="inputModelName" class="form-label text-tpp m-0"><strong>Module name</strong></label>
+                  </div>
+                  <div class="col-8 p-0">
+                    <input type="text" class="form-control" id="inputModelName" [(ngModel)]="module.name"
+                      placeholder="">
+                  </div>
+                </div>
+                <div class="row mt-3 border-bottom mx-2 pb-2">
+                  <div class="col-4 d-flex align-items-center p-0">
+                    <label for="inputProductType" class="form-label text-tpp m-0"><strong>Product type</strong></label>
+                  </div>
+                  <div class="col-8 p-0">
+                    <input type="text" class="form-control" id="inputProductType" [(ngModel)]="module.type">
+                  </div>
+                </div>
+                <div class="row mt-3 border-bottom mx-2 pb-2">
+                  <div class="col-4 d-flex align-items-center p-0">
+                    <label for="inputModelBattery" class="form-label text-tpp m-0"><strong>Q'ty Battery</strong></label>
+                  </div>
+                  <div class="col-8 p-0">
+                    <input type="number" class="form-control" id="inputModelBattery" [(ngModel)]="module.quantity"
+                      placeholder="" min="1" max="999">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button style="width: 95px;" type="button" class="btn btn-outline-grey rounded-pill me-4"
+            data-bs-dismiss="modal">Cancel</button>
+          <button style="width: 95px;" type="button" class="btn btn-outline-blue rounded-pill"
+            (click)="openMessageSaveModal()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal NM Module From -->
+<div class="modal fade" id="moduleNMFromModal" tabindex="-1" aria-labelledby="moduleNMFromModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content border-radius-12px">
+      <div class="modal-header">
+        <h5 class="modal-title" id="moduleNMFromModalLabel"><strong class="text-tpp">NM Module Information</strong></h5>
+        <a data-bs-dismiss="modal" aria-label="Close"><i class='text-tpp font-size-5 bx bxs-x-circle'></i></a>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6">
+            <h5 class="text-tpp"><strong>Please fill in detail</strong></h5>
+          </div>
+        </div>
+        <div class="row mt-4 mb-5">
+          <div class="col-12 col-lg-7">
+            <div class="row">
+              <div class="col-4 d-flex align-items-center justify-content-center">
+                <img width="60%" src="./../../../../../../assets/img/admin/nm-module-icon-xl.png">
+              </div>
+              <div class="col-8 border-end">
+                <div class="row border-bottom mx-2 pb-2">
+                  <div class="col-4 d-flex align-items-center p-0">
+                    <label for="inputModelSerial" class="form-label text-tpp m-0"><strong>M-module S/N</strong></label>
+                  </div>
+                  <div class="col-8 p-0">
+                    <input type="text" class="form-control" id="inputModelSerial" placeholder=""
+                      [(ngModel)]="moduleNMForm.serial" [disabled]="moduleNMForm.id" placeholder="">
+                  </div>
+                </div>
+                <div class="row mt-3 border-bottom mx-2 pb-2">
+                  <div class="col-4 d-flex align-items-center p-0">
+                    <label for="inputModelNMName" class="form-label text-tpp m-0"><strong>M-module name</strong></label>
+                  </div>
+                  <div class="col-8 p-0">
+                    <input type="text" class="form-control" id="inputModelNMName"
+                      [ngClass]="{'is-invalid': isVerify && !moduleNMForm.name}" [(ngModel)]="moduleNMForm.name"
+                      placeholder="">
+                  </div>
+                </div>
+                <div class="row mt-3 border-bottom mx-2 pb-2">
+                  <div class="col-4 d-flex align-items-center p-0">
+                    <label for="inputModelNMSite" class="form-label text-tpp m-0"><strong>Site name</strong></label>
+                  </div>
+                  <div class="col-8 p-0">
+                    <input type="text" class="form-control" id="inputModelNMSite" [(ngModel)]="moduleNMForm.siteName"
+                      placeholder="" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-5">
+            <div class="row border-bottom mx-2 pb-2">
+              <div class="col-3 d-flex align-items-center p-0">
+                <label for="inputModelNMNode1" class="form-label text-tpp m-0"><strong>Note 1</strong></label>
+              </div>
+              <div class="col-9 p-0">
+                <input type="text" class="form-control" id="inputModelNMNode1" [(ngModel)]="moduleNMForm.note1"
+                  placeholder="">
+              </div>
+            </div>
+            <div class="row mt-3 border-bottom mx-2 pb-2">
+              <div class="col-3 d-flex align-items-center p-0">
+                <label for="inputModelNMNode2" class="form-label text-tpp m-0"><strong>Note 2</strong></label>
+              </div>
+              <div class="col-9 p-0">
+                <input type="text" class="form-control" id="inputModelNMNode2" [(ngModel)]="moduleNMForm.note2"
+                  placeholder="">
+              </div>
+            </div>
+            <div class="row mt-3 border-bottom mx-2 pb-2">
+              <div class="col-3 d-flex align-items-center p-0">
+                <label for="inputModelNMSiteList" class="form-label text-tpp m-0"><strong>Site list</strong></label>
+              </div>
+              <div class="col-9 p-0">
+                <select class="form-select" id="inputModelNMSiteList" aria-label="Please select"
+                  (change)="onSelectSite($event)" [ngClass]="{'is-invalid': isVerifyNM && !moduleNMForm.siteId}"
+                  [(ngModel)]="moduleNMForm.siteId">
+                  <option selected value="">Please select</option>
+                  <option value="{{site.siteId}}" *ngFor="let site of siteList">
+                    {{site.siteName}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-3 border-bottom mx-2 pb-2" *ngIf="moduleNMForm.id && role != 'U'">
+              <div class="col-3 d-flex align-items-center p-0">
+                <label for="inputModelNMStatus" class="form-label text-tpp m-0"><strong>Status</strong></label>
+              </div>
+              <div class="col-9 p-0">
+                <select class="form-select" id="inputModelNMSiteList" aria-label="Please select"
+                  (change)="onSelectSite($event)" [ngClass]="{'is-invalid': isVerifyNM && !moduleNMForm.status}"
+                  [(ngModel)]="moduleNMForm.status">
+                  <option selected value="" hidden="hidden">Please select</option>
+                  <option value="{{s.status}}" *ngFor="let s of defaultStatus">
+                    {{s.statusName}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-3 border-bottom mx-2 pb-2">
+              <div class="col-3 d-flex align-items-center p-0">
+                <label for="inputModelNMAddress" class="form-label text-tpp m-0"><strong>Address</strong></label>
+              </div>
+              <div class="col-9 p-0">
+                <textarea type="text" class="form-control" id="inputModelNMAddress" rows="2"
+                  [(ngModel)]="moduleNMForm.address" placeholder=""></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer  mt-4">
+          <button style="width: 95px;" type="button" class="btn btn-outline-grey rounded-pill me-4"
+            data-bs-dismiss="modal">Cancel</button>
+          <button style="width: 95px;" type="button" class="btn btn-outline-blue rounded-pill"
+            (click)="openMessageNMSaveModal()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Rec Module From -->
+<div class="modal fade" id="moduleRecFromModal" tabindex="-1" aria-labelledby="moduleRecFromModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-radius-12px">
+      <div class="modal-header">
+        <h5 class="modal-title" id="moduleRecFromModalLabel"><strong class="text-tpp">Rectifier Information</strong>
+        </h5>
+        <a data-bs-dismiss="modal" aria-label="Close"><i class='text-tpp font-size-5 bx bxs-x-circle'></i></a>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6">
+            <h5 class="text-tpp"><strong>Please fill in detail</strong></h5>
+          </div>
+        </div>
+        <div class="row mt-4 mb-3">
+          <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-12 border-end">
+                <div class="row mt-3 border-bottom mx-2 pb-2">
+                  <div class="col-3 d-flex align-items-center p-0">
+                    <label for="inputModelRecName" class="form-label text-tpp m-0"><strong>Name</strong></label>
+                  </div>
+                  <div class="col-9 p-0">
+                    <input type="text" class="form-control" id="inputModelRecName" placeholder=""
+                      [ngClass]="{'is-invalid': isVerifyRec && !moduleRecForm.name}" [(ngModel)]="moduleRecForm.name"
+                      [disabled]="moduleRecForm.logNo" placeholder="">
+                  </div>
+                </div>
+                <div class="row mt-3 border-bottom mx-2 pb-2">
+                  <div class="col-3 d-flex align-items-center p-0">
+                    <label for="inputModelRecSiteList" class="form-label text-tpp m-0"><strong>Site
+                        list</strong></label>
+                  </div>
+                  <div class="col-9 p-0">
+                    <select class="form-select" id="inputModelRecSiteList" aria-label="Please select"
+                      (change)="onSelectSite($event)" [ngClass]="{'is-invalid': isVerifyRec && !moduleRecForm.siteId}"
+                      [(ngModel)]="moduleRecForm.siteId">
+                      <option selected value="">Please select</option>
+                      <option value="{{site.siteId}}" *ngFor="let site of siteList">
+                        {{site.siteName}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mt-3 border-bottom mx-2 pb-2">
+                  <div class="col-3 d-flex align-items-center p-0">
+                    <label for="inputModelNote1" class="form-label text-tpp m-0"><strong>Note 1</strong></label>
+                  </div>
+                  <div class="col-9 p-0">
+                    <input type="text" class="form-control" id="inputModelNote1" [(ngModel)]="moduleRecForm.note1"
+                      placeholder="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="row mt-3 border-bottom mx-2 pb-2">
+              <div class="col-3 d-flex align-items-center p-0">
+                <label for="inputModelIp" class="form-label text-tpp m-0"><strong>IP Address</strong></label>
+              </div>
+              <div class="col-9 p-0">
+                <input type="text" class="form-control" id="inputModelIp" [(ngModel)]="moduleRecForm.ipAddress"
+                  placeholder="">
+              </div>
+            </div>
+            <div class="row mt-3 border-bottom mx-2 pb-2">
+              <div class="col-3 d-flex align-items-center p-0">
+                <label for="inputModelAddress" class="form-label text-tpp m-0"><strong>Address</strong></label>
+              </div>
+              <div class="col-9 p-0">
+                <input type="text" class="form-control" id="inputModelAddress" [(ngModel)]="moduleRecForm.address"
+                  placeholder="">
+              </div>
+            </div>
+            <div class="row mt-3 border-bottom mx-2 pb-2">
+              <div class="col-3 d-flex align-items-center p-0">
+                <label for="inputModelNote2" class="form-label text-tpp m-0"><strong>Note 2</strong></label>
+              </div>
+              <div class="col-9 p-0">
+                <input type="text" class="form-control" id="inputModelNote2" [(ngModel)]="moduleRecForm.note2"
+                  placeholder="">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer mt-4" style="border-top: none !important;">
+            <button style="width: 95px;" type="button" class="btn btn-outline-grey rounded-pill me-4"
+              data-bs-dismiss="modal">Cancel</button>
+            <button style="width: 95px;" type="button" class="btn btn-outline-blue rounded-pill"
+              (click)="openMessageRecSaveModal()">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Filter -->
+<div class="modal fade" id="filterModal" tabindex="-1">
+  <div id="filterModalDialog" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><strong class="text-tpp">Filter</strong></h5>
+        <a data-bs-dismiss="modal" aria-label="Close"><i class='text-tpp font-size-5 bx bxs-x-circle'></i></a>
+      </div>
+      <div class="modal-body bg-modal-body">
+        <div class="row pb-2 border-bottom">
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="allRegion" (change)="selectAllRegionFilter($event)"
+                [checked]="filterOption.region.length == regionList.length">
+              <label class="form-check-label" for="allRegion">
+                <strong class="text-tpp">All Region</strong>
+              </label>
+            </div>
+            <div class="ps-3">
+              <div class="form-check" *ngFor="let region of regionList">
+                <input class="form-check-input" type="checkbox" id="region_{{region.regionId}}"
+                  [checked]="filterOption.region.includes(region.regionName.toLowerCase())"
+                  (change)="selectRegionFilter($event,region)">
+                <label class="form-check-label" for="region_{{region.regionId}}">
+                  <strong class="text-tpp">{{region.regionName}}</strong>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="row mt-2">
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="allRole" (change)="selectAllRoleFilter($event)"
+                [checked]="filterOption.role.length == roleList.length">
+              <label class="form-check-label" for="allRole">
+                <strong class="text-tpp">All Role</strong>
+              </label>
+            </div>
+            <div class="ps-3">
+              <div class="form-check" *ngFor="let role of roleList">
+                <input class="form-check-input" type="checkbox" id="role_{{role.roleId}}"
+                  [checked]="filterOption.role.includes(role.roleName.toLowerCase())"
+                  (change)="selectRoleFilter($event,role)">
+                <label class="form-check-label" for="role_{{role.roleId}}">
+                  <strong class="text-tpp">{{role.roleName}}</strong>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-tpp border-radius-6px w-100" (click)="clearFilter()">Clear
+          Filter</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Message Modal -->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content border-radius-12px">
+      <div class="modal-body text-center">
+        <i *ngIf="messageAlert.type == 'error'" style="font-size: 64px;" class='bx bx-error-circle text-danger'></i>
+        <i *ngIf="messageAlert.type == 'success'" style="font-size: 64px;" class="bx bx-check-circle text-success"></i>
+        <h4 [ngClass]="{'text-danger': messageAlert.type == 'error','text-tpp': messageAlert.type == 'success'}">
+          {{messageAlert.title}}
+        </h4>
+        <p>{{messageAlert.detail}}</p>
+      </div>
+      <div class="modal-footer  d-flex justify-content-center">
+        <button type="button" class="btn rounded-pill mx-2 {{btn.class}}" *ngFor="let btn of messageAlert.buttonOption"
+          (click)="btn.action()">{{btn.label}}</button>
+      </div>
+    </div>
+  </div>
+</div>

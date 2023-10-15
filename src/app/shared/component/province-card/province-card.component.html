@@ -1,0 +1,25 @@
+<div class="card card-province" [ngClass]="{'card-province-active': _status === 'A', 'card-province-alert' : _status === 'W' }">
+    <div class="row row-title">
+        <img class="img-fav" [src]="imageSrc" (click)="onClick(_provinceId)">
+        <span class="text-title" [routerLink]="['/region/', _region, _provinceNamePath]">{{_provinceName | titlecase}}</span>
+    </div>
+    <div class="row row-content">
+        <div class="col-6">
+            <div class="card card-total">
+                <div class="total-line" [ngClass]="{'total-line-active': _status === 'A', 'total-line-alert' : _status === 'W' }"></div>
+                <div class="text-total" [ngClass]="{'text-total-active': _status === 'A', 'text-total-alert' : _status === 'W' }">{{_totalSite | number:'1.0':'en-US'}}</div>
+                <div class="text-small">Total Site</div>
+                <img class="img-card" src="assets/img/site.png">
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card card-total">
+                <div class="total-line" [ngClass]="{'total-line-active': _status === 'A', 'total-line-alert' : _status === 'W' }"></div>
+                <div class="text-total" [ngClass]="{'text-total-active': _status === 'A', 'text-total-alert' : _status === 'W' }">{{_totalBattery | number:'1.0':'en-US'}}</div>
+                <div class="text-small">Total Battery</div>
+                <img class="img-card-battery" src="assets/img/battery.png">
+            </div>
+        </div>
+    </div>
+    <img *ngIf="_status === 'W'" class="img-alert card-hover" src="assets/img/alert.png">
+</div>

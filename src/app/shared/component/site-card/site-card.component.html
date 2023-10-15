@@ -1,0 +1,19 @@
+<div class="card site-card" [ngClass]="{'site-card-active': _status === 'A', 'site-card-alert' : _status === 'W' }">
+    <div class="row row-title">
+        <img class="img-fav" [src]="imageSrc" (click)="onClick(_siteId)">
+        <div class="line-white"></div>
+    </div>
+    <div class="row row-width">
+        <div class="col-8">
+            <div class="row text-site" (click)="gotoSite()">{{_siteName}}</div>
+            <div class="row text-site-sub">Site name</div>
+        </div>
+        <div class="col-4">
+            <div class="row" style="float: right;">
+                <img *ngIf="_status === 'A'" class="img-site-card" src="assets/img/site-flip.png">
+                <img *ngIf="_status === 'W'" class="img-site-card" src="assets/img/site-flip-red.png">
+            </div>
+        </div>
+    </div>
+    <img *ngIf="_status === 'W'" class="img-alert card-hover" src="assets/img/alert.png">
+</div>

@@ -1,0 +1,508 @@
+<div class="container-fluid no-padding" *ngIf="filtersLoaded | async">
+    <div class="row justify-content-start ">
+        <div class="col-container ">
+            <div>
+                <button class="btn btn-back" (click)="back()">
+                    <mat-icon class="mat-back">arrow_back</mat-icon>
+                </button>
+            </div>
+            <div class="div-center">
+                <div class="earth-icon"></div>
+            </div>
+            <div class="div-center">
+                <span class="text-all-region">All Region / {{region | titlecase}} / {{province | titlecase}} / {{site |
+                    uppercase}} /
+                    <span class="text-region">{{ piInfo.piSn | uppercase }}</span>
+                </span>
+            </div>
+            <div></div>
+        </div>
+    </div>
+
+    <div class="row justify-content-start ">
+        <div class="col-xl-9 col-lg-12 col-12">
+            <div class="head-margin">
+                <div class="row">
+                    <div class="col-xl-7 col-lg-12 col-12">
+                        <div class="card card-status">
+                            <span class="text-card-status">
+                                <div class="img-div">
+                                    <img class="img-status-card" src="assets/img/status.png">
+                                </div>
+                                <span style="margin-left: 10px">Status</span>
+                                <button class="btn btn-red"
+                                    [routerLink]="['/region/', region, province, site, pi, 'evaluate']">Evaluate</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-6 col-6">
+                        <div class="row row-margin-right-5">
+                            <div class="card card-small">
+                                <div class="row">
+                                    <span class="text-small" style="text-align: center;">M-Module state</span>
+                                </div>
+                                <div class="row" style="justify-content: center;">
+                                    <div class="status-template status-normal" *ngIf="piInfo.status === 'N' || piInfo.status === 'B' || piInfo.status === 'D'">active</div>
+                                    <div class="status-template status-alert" *ngIf="piInfo.status === 'A'">alert</div>
+                                    <div class="status-template status-inactive" *ngIf="piInfo.status === 'I'">inactive</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3  col-lg-6 col-6">
+                        <div class="row row-margin-left-5" style="justify-content: flex-end;">
+                            <div class="card card-small card-small-width">
+                                <span class="total-text-span-right">Total Battery</span>
+                                <div class="total-line-right total-line-right-active"></div>
+                                <span
+                                    class="total-text-span-right-sub total-text-span-right-sub-active">{{piInfo.totalBattery}}</span>
+                                <img class="img-right" src="assets/img/battery-cut.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr *ngIf="!mobile">
+                <div class="row" *ngIf="!mobile">
+                    <div class="col-6" style="align-self: center; text-align: start;">
+                        <span class="text-topic">Site name : </span>
+                        <div class="text-value">{{piInfo.siteName}}</div>
+                    </div>
+                    <div class="col-6" style="align-self: center; text-align: start;">
+                        <span class="text-topic">Lat, Long : </span>
+                        <div class="text-value">{{piInfo.map}}</div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="!mobile">
+                    <div class="col-12">
+                        <span class="text-battery">Battery list</span>
+                        <div class="blue-point"></div>
+                        <span class="text-desc">active</span>
+                        <div class="red-point"></div>
+                        <span class="text-desc">inactive</span>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="col-xl-3">
+            <div class="row row-map">
+                <tpp-map [lat]="lat" [lng]="lng"></tpp-map>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-map" style="text-align: start;" *ngIf="mobile">
+        <div class="col-md-6 col-sm-6 col-6 col-custom">
+            <span class="text-topic">Site name : </span>
+            <div class="text-value">{{piInfo.siteName}}</div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-6 col-custom">
+            <span class="text-topic">Lat, Long : </span>
+            <div class="text-value">{{piInfo.map}}</div>
+        </div>
+    </div>
+
+    <div class="row " style="justify-content: center !important;">
+        <div class="div-multi">
+            <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel" data-interval="1000">
+                <div class="MultiCarousel-inner">
+                    <div class="item" *ngFor="let bat of piInfo.battery; let i=index;">
+                        <tpp-battery-card [attr.id]="'batt'+i" id="{{'batt' + i}}" attr.status=bat.status
+                            [no]=bat.batteryNo [status]=bat.status [soc]=bat.soc
+                            (click)="selectBatt(i,bat.batteryId,bat.status, $event)"></tpp-battery-card>
+                    </div>
+                </div>
+                <button class="btn btn-gray leftLst">
+                    <span class="text-btn" style="left: -1px;">
+                        < </span>
+                </button>
+                <button class="btn btn-gray rightLst">
+                    <span class="text-btn" style="right: -2px;">
+                        >
+                    </span>
+                </button>
+            </div>
+            <div style="text-align: center; margin-bottom: 5px;" *ngIf="mobile">
+                <div class="blue-point"></div>
+                <span class="text-desc">active</span>
+                <div class="red-point"></div>
+                <span class="text-desc">inactive</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row margin-bottom-20" style="justify-content: center !important;">
+        <div class="div-batt">
+            <div class="row">
+                <div class="col-batt">
+                    <div class="card card-batt-info">
+                        <div class="row">
+                            <span class="title-batt-info">
+                                <img class="img-batt-info" src="assets/img/batt-info.png">
+                                <span style="margin-left: 10px;">Battery Information</span>
+                                <span class="node-batt-info">Node no. : {{piInfo.piSn}}</span>
+                            </span>
+                        </div>
+                        <hr class="hr-batt-info">
+                        <div class="row">
+                            <div class="col-xl-5 col-lg-12" style="text-align: center;">
+                                <img class="img-batt" src="assets/img/battery.png">
+                            </div>
+                            <div class="col-xl-7 col-lg-12 margin-left-20">
+                                <div class="row" style="width: fit-content;">
+                                    <span class="span-text">Battery no.</span>
+                                    <span class="span-text-value">{{piInfoBatt.batteryNo}}</span>
+                                </div>
+                                <hr class="hr-batt-info-span">
+                                <div class="row" style="width: fit-content;">
+                                    <span class="span-text">Version no.</span>
+                                    <span class="span-text-value">{{piInfoBatt.version}}</span>
+                                </div>
+                                <hr class="hr-batt-info-span">
+                                <div class="row" style="width: fit-content;">
+                                    <span class="span-text">Model S/N</span>
+                                    <span class="span-text-value">{{piInfoBatt.modelSn}}</span>
+                                </div>
+                                <hr class="hr-batt-info-span">
+                                <div class="row" style="width: fit-content;">
+                                    <span class="span-text">Pack S/N</span>
+                                    <span class="span-text-value">{{piInfoBatt.packSn}}</span>
+                                </div>
+                                <hr class="hr-batt-info-span">
+                            </div>
+                        </div>
+                        <div class="line-vertical"></div>
+                    </div>
+                </div>
+                <div class="col-noti">
+                    <div class="card card-noti card-fault">
+                        <div class="row">
+                            <span class="noti-batt-info">
+                                <img *ngIf="!mobile" class="img-batt-info" src="assets/img/fault.png">
+                                <span style="margin-left: 10px;">Fault</span>
+                                <span class="noti-batt-info-sub">No. : {{piInfoBatt.batteryNo | number:'2.0-0'}}</span>
+                            </span>
+                        </div>
+                        <hr class="hr-batt-noti">
+                        <div class="row row-noti">
+                            <div class="img-noti" *ngIf="mobile">
+                                <img class="img-batt-info" src="assets/img/fault.png">
+                            </div>
+                            <div class="scroll-noti">
+                                <div *ngFor="let f of piInfoBatt.fault">
+                                    <div class="row"
+                                        style="margin-left: 10px; margin-right: 10px; align-items: center;">
+                                        <span class="text-noti text-fault">
+                                            {{f.message}}
+                                        </span>
+                                        <!-- <span class="text-noti-status text-status-fault">ON</span> -->
+                                    </div>
+                                    <hr class="hr-noti-status">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-noti">
+                    <div class="card card-noti card-protect">
+                        <div class="row">
+                            <span class="noti-batt-info">
+                                <img *ngIf="!mobile" class="img-batt-info" src="assets/img/protect.png">
+                                <span style="margin-left: 10px;">Protect</span>
+                                <span class="noti-batt-info-sub">No. : {{piInfoBatt.batteryNo | number:'2.0-0'}}</span>
+                            </span>
+                        </div>
+                        <hr class="hr-batt-noti">
+                        <div class="row row-noti">
+                            <div class="img-noti" *ngIf="mobile">
+                                <img class="img-batt-info" src="assets/img/protect.png">
+                            </div>
+                            <div class="scroll-noti">
+                                <div *ngFor="let p of piInfoBatt.protect">
+                                    <div class="row"
+                                        style="margin-left: 10px; margin-right: 10px; align-items: center;">
+                                        <span class="text-noti text-protect">
+                                            {{p.message}}
+                                        </span>
+                                        <!-- <span class="text-noti-status text-status-protect">ON</span> -->
+                                    </div>
+                                    <hr class="hr-noti-status">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-noti">
+                    <div class="card card-noti card-alarm">
+                        <div class="row">
+                            <span class="noti-batt-info">
+                                <img *ngIf="!mobile" class="img-batt-info" src="assets/img/alarm.png">
+                                <span style="margin-left: 10px;">Alarm</span>
+                                <span class="noti-batt-info-sub">No. : {{piInfoBatt.batteryNo | number:'2.0-0'}}</span>
+                            </span>
+                        </div>
+                        <hr class="hr-batt-noti">
+                        <div class="row row-noti">
+                            <div class="img-noti" *ngIf="mobile">
+                                <img class="img-batt-info" src="assets/img/alarm.png">
+                            </div>
+                            <div class="scroll-noti">
+                                <div *ngFor="let a of piInfoBatt.alarm">
+                                    <div class="row"
+                                        style="margin-left: 10px; margin-right: 10px; align-items: center;">
+                                        <span class="text-noti text-alarm">
+                                            {{a.message}}
+                                        </span>
+                                        <!-- <span class="text-noti-status text-status-alarm">ON</span> -->
+                                    </div>
+                                    <hr class="hr-noti-status">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row " style="justify-content: center !important;">
+        <div class="div-batt">
+            <div class="row">
+                <div class="col-xl-3 col-lg-12 order-xl-1 order-lg-1 order-1">
+                    <div class="card card-info">
+                        <span class="title-info">
+                            <img class="img-info" src="assets/img/batt-info.png">
+                            <span style="margin-left: 10px;">Pack Information</span>
+                            <span class="span-no">No. : {{piInfoBatt.batteryNo | number:'2.0-0'}}</span>
+                        </span>
+                        <hr class="hr-info">
+                        <div class="body-info">
+                            <div class="row">
+                                <span class="span-text-info">Pack Voltage</span>
+                                <span class="span-text-info-value">{{piInfoBatt.packInformation[0].packVoltage}}
+                                    V</span>
+                            </div>
+                            <hr class="hr-info-body">
+                            <div class="row">
+                                <span class="span-text-info">Pack Current</span>
+                                <span class="span-text-info-value">{{piInfoBatt.packInformation[0].packCurrent}}
+                                    A</span>
+                            </div>
+                            <hr class="hr-info-body">
+                            <div class="row">
+                                <span class="span-text-info">SOC</span>
+                                <span class="span-text-info-value">{{piInfoBatt.packInformation[0].soc}} %</span>
+                            </div>
+                            <hr class="hr-info-body">
+                            <div class="row">
+                                <span class="span-text-info">SOH</span>
+                                <span class="span-text-info-value">{{piInfoBatt.packInformation[0].soh}} %</span>
+                            </div>
+                            <hr class="hr-info-body">
+                            <div class="row">
+                                <span class="span-text-info">Remain Capacity</span>
+                                <span class="span-text-info-value">{{piInfoBatt.packInformation[0].remainCapacity}}
+                                    AH</span>
+                            </div>
+                            <hr class="hr-info-body">
+                            <div class="row">
+                                <span class="span-text-info">Full Capacity</span>
+                                <span class="span-text-info-value">{{piInfoBatt.packInformation[0].fullCapacity}}
+                                    AH</span>
+                            </div>
+                            <hr class="hr-info-body">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-12 order-xl-2 order-lg-3 order-3">
+                    <div class="card card-center-info">
+                        <span class="title-info">
+                            <img class="img-info" src="assets/img/voltage.png">
+                            <span style="margin-left: 10px;">Cell Voltage(V)</span>
+                            <span class="span-no">No. : {{piInfoBatt.batteryNo | number:'2.0-0'}}</span>
+                        </span>
+                        <hr class="hr-info">
+                        <div class="row">
+                            <div class="col-6" style="border-right: ridge;">
+                                <div class="row" style="position: relative;">
+                                    <span class="span-text-volt-white">Max Volt</span>
+                                    <span class="span-text-volt-value-white">{{max}}</span>
+                                    <div class="bg-red"></div>
+                                </div>
+                                <hr class="hr-info-volt">
+                                <div class="row" style="position: relative;">
+                                    <span class="span-text-volt">Vcell 1</span>
+                                    <span class="span-text-volt-value">{{piInfoBatt.cellVoltage[0].vcell1.vcell}}</span>
+                                    <div *ngIf="vcell[0] === 'MIN'" class="mark-left mark-min">MIN</div>
+                                    <div *ngIf="vcell[0] === 'MAX'" class="mark-left mark-max">MAX</div>
+                                </div>
+                                <hr class="hr-info-volt">
+                                <div class="row" style="position: relative;">
+                                    <span class="span-text-volt">Vcell 2</span>
+                                    <span class="span-text-volt-value">{{piInfoBatt.cellVoltage[0].vcell2.vcell}}</span>
+                                    <div *ngIf="vcell[1] === 'MIN'" class="mark-left mark-min">MIN</div>
+                                    <div *ngIf="vcell[1] === 'MAX'" class="mark-left mark-max">MAX</div>
+                                </div>
+                                <hr class="hr-info-volt">
+                                <div class="row" style="position: relative;">
+                                    <span class="span-text-volt">Vcell 3</span>
+                                    <span class="span-text-volt-value">{{piInfoBatt.cellVoltage[0].vcell3.vcell}}</span>
+                                    <div *ngIf="vcell[2] === 'MIN'" class="mark-left mark-min">MIN</div>
+                                    <div *ngIf="vcell[2] === 'MAX'" class="mark-left mark-max">MAX</div>
+                                </div>
+                                <hr class="hr-info-volt">
+                                <div class="row" style="position: relative;">
+                                    <span class="span-text-volt">Vcell 4</span>
+                                    <span class="span-text-volt-value">{{piInfoBatt.cellVoltage[0].vcell4.vcell}}</span>
+                                    <div *ngIf="vcell[3] === 'MIN'" class="mark-left mark-min">MIN</div>
+                                    <div *ngIf="vcell[3] === 'MAX'" class="mark-left mark-max">MAX</div>
+                                </div>
+                                <hr class="hr-info-volt">
+                                <div class="row" style="position: relative;">
+                                    <span class="span-text-volt">Vcell 5</span>
+                                    <span class="span-text-volt-value">{{piInfoBatt.cellVoltage[0].vcell5.vcell}}</span>
+                                    <div *ngIf="vcell[4] === 'MIN'" class="mark-left mark-min">MIN</div>
+                                    <div *ngIf="vcell[4] === 'MAX'" class="mark-left mark-max">MAX</div>
+                                </div>
+                                <hr class="hr-info-volt">
+                                <div class="row" style="position: relative;">
+                                    <span class="span-text-volt">Vcell 6</span>
+                                    <span class="span-text-volt-value">{{piInfoBatt.cellVoltage[0].vcell6.vcell}}</span>
+                                    <div *ngIf="vcell[5] === 'MIN'" class="mark-left mark-min">MIN</div>
+                                    <div *ngIf="vcell[5] === 'MAX'" class="mark-left mark-max">MAX</div>
+                                </div>
+                                <hr class="hr-info-volt">
+                                <div class="row" style="position: relative;">
+                                    <span class="span-text-volt">Vcell 7</span>
+                                    <span class="span-text-volt-value">{{piInfoBatt.cellVoltage[0].vcell7.vcell}}</span>
+                                    <div *ngIf="vcell[6] === 'MIN'" class="mark-left mark-min">MIN</div>
+                                    <div *ngIf="vcell[6] === 'MAX'" class="mark-left mark-max">MAX</div>
+                                </div>
+                                <hr class="hr-info-volt">
+                                <div class="row" style="position: relative;">
+                                    <span class="span-text-volt">Vcell 8</span>
+                                    <span class="span-text-volt-value">{{piInfoBatt.cellVoltage[0].vcell8.vcell}}</span>
+                                    <div *ngIf="vcell[7] === 'MIN'" class="mark-left mark-min">MIN</div>
+                                    <div *ngIf="vcell[7] === 'MAX'" class="mark-left mark-max">MAX</div>
+                                </div>
+                                <hr class="hr-info-volt">
+                            </div>
+                            <div class="col-6">
+                                <div class="row" style="position: relative;">
+                                    <span class="span-text-volt-white">Min Volt</span>
+                                    <span class="span-text-volt-value-white">{{min}}</span>
+                                    <div class="bg-blue"></div>
+                                </div>
+                                <hr class="hr-info-volt">
+                                <div class="row" style="position: relative;">
+                                    <span class="span-text-volt">Vcell 9</span>
+                                    <span class="span-text-volt-value">{{piInfoBatt.cellVoltage[0].vcell9.vcell}}</span>
+                                    <div *ngIf="vcell[8] === 'MIN'" class="mark-right mark-min">MIN</div>
+                                    <div *ngIf="vcell[8] === 'MAX'" class="mark-right mark-max">MAX</div>
+                                </div>
+                                <hr class="hr-info-volt">
+                                <div class="row" style="position: relative;">
+                                    <span class="span-text-volt">Vcell 10</span>
+                                    <span class="span-text-volt-value">{{piInfoBatt.cellVoltage[0].vcell10.vcell}}</span>
+                                    <div *ngIf="vcell[9] === 'MIN'" class="mark-right mark-min">MIN</div>
+                                    <div *ngIf="vcell[9] === 'MAX'" class="mark-right mark-max">MAX</div>
+                                </div>
+                                <hr class="hr-info-volt">
+                                <div class="row" style="position: relative;">
+                                    <span class="span-text-volt">Vcell 11</span>
+                                    <span class="span-text-volt-value">{{piInfoBatt.cellVoltage[0].vcell11.vcell}}</span>
+                                    <div *ngIf="vcell[10] === 'MIN'" class="mark-right mark-min">MIN</div>
+                                    <div *ngIf="vcell[10] === 'MAX'" class="mark-right mark-max">MAX</div>
+                                </div>
+                                <hr class="hr-info-volt">
+                                <div class="row" style="position: relative;">
+                                    <span class="span-text-volt">Vcell 12</span>
+                                    <span class="span-text-volt-value">{{piInfoBatt.cellVoltage[0].vcell12.vcell}}</span>
+                                    <div *ngIf="vcell[11] === 'MIN'" class="mark-right mark-min">MIN</div>
+                                    <div *ngIf="vcell[11] === 'MAX'" class="mark-right mark-max">MAX</div>
+                                </div>
+                                <hr class="hr-info-volt">
+                                <div class="row" style="position: relative;">
+                                    <span class="span-text-volt">Vcell 13</span>
+                                    <span class="span-text-volt-value">{{piInfoBatt.cellVoltage[0].vcell13.vcell}}</span>
+                                    <div *ngIf="vcell[12] === 'MIN'" class="mark-right mark-min">MIN</div>
+                                    <div *ngIf="vcell[12] === 'MAX'" class="mark-right mark-max">MAX</div>
+                                </div>
+                                <hr class="hr-info-volt">
+                                <div class="row" style="position: relative;">
+                                    <span class="span-text-volt">Vcell 14</span>
+                                    <span class="span-text-volt-value">{{piInfoBatt.cellVoltage[0].vcell14.vcell}}</span>
+                                    <div *ngIf="vcell[13] === 'MIN'" class="mark-right mark-min">MIN</div>
+                                    <div *ngIf="vcell[13] === 'MAX'" class="mark-right mark-max">MAX</div>
+                                </div>
+                                <hr class="hr-info-volt">
+                                <div class="row" style="position: relative;">
+                                    <span class="span-text-volt">Vcell 15</span>
+                                    <span class="span-text-volt-value">{{piInfoBatt.cellVoltage[0].vcell15.vcell}}</span>
+                                    <div *ngIf="vcell[14] === 'MIN'" class="mark-right mark-min">MIN</div>
+                                    <div *ngIf="vcell[14] === 'MAX'" class="mark-right mark-max">MAX</div>
+                                </div>
+                                <hr class="hr-info-volt">
+                                <div class="row" style="position: relative;">
+                                    <span class="span-text-volt">Vcell 16</span>
+                                    <span class="span-text-volt-value">{{piInfoBatt.cellVoltage[0].vcell16.vcell}}</span>
+                                    <div *ngIf="vcell[15] === 'MIN'" class="mark-right mark-min">MIN</div>
+                                    <div *ngIf="vcell[15] === 'MAX'" class="mark-right mark-max">MAX</div>
+                                </div>
+                                <hr class="hr-info-volt">
+                            </div>
+                        </div>
+                        <div class="row" style="margin: 20px; margin-bottom: 10px;">
+                            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
+                                [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType"
+                                [colors]="chartColors" (chartHover)="chartHovered($event)" height="200px"
+                                (chartClick)="chartClicked($event)" id="myCanvas" #myCanvas></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-12 order-xl-3 order-lg-2 order-2">
+                    <div class="card card-info">
+                        <span class="title-info">
+                            <img class="img-info-temp" src="assets/img/temperature.png">
+                            <span style="margin-left: 10px;">Temperature</span>
+                            <span class="span-no">No. : {{piInfoBatt.batteryNo | number:'2.0-0'}}</span>
+                        </span>
+                        <hr class="hr-info">
+                        <div class="body-info">
+                            <div class="row">
+                                <span class="span-text-info">Tcell 1</span>
+                                <span class="span-text-info-value">{{piInfoBatt.temperature[0].tcell1}} °C</span>
+                            </div>
+                            <hr class="hr-info-body">
+                            <div class="row">
+                                <span class="span-text-info">Tcell 2</span>
+                                <span class="span-text-info-value">{{piInfoBatt.temperature[0].tcell2}} °C</span>
+                            </div>
+                            <hr class="hr-info-body">
+                            <div class="row">
+                                <span class="span-text-info">Tcell 3</span>
+                                <span class="span-text-info-value">{{piInfoBatt.temperature[0].tcell3}} °C</span>
+                            </div>
+                            <hr class="hr-info-body">
+                            <div class="row">
+                                <span class="span-text-info">Tcell 4</span>
+                                <span class="span-text-info-value">{{piInfoBatt.temperature[0].tcell4}} °C</span>
+                            </div>
+                            <hr class="hr-info-body">
+                            <div class="row">
+                                <span class="span-text-info">ENV_T</span>
+                                <span class="span-text-info-value">{{piInfoBatt.temperature[0].envT}} °C</span>
+                            </div>
+                            <hr class="hr-info-body">
+                            <div class="row">
+                                <span class="span-text-info">MOS_T</span>
+                                <span class="span-text-info-value">{{piInfoBatt.temperature[0].mosT}} °C</span>
+                            </div>
+                            <hr class="hr-info-body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

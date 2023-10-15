@@ -1,0 +1,137 @@
+.batt-card {
+    cursor: pointer;
+    width: 120px;
+    height: 120px;
+    border: none;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.048) 0px 10px 10px -3px, rgba(0, 0, 0, 0.007) 0px 4px 6px -2px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.048) 0px 10px 10px -3px, rgba(0, 0, 0, 0.007) 0px 4px 6px -2px;
+    -o-box-shadow: rgba(0, 0, 0, 0.048) 0px 10px 10px -3px, rgba(0, 0, 0, 0.007) 0px 4px 6px -2px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.048) 0px 10px 10px -3px, rgba(0, 0, 0, 0.007) 0px 4px 6px -2px;
+}
+
+.batt-card-hover-alert {
+    box-shadow: rgb(207 0 0 / 58%) 0px 4px 10px, rgb(214 37 5 / 40%) 0px 7px 30px !important;
+    -webkit-box-shadow:  rgb(207 0 0 / 58%) 0px 4px 10px, rgb(214 37 5 / 40%) 0px 7px 30px !important;
+    -o-box-shadow:  rgb(207 0 0 / 58%) 0px 4px 10px, rgb(214 37 5 / 40%) 0px 7px 30px !important;
+    -moz-box-shadow:  rgb(207 0 0 / 58%) 0px 4px 10px, rgb(214 37 5 / 40%) 0px 7px 30px !important;
+}
+
+.batt-card-hover-active {
+    box-shadow: rgba(0, 97, 207, 0.377) 0px 4px 10px, rgba(5, 120, 214, 0.452) 0px 8px 30px !important;
+    -webkit-box-shadow: rgba(0, 97, 207, 0.377) 0px 4px 10px, rgba(5, 120, 214, 0.452) 0px 8px 30px !important;
+    -o-box-shadow: rgba(0, 97, 207, 0.377) 0px 4px 10px, rgba(5, 120, 214, 0.452) 0px 8px 30px !important;
+    -moz-box-shadow: rgba(0, 97, 207, 0.377) 0px 4px 10px, rgba(5, 120, 214, 0.452) 0px 8px 30px !important;
+}
+
+.batt-card-hover-inactive {
+    box-shadow: rgba(94, 94, 94, 0.377) 0px 4px 10px, rgba(116, 116, 116, 0.452) 0px 8px 30px !important;
+    -webkit-box-shadow: rgba(94, 94, 94, 0.377) 0px 4px 10px, rgba(116, 116, 116, 0.452) 0px 8px 30px !important;
+    -o-box-shadow: rgba(94, 94, 94, 0.377) 0px 4px 10px, rgba(116, 116, 116, 0.452) 0px 8px 30px !important;
+    -moz-box-shadow: rgba(94, 94, 94, 0.377) 0px 4px 10px, rgba(116, 116, 116, 0.452) 0px 8px 30px !important;
+}
+
+
+.text-no {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 2px;
+}
+
+.text-no-active {
+    color: #0d72c5;
+}
+
+.text-no-inactive {
+    color: #c7c7c7;
+}
+
+.text-no-alert {
+    color: #f10000;
+}
+
+.div-status {
+    font-size: 8px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    width: 64px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    border-radius: 20px;
+}
+
+.div-status-active {
+    background-color: #0d72c5;
+}
+
+.div-status-alert {
+    background-color: #EF432C;
+}
+
+.div-status-inactive {
+    background-color: #c7c7c7;
+}
+
+.img-batt {
+    margin-top: 9px;
+    width: 90px;
+}
+
+.text-soc {
+    position: absolute;
+    right: -89px;
+    top: 94px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.progress-point {
+    position: absolute;
+    top: -2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: solid #dfdfdf 3px;
+}
+
+.progress-point-active {
+    background: linear-gradient(to left, #184598, #48AAD4);
+}
+
+.progress-point-alert {
+    background-color: red;
+}
+
+.progress-point-inactive {
+    background-color: #b1b1b1;
+}
+
+.progress-active {
+    background: linear-gradient(to left, #184598, #48AAD4);
+}
+
+.progress-inactive {
+    background: #b1b1b1;
+}
+
+.progress-alert {
+    background: red;
+}
+
+.progress {
+    border: solid #ececec 2px;
+}
+
+.progress-bar {
+    border-radius: 10px;
+}
+
+.img-right-top {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    top: -10px;
+    right: -15px;
+}

@@ -1,0 +1,39 @@
+<div class="card batt-card"
+[ngClass]="{'batt-card-hover-active': (_status === 'N' || _status === 'B' || _status === 'D') && _id === 'batt0', 'batt-card-hover-inactive': _status === 'I' && _id === 'batt0', 'batt-card-hover-alert': _status === 'A' && _id === 'batt0'}"
+>
+    <div class="row">
+        <span class="text-no"
+            [ngClass]="{'text-no-active': _status === 'N' || _status === 'B' || _status === 'D', 'text-no-inactive': _status === 'I', 'text-no-alert': _status === 'A'}">No.{{_no}}</span>
+    </div>
+    <div class="row" style="justify-content: center;">
+        <div *ngIf="_status === 'N' || _status === 'B' || _status === 'D'" class="div-status div-status-active">active
+        </div>
+        <div *ngIf="_status === 'A'" class="div-status div-status-alert">alert</div>
+        <div *ngIf="_status === 'I'" class="div-status div-status-inactive">inactive</div>
+    </div>
+    <div class="row" style="justify-content: center;">
+        <img *ngIf="_status === 'N' || _status === 'B' || _status === 'D'" class="img-batt"
+            src="assets/img/batt-blue.png">
+        <img *ngIf="_status === 'A'" class="img-batt" src="assets/img/batt-red.png">
+        <img *ngIf="_status === 'I'" class="img-batt" src="assets/img/batt-red.png">
+    </div>
+    <div class="row" style="margin-left: 10px; --bs-gutter-x: 0rem; margin-top: 10px;">
+        <div style="width: 65px; position:relative; margin-left: 5px;">
+            <div class="progress" style="height:8px">
+                <div #ProgressBar class="progress-bar"
+                    [ngClass]="{'progress-active': _status === 'N' || _status === 'B' || _status === 'D', 'progress-inactive': _status === 'I', 'progress-alert': _status === 'A'}"
+                    style="height:4px" [style.width]="_soc+'%'"></div>
+                <div class="progress-point"
+                    [ngClass]="{'progress-point-active': _status === 'N' || _status === 'B' || _status === 'D', 'progress-point-inactive': _status === 'I', 'progress-point-alert': _status === 'A'}"
+                    [ngStyle]="{'left': 'calc(' + _soc + '% - 10px)' }">
+                </div>
+            </div>
+        </div>
+        <span class="text-soc">{{_soc}}%</span>
+
+        <img *ngIf="_status === 'A'" class="img-right-top" src="assets/img/alert-red.png">
+        <img *ngIf="_status === 'B'" class="img-right-top" src="assets/img/recovery.png">
+        <img *ngIf="_status === 'I'" class="img-right-top" src="assets/img/inactive.png">
+        <img *ngIf="_status === 'D'" class="img-right-top" src="assets/img/charge.png">
+    </div>
+</div>

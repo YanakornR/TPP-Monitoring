@@ -1,0 +1,51 @@
+<div class="container-fluid bg-main">
+  <button class="btn btn-back" [routerLink]="['/login']">
+    <mat-icon class="mat-back">arrow_back</mat-icon>
+  </button>
+  <div class="center">
+    <div class="form-div mt-5 pt-5">
+      <form autocomplete="off">
+        <div class="form-group">
+          <span class="text-forgot">Welcome!</span>
+        </div>
+        <div class="form-group mb-5">
+          <span class="tpp-text-sup-titel">Use these awesome forms to create new password <br> in your project.</span>
+        </div>
+
+        <div class="form-group" style="position: relative;">
+          <input type="password" [(ngModel)]="newPassword" [ngModelOptions]="{standalone: true}" placeholder="New Password" class="form-control input-css"
+           [ngClass]="{ 'is-invalid': nullNewPassword}"  />
+          <img class="img-input" src="assets/img/lock.png">
+          <div >
+            <div class="text-white" *ngIf="nullNewPassword">Password is required</div>
+          </div>
+        </div>
+
+        <div class="form-group" style="position: relative;">
+          <input type="password" [(ngModel)]="confirmNewPassword" [ngModelOptions]="{standalone: true}" placeholder="Confirm Password" class="form-control input-css"
+          [ngClass]="{ 'is-invalid': nullConfirmNewPassword || invalidPassword}" />
+          <img class="img-input" src="assets/img/lock.png">
+          <div>
+            <div class="text-white" *ngIf="nullConfirmNewPassword">Confirm Password is required</div>
+            <div class="text-white" *ngIf="invalidPassword">Confirm Password is invalid</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="tpp-text-footer">
+            <input type="checkbox" [(ngModel)]="isChecked" [ngModelOptions]="{standalone: true}" class="form-check-input" id="exampleCheck1" > I agree to
+            Platforms Terms of Service and Privacy Policy</span>
+        </div>
+        <div class="form-group mt-5">
+          <button (click)="onSubmit()"[disabled]="loading" class="btn btn-submit">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            CREAT NEW PASSWORD
+          </button>
+        </div>
+        <div class="form-group mt-5 pt-5">
+          <span class="tpp-text-footer">"2021 TPP MONITORING DASHBOARD All Rights Reserved"</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

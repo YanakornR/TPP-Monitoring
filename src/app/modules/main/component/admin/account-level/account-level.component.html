@@ -1,0 +1,169 @@
+<admin-side-bar></admin-side-bar>
+<div class="body-admin">
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-12 d-flex align-items-center">
+          <img src="./../../../../../../assets/img/admin/account-level-icon.png">
+          <h5 class="text-tpp ms-2 mb-0">Account Level Authorization</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 py-2">
+      <div class="w-100 border-bottom border-2"></div>
+    </div>
+  </div>
+  <div class="row p-3">
+    <div class="col-12 bg-grey py-3">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mt-1">
+          <div class="row">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
+              <label class="fs-5 text-tpp"><strong>Add Company</strong></label>
+            </div>
+            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+              <input class="form-control" type="text" placeholder="Company Name"
+                [ngClass]="{'is-invalid': isVerify && !companyFormSave.companyName}" [(ngModel)]="companyFormSave.companyName">
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mt-1">
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="btn btn-outline-tpp rounded-pill px-5 float-end"
+                (click)="openMessageSaveModal(companyFormSave)">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mt-3">
+      <div class="row" style="place-content: center;">
+        <!-- <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
+          <strong class="text-tpp float-end mt-2 me-3">Add Company :</strong>
+        </div> -->
+        <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8 mt-8">
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr class="text-center header-table">
+                <th style="width: 40%;">
+                  Company Name
+                </th>
+                <th style="width: 17%;">
+                  Create Date
+                </th>
+                <th style="width: 13%;">
+                  Create By
+                </th>
+                <th style="width: 10%;">
+                  Status
+                </th>
+                <th style="width: 10%; min-width: 78px;">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let company of companyList">
+                <td>{{company.companyName}}</td>
+                <td class="text-center">{{company.createDate}}</td>
+                <td class="text-center">{{company.createBy}}</td>
+                <td class="text-center">{{company.status}}</td>
+                <td style="text-align: center;">
+                  <a (click)="openEditModuleModal(company)"><i class='font-size-4 text-tpp bx bx-pencil me-3'></i></a>
+                  <a (click)="openMessageDeleteModal(company)"><i class='font-size-4 text-tpp bx bx-trash'></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Company From -->
+<div class="modal fade" id="companyFromModal" tabindex="-1" aria-labelledby="companyFromModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content border-radius-12px">
+      <div class="modal-header">
+        <h5 class="modal-title" id="companyFromModalLabel">
+          <strong class="text-tpp">Edit Company</strong>
+        </h5>
+        <a data-bs-dismiss="modal" aria-label="Close"><i class='text-tpp font-size-5 bx bxs-x-circle'></i></a>
+      </div>
+      <div class="modal-body bg-modal-body">
+        <div class="row">
+          <div class="col-12">
+            <label for="inputCompanyId" class="form-label text-tpp"><strong>Company ID :</strong></label>
+            <input type="text" class="form-control" id="inputCompanyId" placeholder=""
+              [(ngModel)]="companyForm.companyId" disabled>
+          </div>
+          <div class="col-12">
+            <label for="inputCompanyName" class="form-label text-tpp"><strong>Company Name :</strong></label>
+            <input type="text" class="form-control" id="inputCompanyName" placeholder=""
+              [ngClass]="{'is-invalid': isVerify && !companyForm.companyName}" [(ngModel)]="companyForm.companyName">
+          </div>
+          <div class="col-12" *ngIf="companyForm.companyId">
+            <label for="inputStatus" class="form-label text-tpp">Status :</label>
+            <select class="form-select" id="inputStatus" aria-label="Please select"
+              [ngClass]="{'is-invalid': isVerify && !companyForm.status}" [(ngModel)]="companyForm.status">
+              <option value="" selected hidden="hidden">Please select</option>
+              <option value="{{s.status}}" *ngFor="let s of defaultStatus">{{s.statusName}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button style="width: 95px;" type="button" class="btn btn-outline-grey rounded-pill me-4"
+          data-bs-dismiss="modal">Cancel</button>
+        <button style="width: 95px;" type="button" class="btn btn-outline-blue rounded-pill"
+          (click)="openMessageSaveModal(companyForm)">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Message Modal -->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content border-radius-12px">
+      <div class="modal-body text-center">
+        <i *ngIf="messageAlert.type == 'error'" style="font-size: 64px;" class='bx bx-error-circle text-danger'></i>
+        <i *ngIf="messageAlert.type == 'success'" style="font-size: 64px;" class="bx bx-check-circle text-success"></i>
+        <h4 [ngClass]="{'text-danger': messageAlert.type == 'error','text-tpp': messageAlert.type == 'success'}">
+          {{messageAlert.title}}
+        </h4>
+        <p>{{messageAlert.detail}}</p>
+      </div>
+      <div class="modal-footer  d-flex justify-content-center">
+        <button type="button" class="btn rounded-pill mx-2 {{btn.class}}" *ngFor="let btn of messageAlert.buttonOption"
+          (click)="btn.action()">{{btn.label}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content border-radius-12px">
+      <div class="modal-body text-center">
+        <i *ngIf="messageAlert.type == 'error'" style="font-size: 64px;" class='bx bx-error-circle text-danger'></i>
+        <i *ngIf="messageAlert.type == 'success'" style="font-size: 64px;" class="bx bx-check-circle text-success"></i>
+        <h4 [ngClass]="{'text-danger': messageAlert.type == 'error','text-tpp': messageAlert.type == 'success'}">
+          {{messageAlert.title}}
+        </h4>
+        <p>{{messageAlert.detail}}</p>
+        <input class="form-control" type="password" placeholder="Confirm Password"
+          [ngClass]="{'is-invalid': isVerifyPassword && !messageAlert.passwordConfirm}" [(ngModel)]="messageAlert.passwordConfirm" required>
+      </div>
+      <div class="modal-footer  d-flex justify-content-center">
+        <button type="button" class="btn rounded-pill mx-2 {{btn.class}}" *ngFor="let btn of messageAlert.buttonOption"
+          (click)="btn.action()">{{btn.label}}</button>
+      </div>
+    </div>
+  </div>
+</div>

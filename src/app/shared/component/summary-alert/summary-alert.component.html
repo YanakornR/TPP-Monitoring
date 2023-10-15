@@ -1,0 +1,174 @@
+<div class="card card-table-cs" style="padding: 20px;">
+  <div class="row">
+
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-2"
+      style="display: flex;align-content: flex-end;flex-direction: row;flex-wrap: wrap;justify-content: flex-start;align-items: center;">
+      <img style="width: 40px;" src="assets/img/summary-alert-earth.png"><span class="topic ms-2">
+        Summary Alert Alarm Dashboard List</span>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6"
+      style="display: flex;align-content: center;flex-direction: row;flex-wrap: wrap;justify-content: flex-end;align-items: center;">
+      <button type="button" class="btn btn-outline-green me-1 d-flex align-items-center border-radius-6px"
+        (click)="openFilterModal()">
+        <i class='bx bx-filter-alt me-1'></i> Filter
+      </button>
+      <button [routerLink]="['/report']" type="button"
+        class="btn btn-outline-grey me-1 d-flex align-items-center border-radius-6px">
+        <i class='bx bx-upload me-1'></i> Data Table
+      </button>
+      <button (click)="clearFilter()" type="button" class="btn d-flex align-items-center border-radius-6px"
+        style="color: #fff;background-color: #eb3c28;border-color: #eb3d29;">
+        <i class='bx bxs-plus-circle me-1'></i> All Alarms
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12" style="overflow-x:scroll;">
+      <table class="table table-striped mt-4">
+        <thead>
+          <tr>
+            <th scope="col">
+              <div class="d-flex justify-content-center">
+                <span class="me-1">Date</span>
+                <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+              </div>
+            </th>
+
+            <th scope="col">
+              <div class="d-flex justify-content-center">
+                <span class="me-1">Time</span>
+                <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+              </div>
+            </th>
+
+            <th scope="col">
+              <div class="d-flex justify-content-center">
+                <span class="me-1">Site no.</span>
+                <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+              </div>
+            </th>
+
+            <th scope="col">
+              <div class="d-flex justify-content-center">
+                <span class="me-1">Region</span>
+                <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+              </div>
+            </th>
+
+            <th scope="col">
+              <div class="d-flex justify-content-center">
+                <span class="me-1">Status</span>
+                <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+              </div>
+            </th>
+
+            <th scope="col">
+              <div class="d-flex justify-content-center">
+                <span class="me-1">Link</span>
+                <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of dataSet; let i = index">
+            <th scope="row" style="text-align: center;color: #3676B4;">{{data.dateAlert | date:'dd/MM/yy'}}</th>
+            <td style="text-align: center;color: #3676B4;">{{data.dateAlert | date:'hh:mm'}}</td>
+            <td style="text-align: center;color: #3676B4;">{{data.site}}</td>
+            <td style="text-align: center;color: #3676B4;">{{data.region}}</td>
+            <td style="text-align: center;color: #F64D30;">{{data.status}}</td>
+            <td style="text-align: center;color: #3676B4;"><a (click)="gotoSite(data)"><i class='bx bx-link-external'
+                  style='color:#3676b4'></i></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-6 d-flex justify-content-start align-items-center">
+      <strong class="me-2">Rows per page</strong>
+      <select style="width: 70px;" class="form-select me-2" [(ngModel)]="filterOption.limit"
+        (change)="getSummaryAlert()">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="40">40</option>
+        <option value="50">50</option>
+      </select>
+      <strong class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">Showing {{(filterOption.page-1)*10+1}} - {{filterOption.recordTotal > filterOption.limit*filterOption.page ? filterOption.limit*filterOption.page : filterOption.recordTotal}} of results
+        {{filterOption.recordTotal}}</strong>
+    </div>
+    <div class="col-6">
+      <div class="rounded-pill d-flex group-ptt float-end">
+        <div><a class="font-size-3 text-light text-center float-start pt-1" style="width: 50px;" (click)="goPage(-1)"><i
+              class='bx bx-left-arrow-alt ms-2'></i></a>
+        </div>
+        <div class="font-size-2  text-center text-light pt-1"
+          style="border-right: 1px solid white;border-left: 1px solid white;width: 60px;">{{filterOption.page}} of
+          {{filterOption.pageTotal}}</div>
+        <div><a class="font-size-3 text-light text-center float-end pt-1" style="width: 50px;" (click)="goPage(1)"><i
+              class='bx bx-right-arrow-alt me-2'></i></a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Filter -->
+<div class="modal fade" id="filterSummaryAlertModal" tabindex="-1">
+  <div id="filterModalDialog" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><strong class="text-tpp">Filter</strong></h5>
+        <a data-bs-dismiss="modal" aria-label="Close"><i class='text-tpp font-size-5 bx bxs-x-circle'></i></a>
+      </div>
+      <div class="modal-body bg-modal-body">
+        <div class="row pb-2 border-bottom">
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="allRegion"
+              (change)="selectAllRegionFilter($event)"
+              [checked]="filterOption.region.length == defaultRegion.length">
+              <label class="form-check-label ms-2" for="allRegion">
+                <strong class="text-tpp">All Region</strong>
+              </label>
+            </div>
+            <div class="ps-3">
+              <div class="form-check" *ngFor="let region of defaultRegion">
+                <input class="form-check-input" type="checkbox" id="region_{{region}}"
+                  [checked]="filterOption.region.includes(region)" (change)="selectRegionFilter($event,region)">
+                <label class="form-check-label ms-2" for="region_{{region}}">
+                  <strong class="text-tpp">{{region}}</strong>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="allStatus"
+              (change)="selectAllStatusFilter($event)"
+              [checked]="filterOption.status.length == defaultStatus.length">
+              <label class="form-check-label ms-2" for="allStatus">
+                <strong class="text-tpp">All Status</strong>
+              </label>
+            </div>
+            <div class="ps-3">
+              <div class="form-check" *ngFor="let status of defaultStatus">
+                <input class="form-check-input" type="checkbox" id="status_{{status}}"
+                  [checked]="filterOption.status.includes(status)" (change)="selectStatusFilter($event,status)">
+                <label class="form-check-label ms-2" for="status_{{status}}">
+                  <strong class="text-tpp">{{status}}</strong>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-tpp border-radius-6px w-100" (click)="clearFilter()">Clear
+          Filter</button>
+      </div>
+    </div>
+  </div>
+</div>

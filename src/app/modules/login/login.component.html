@@ -1,0 +1,37 @@
+<div class="container-fluid bg-main">
+    <div class="center">
+        <div class="form-div mt-5 pt-5">
+            <img class="tpp-logo mb-5" src="assets/img/TPP-white-logo.png">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div class="form-group" style="position: relative;">
+                    <input type="text" formControlName="username" placeholder="USERNAME" class="form-control input-css"
+                        [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                    <img class="img-input" src="assets/img/user.png">
+                    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                        <div class="text-white" *ngIf="f.username.errors.required">Username is required</div>
+                    </div>
+                </div>
+                <div class="form-group" style="position: relative;">
+                    <input type="password" formControlName="password" placeholder="PASSWORD"
+                        class="form-control input-css" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                    <img class="img-input" src="assets/img/lock.png">
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                        <div class="text-white" *ngIf="f.password.errors.required">Password is required</div>
+                    </div>
+                </div>
+                <div class="form-group" style="text-align: right;">
+                    <a [routerLink]="['/reset-password']" class="link-forgot">Forgot your password?</a>
+                </div>
+                <div class="form-group mt-5 pt-5">
+                    <button [disabled]="loading" class="btn btn-submit">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        LOGIN
+                    </button>
+                </div>
+                <div class="form-group mt-5 pt-5">
+                    <span class="tpp-text-footer">"2021 TPP MONITORING DASHBOARD All Rights Reserved"</span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

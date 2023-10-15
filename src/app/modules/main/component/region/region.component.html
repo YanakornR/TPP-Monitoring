@@ -1,0 +1,378 @@
+<div class="container-fluid no-padding" *ngIf="filtersLoaded | async">
+  <div class="row justify-content-start row-width">
+    <!-- side -->
+    <div class="col-width-2 col-xl-2 d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block"
+      style="padding-right: 0;">
+      <div class="card"
+        style="height: 90vh; border: 1px solid rgb(255 255 255);margin: 10px 10px 10px 25px; border-radius: 10px;">
+        <div style="margin: 10px;">
+          <div class="form-group has-search">
+            <span class="fa fa-search form-control-feedback"></span>
+            <input class="form-control" placeholder="Search Favorite Site" style="border-radius: 6px;width: 100%;"
+              type="text" [(ngModel)]="mySearchFavSiteText" (keyup)="searchSiteFavFilter()">
+          </div>
+        </div>
+        <div class="font-size-region" style="background: #69b7f24d;">
+          <div class="row" style="color: #3676B4;font-size: 16px;margin: 2px 15px;">Favorite</div>
+        </div>
+        <div style="margin: 10px 10px 10px 30px;">
+          <div *ngFor="let site of siteFavList"
+            style="margin-bottom: 0px; display: flex;flex-direction: row;flex-wrap: wrap;justify-content: space-between;align-items: center;">
+            <div *ngIf="site.favFalg === 'Y'">
+              <p style="margin-bottom: 0px;display: flex;justify-content: center;align-items: center;">
+                <span style="font-size: 23px;color: #A6ABC8;margin-right: 5px;">&bull;</span>
+                <a (click)="goToSite('null' ,site)"><span>{{site.siteName}}</span></a>
+              </p>
+            </div>
+            <div *ngIf="site.favFalg === 'Y'">
+              <i class='bx bx-dots-vertical-rounded' style='color:#a6abc8;font-size: 18px;margin-top: 4px;'></i>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="regionInfoData" class="font-size-region" style="background: #69b7f24d;">
+          <div class="row" style="color: #3676B4;font-size: 16px;margin: 2px 15px;">{{regionInfoData.regionName}}</div>
+        </div>
+        <div style="margin: 10px 10px 10px 30px;">
+          <div *ngFor="let province of provinceInfoList; let i = index;" class="accordion"
+            [attr.id]="'reginonMenu' + i">
+            <div class="accordion-item border-0 bg-sidebar py-1">
+              <div class="accordion-header" id="reginon-menu">
+                <a class="w-100 text-start sidebar-text d-flex align-items-center text-dark" (click)="clickAccordion(i)"
+                  style="text-transform: capitalize;" data-bs-toggle="collapse"
+                  [attr.data-bs-target]="'#reginon-menu-collapse'+ i" aria-expanded="false"
+                  aria-controls="reginon-menu-collapse">
+                  <i [ngClass]="{'bxs-right-arrow': arrSelect[i].isSelect == false ,  'bxs-down-arrow': arrSelect[i].isSelect == true }"
+                    class='bx me-1' style="color: #A6ABC8;"></i> {{province.provinceName}}{{province.subRegionName}}
+
+
+                </a>
+              </div>
+              <div [attr.id]="'reginon-menu-collapse'+ i" class="accordion-collapse collapse"
+                aria-labelledby="reginon-menu" [attr.data-bs-parent]="'#reginonMenu' + i">
+                <div class="accordion-body ps-2 py-0 mt-2">
+                  <ul class="sidebar-text mb-0">
+                    <li *ngFor="let site of province.sites" style="color: #A6ABC8;"><a class="text-dark"
+                        (click)="goToSite(province, site)">{{site.siteName}}</a></li>
+                        <li *ngFor="let p of province.province" style="color: #A6ABC8;"><a class="text-dark"
+                            (click)="goToProvince(p)">{{p.provinceName | titlecase}}</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- main -->
+    <div class="col-width-10 col-xl-10" style="padding-right: 0; height: fit-content;">
+      <div class="card card-table-cs">
+        <div class="row" style="padding: 10px;">
+          <div class="col-6 col-sm-6 col-md-6 col-lg-2 col-xl-2 col-xxl-2 pb-1"
+            style=" padding-right: 10px; display: flex;flex-direction: column;justify-content: center; border-right: 1px solid #C8CBD9!important;">
+            <div *ngIf="regionInfoData"
+              style="text-transform: uppercase; background: linear-gradient(to right, #184598, #48AAD4);color: white;text-align: center; border-radius: 10px;padding: 10px 0px;font-size: 20px;">
+              {{regionInfoData.regionName}}
+            </div>
+          </div>
+          <div class="col-6 col-sm-6 col-md-6 d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none pb-1">
+            <div class="col-12" style="padding-left: 5px;padding-top: 3px;">
+              <div class="row ">
+                <div class="col-3">
+                  <div class="card card-region-status "
+                    style="margin-right: 5px;" [ngClass]="{ 'status-inactive' : regionInfoData.commStatus === 'I'  , 'status-active' : regionInfoData.commStatus != 'I'}">
+                    <div class="row centered">
+                    <img *ngIf="regionInfoData.commStatus === 'I'" class="img" style="width: 55%;"
+                    src="assets/img/icon-inactive.png">
+                  <img *ngIf="regionInfoData.commStatus === 'A'" class="img" style="width: 55%;"
+                    src="assets/img/icon-active.png">
+                    </div>
+                    <div class="row centered sm-font">Comm.</div>
+                    <div class="row centered sm-font">Status</div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="card card-region-status "
+                    style="margin-right: 5px;" [ngClass]="{ 'status-inactive' : regionInfoData.deviceStatus === 'I'  , 'status-active' : regionInfoData.deviceStatus != 'I'}">
+                    <div class="row centered">
+                    <img *ngIf="regionInfoData.deviceStatus === 'I'" class="img" style="width: 55%;"
+                    src="assets/img/icon-inactive.png">
+                  <img *ngIf="regionInfoData.deviceStatus === 'A'" class="img" style="width: 55%;"
+                    src="assets/img/icon-active.png">
+                    </div>
+                    <div class="row centered sm-font">Device1</div>
+                    <div class="row centered sm-font">Status</div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="card card-region-status h-100" style="background: #ABABAC; margin-right: 5px;">
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="card card-region-status h-100" style="background: #ABABAC; margin-right: 5px;">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none border border-1"></div>
+          <div class="col-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 col-xxl-2"
+            style="border-right: 1px solid #C8CBD9!important;">
+            <div class="row row-width">
+              <div class="col-4">
+                <img class="img mt-4" src="assets/img/total-devices.png" style="width: 90%;">
+              </div>
+              <div *ngIf="regionInfoData" class="col-8 text-end" style="padding: 10px 15px 10px 0px;"><span
+                  class="total-text-span sm-font">Total
+                  Devices</span><br><span class="total-text"
+                  style="font-size: 18px;color: #3676B4;">{{regionInfoData.totalDevice}}</span></div>
+            </div>
+          </div>
+
+          <div class="col-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 col-xxl-2"
+            style="border-right: 1px solid #C8CBD9!important;">
+            <div class="row row-width">
+              <div class="col-6">
+                <img class="img" src="assets/img/site-cut.png" style="width: 75%;">
+              </div>
+              <div *ngIf="regionInfoData" class="col-6 text-end" style="padding: 10px 15px 10px 0px;"><span
+                  class="total-text-span sm-font">Total
+                  Site</span><br><span class="total-text"
+                  style="font-size: 18px;color: #3676B4;">{{regionInfoData.totalSite}}</span></div>
+            </div>
+          </div>
+
+          <div class="col-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 col-xxl-2">
+            <div class="row row-width">
+              <div class="col-6 text-end">
+                <img class="img" src="assets/img/map-icon.png" style="width: 80%;">
+              </div>
+              <div *ngIf="regionInfoData" class="col-6 text-end" style="padding: 10px 15px 10px 0px;"><span
+                  class="total-text-span sm-font">Province</span><br><span class="total-text"
+                  style="font-size: 18px;color: #3676B4;">{{regionInfoData.totalProvince}}</span></div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-xl-4 col-xxl-4 d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block"
+            style="border-left: 1px solid #C8CBD9!important;">
+
+            <div class="col-12" style="padding-left: 5px;padding-top: 3px;">
+              <div class="row " style="display: flex;justify-content: flex-end;">
+                <div class="col-2">
+                  <div class="card card-region-status " style="margin-right: 5px;"
+                    [ngClass]="{ 'status-inactive' : regionInfoData.commStatus === 'I'  , 'status-active' :  regionInfoData.commStatus != 'I'}">
+                    <div class="row centered"> <img *ngIf="regionInfoData.commStatus === 'I'" class="img" style="width: 55%;"
+                      src="assets/img/icon-inactive.png">
+                    <img *ngIf="regionInfoData.commStatus === 'A'" class="img" style="width: 55%;"
+                      src="assets/img/icon-active.png">
+                    </div>
+                    <div class="row centered">Comm.</div>
+                    <div class="row centered">Status</div>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="card card-region-status " style="margin-right: 5px;"
+                    [ngClass]="{ 'status-inactive' : regionInfoData.alarmStatus === 'I'  , 'status-active' :  regionInfoData.alarmStatus != 'I'}">
+                    <div class="row centered"> <img *ngIf="regionInfoData.deviceStatus === 'I'" class="img" style="width: 55%;"
+                      src="assets/img/icon-inactive.png">
+                    <img *ngIf="regionInfoData.deviceStatus === 'A'" class="img" style="width: 55%;"
+                      src="assets/img/icon-active.png">
+                    </div>
+                    <div class="row centered">Device1</div>
+                    <div class="row centered">Status</div>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="card card-region-status h-100" style="background: #ABABAC; margin-right: 5px;">
+
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="card card-region-status h-100" style="background: #ABABAC; margin-right: 5px;">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row m-1 p-2 rounded-3 bg-white bg-w d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-10">
+              <div class="form-group has-search">
+                <span class="fa fa-search form-control-feedback"></span>
+                <input class="form-control" placeholder="Search Favorite Site" style="border-radius: 6px;width: 100%;"
+                  type="text" [(ngModel)]="mySearchFavSiteText" (keyup)="searchSiteFavFilter()">
+              </div>
+            </div>
+            <div class="col-2">
+              <button type="button" class="btn w-100" data-bs-toggle="offcanvas" data-bs-target="#canvasSideBar"
+                aria-controls="canvasSideBar">
+                <i class='bx bx-dots-horizontal-rounded mt-1'></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="regionInfoData" class="row" style="margin-left: 1%;margin-right: 1%;">
+        <div *ngFor="let province of regionInfoData.province; let i = index;"
+          class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="padding: 0px 5px;">
+          <a *ngIf="province.status === 'A' || province.status === 'W'"
+            [routerLink]="['/region/', regionInfoData.regionId, province.provinceId]"
+            (click)="sendProvince(i, province.status)">
+            <div class="card card-region card-region-active">
+              <div class="row">
+                <div class="col-12">
+                  <div class="font-size-region"
+                    [ngClass]="{'province-inactive': province.status === 'I' , 'province-active': province.status === 'A' || province.status === 'W'}">
+                    <div class="row "
+                      style="color: white;margin-left: 10px;margin-right: auto; text-transform: capitalize;">
+                      {{province.provinceName}}</div>
+                  </div>
+                  <div *ngIf="province.status === 'I'" class="card noti-circle noti-circle-hover">!</div>
+                </div>
+              </div>
+              <div class="row" style="padding: 10px 0px; margin: 0px 9px;">
+                <div class="col-6" style="border-right: 1px solid #C8CBD9!important;">
+                  <div class="row row-width">
+                    <div class="col-8 text-start">
+                      <span class="total-text"
+                        [ngClass]="{'text-province-inactive': province.status === 'I' , 'text-province-active': province.status === 'A' || province.status === 'W'}">{{province.totalSite}}</span><br>
+                      <span class="total-text-span" style="font-size: 12px;color: #969696;">Total Sites</span>
+                    </div>
+                    <div class="col-4 "
+                      style="display: flex;flex-direction: column;flex-wrap: wrap;justify-content: center;"><img
+                        class="img" src="assets/img/site-cut.png" style="width: 100%;"></div>
+                  </div>
+                </div>
+                <div class="col-6" style="padding-left: 5px;">
+                  <div class="row row-width">
+                    <div class="col-8 text-start">
+                      <span class="total-text"
+                        [ngClass]="{'text-province-inactive': province.status === 'I' , 'text-province-active': province.status === 'A' || province.status === 'W'}">{{province.totalDevice}}</span><br>
+                      <span class="total-text-span" style="font-size: 12px;color: #969696;">Total Devices</span>
+                    </div>
+                    <div class="col-4 "
+                      style="display: flex;flex-direction: column;flex-wrap: wrap;justify-content: center;"><img
+                        class="img" src="assets/img/total-devices.png" style="width: 100%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+          <div *ngIf="province.status === 'I'" class="card card-region card-region-active">
+            <div class="row">
+              <div class="col-12">
+                <div class="font-size-region"
+                  [ngClass]="{'province-inactive': province.status === 'I' , 'province-active': province.status === 'A' || province.status === 'W'}">
+                  <div class="row "
+                    style="color: white;margin-left: 10px;margin-right: auto; text-transform: capitalize;">
+                    {{province.provinceName}}</div>
+                </div>
+                <div *ngIf="province.status === 'I'" class="card noti-circle noti-circle-hover">!</div>
+              </div>
+            </div>
+            <div class="row" style="padding: 10px 0px; margin: 0px 9px;">
+              <div class="col-6" style="border-right: 1px solid #C8CBD9!important;">
+                <div class="row row-width">
+                  <div class="col-8 text-start">
+                    <span class="total-text"
+                      [ngClass]="{'text-province-inactive': province.status === 'I' , 'text-province-active': province.status === 'A' || province.status === 'W'}">{{province.totalSite}}</span><br>
+                    <span class="total-text-span" style="font-size: 12px;color: #969696;">Total Sites</span>
+                  </div>
+                  <div class="col-4 "
+                    style="display: flex;flex-direction: column;flex-wrap: wrap;justify-content: center;"><img
+                      class="img" src="assets/img/site-cut.png" style="width: 100%;"></div>
+                </div>
+              </div>
+              <div class="col-6" style="padding-left: 5px;">
+                <div class="row row-width">
+                  <div class="col-8 text-start">
+                    <span class="total-text"
+                      [ngClass]="{'text-province-inactive': province.status === 'I' , 'text-province-active': province.status === 'A' || province.status === 'W'}">{{province.totalBattery}}</span><br>
+                    <span class="total-text-span" style="font-size: 12px;color: #969696;">Total Devices</span>
+                  </div>
+                  <div class="col-4 "
+                    style="display: flex;flex-direction: column;flex-wrap: wrap;justify-content: center;"><img
+                      class="img" src="assets/img/total-devices.png" style="width: 100%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <tpp-summary-alert-province *ngIf="regionInfoData" [selectRegion]="id" [provinceInfo]="regionInfoData.province">
+      </tpp-summary-alert-province>
+      <tpp-battery-backup-province *ngIf="regionInfoData" [selectRegion]="id" [provinceInfo]="regionInfoData.province">
+      </tpp-battery-backup-province>
+    </div>
+  </div>
+
+</div>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="canvasSideBar" aria-labelledby="canvasSideBarLabel">
+  <div class="offcanvas-header py-0">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Search</h5>
+    <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class='text-tpp font-size-5 bx bxs-x-circle'></i>
+    </button>
+  </div>
+  <div class="offcanvas-body pt-0">
+    <div style="margin: 10px;">
+      <div class="form-group has-search">
+        <span class="fa fa-search form-control-feedback"></span>
+        <input class="form-control" placeholder="Search Favorite Site" style="border-radius: 6px;width: 100%;"
+          type="text" [(ngModel)]="mySearchFavSiteText" (keyup)="searchSiteFavFilter()">
+      </div>
+    </div>
+    <div class="font-size-region" style="background: #69b7f24d;">
+      <div class="row" style="color: #3676B4;font-size: 16px;margin: 2px 15px;">Favorite</div>
+    </div>
+    <div style="margin: 10px 10px 10px 30px;">
+      <div *ngFor="let site of siteFavList"
+        style="margin-bottom: 0px; display: flex;flex-direction: row;flex-wrap: wrap;justify-content: space-between;align-items: center;">
+        <div *ngIf="site.favFalg === 'Y'">
+          <p style="margin-bottom: 0px;display: flex;justify-content: center;align-items: center;">
+            <span style="font-size: 23px;color: #A6ABC8;margin-right: 5px;">&bull;</span>
+            <span>{{site.siteName}}</span>
+          </p>
+        </div>
+        <div *ngIf="site.favFalg === 'Y'">
+          <i class='bx bx-dots-vertical-rounded' style='color:#a6abc8;font-size: 18px;margin-top: 4px;'></i>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="regionInfoData" class="font-size-region" style="background: #69b7f24d;">
+      <div class="row" style="color: #3676B4;font-size: 16px;margin: 2px 15px;">{{regionInfoData.regionName}}</div>
+    </div>
+    <div style="margin: 10px 10px 10px 30px;">
+      <div *ngFor="let province of provinceInfoList; let i = index;" class="accordion" [attr.id]="'reginonMenu' + i">
+        <div class="accordion-item border-0 bg-sidebar py-1">
+          <div class="accordion-header" id="reginon-menu">
+            <a class="w-100 text-start sidebar-text d-flex align-items-center text-dark"
+              style="text-transform: capitalize;" data-bs-toggle="collapse"
+              [attr.data-bs-target]="'#reginon-menu-collapse'+ i" aria-expanded="false"
+              aria-controls="reginon-menu-collapse">
+              <i class='bx bxs-right-arrow me-1' style="color: #A6ABC8;"></i> {{province.provinceName}}
+              <!-- <i class='bx bxs-right-arrow' style="color: #A6ABC8;"></i> -->
+            </a>
+          </div>
+          <div [attr.id]="'reginon-menu-collapse'+ i" class="accordion-collapse collapse" aria-labelledby="reginon-menu"
+            [attr.data-bs-parent]="'#reginonMenu' + i">
+            <div class="accordion-body ps-2 py-0 mt-2">
+              <ul class="sidebar-text mb-0">
+                <li *ngFor="let site of province.sites" style="color: #A6ABC8;"><a class="text-dark"
+                    [routerLink]="['/region/', regionInfoData.regionId, province.provinceId]">{{site.siteName}}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

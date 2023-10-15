@@ -1,0 +1,349 @@
+<admin-side-bar></admin-side-bar>
+<div class="body-admin">
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-3 mb-2 d-flex align-items-center">
+          <img src="./../../../../../../assets/img/admin/user-account-icon.png">
+          <h5 class="text-tpp ms-2 mb-0">User Account List</h5>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-2 mb-2 d-flex align-items-center justify-content-end">
+          <div *ngIf="getSelected()" class="d-flex align-items-center">
+            <span class="font-size-2 me-2">{{getSelected()}} selected</span>
+            <span class="font-size-1 badge rounded-pill bg-danger d-flex align-items-center me-2">
+              <a class="me-1 text-light d-flex align-items-center" (click)="onClearAll()">
+                <i class='font-size-2 bx bx-x'></i>
+              </a>
+              Clear all
+            </span>
+            <a class="text-light d-flex align-items-center me-2">
+              <i class='font-size-3 text-tpp bx bx-revision bx-rotate-90'></i>
+            </a>
+            <a class="text-light d-flex align-items-center" (click)="openDeleteAllModal()">
+              <i class='font-size-3 text-tpp bx bx-trash'></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-12 mb-2 d-block d-sm-block d-md-block d-lg-block d-xl-block d-xxl-none" style="padding-right: 0.2rem;">
+          <div class="form-group has-search me-2">
+            <span class="fa fa-search form-control-feedback"></span>
+            <input style="border-radius: 6px;" type="text" class="form-control" placeholder="Search" [(ngModel)]="searchFilter" (change)="getUserList('Y')">
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-7 mb-2">
+          <div class="d-flex align-items-center justify-content-end">
+            <div style="width: 10px; height: 38px;"
+              class="border-start border-2 border-tpp ps-3 ms-3 d-none d-sm-none d-md-none d-lg-none d-xl-none d-xxl-block">
+            </div>
+            <div class="form-group has-search me-2 d-none d-sm-none d-md-none d-lg-none d-xl-none d-xxl-block">
+              <span class="fa fa-search form-control-feedback"></span>
+              <input style="border-radius: 6px;" type="text" class="form-control" placeholder="Search" [(ngModel)]="searchFilter" (keyup)="getUserList('Y')">
+            </div>
+            <button type="button" class="btn btn-outline-green me-2 d-flex align-items-center border-radius-6px"
+              (click)="openFilterModal()">
+              <i class='bx bx-filter-alt me-1'></i> Filter <span class="font-size-1 ms-1">{{filterOption.roleId.length}}</span>
+            </button>
+            <button type="button" class="btn btn-outline-grey me-2 d-flex align-items-center border-radius-6px"
+              (click)="exportUserList()">
+              <i class='bx bx-upload me-1'></i> Export
+            </button>
+            <button type="button" class="btn btn-outline-sky d-flex align-items-center border-radius-6px"
+              (click)="openAddUsernModal()">
+              <i class='bx bxs-plus-circle me-1'></i>Add User
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12rounded-pill mt-2 mb-3">
+      <div class="w-100 line-cut"></div>
+    </div>
+    <div class="col-12" style="overflow-x:auto;">
+      <table class="table table-bordered">
+        <thead>
+          <tr class="text-center header-table">
+            <th style="width: 30px" scope="col">
+              <div>
+                <input class="border-tpp form-check-input" type="checkbox" id="selectAllUser" [(ngModel)]="selectAll"
+                  (change)="onSelectAll()">
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex justify-content-center">
+                <span class="me-1">ID no.</span>
+                <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex justify-content-center">
+                <span class="me-1">Name</span>
+                <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex justify-content-center">
+                <span class="me-1">Lastname</span>
+                <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex justify-content-center">
+                <span class="me-1">Company</span>
+                <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex justify-content-center">
+                <span class="me-1">Email</span>
+                <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex justify-content-center">
+                <span class="me-1">Tel.</span>
+                <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex justify-content-center">
+                <span class="me-1">Username</span>
+                <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex justify-content-center">
+                <span class="me-1">User Create</span>
+                <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex justify-content-center">
+                <span class="me-1">Role</span>
+                <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex justify-content-center">
+                <span class="me-1">Status</span>
+                <a class="text-body d-flex align-items-center"><i class='font-size-3 bx bx-sort-down'></i></a>
+              </div>
+            </th>
+            <th style="width: 60px" scope="col">
+
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of userList;let index = index"
+            [ngClass]="{'row-selected': user.checked, 'text-tpp': !user.checked, 'tr-odd': index%2 && !user.checked}">
+            <th>
+              <div style="width: 30px" class="text-center">
+                <input class="border-tpp form-check-input" type="checkbox" [(ngModel)]="user.checked"
+                  id="selectAllUser">
+              </div>
+            </th>
+            <th class="text-center">{{user.userId}}</th>
+            <td class="text-center">{{user.name | titlecase}}</td>
+            <td class="text-center">{{user.lastName | titlecase}}</td>
+            <td class="text-center">{{user.company}}</td>
+            <td class="text-center">{{(user.email != "null" && user.email != null) ? user.email : "-"}}</td>
+            <td class="text-center">{{(user.tel != "null" && user.tel !=null) ? user.tel : "-"}}</td>
+            <td class="text-center">{{user.userName | titlecase}}</td>
+            <td class="text-center">{{user.userCreate | titlecase}}</td>
+            <td class="text-center">{{user.role | titlecase}}</td>
+            <td class="text-center">{{user.status | titlecase}}</td>
+            <td class="bg-light">
+              <div class="d-flex justify-content-center">
+                <a (click)="openEditUserModal(user)"><i class='font-size-4 text-tpp bx bx-pencil me-3'></i></a>
+                <a (click)="openMessageDeleteModal(user)"><i class='font-size-4 text-tpp bx bx-trash'></i></a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-6 d-flex justify-content-start align-items-center">
+      <strong class="me-2">Rows per page</strong>
+      <select style="width: 70px;" class="form-select me-2" [(ngModel)]="filterOption.limit" (change)="getUserList()">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="40">40</option>
+        <option value="50">50</option>
+      </select>
+      <strong class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">Showing {{(filterOption.page-1)*10+1}} - {{filterOption.totalResult > filterOption.limit*filterOption.page ? filterOption.limit*filterOption.page : filterOption.totalResult}} of results
+        {{filterOption.totalResult}}</strong>
+    </div>
+    <div class="col-6">
+      <div class="rounded-pill d-flex group-ptt float-end">
+        <div><a class="font-size-3 text-light w-100 float-start pt-1" (click)="goPage(-1)"><i
+              class='bx bx-left-arrow-alt ms-2'></i></a></div>
+        <div class="font-size-2 w-100 text-center text-light pt-1">{{filterOption.page}} of {{filterOption.pageTotal}}
+        </div>
+        <div><a class="font-size-3 text-light w-100 float-end pt-1" (click)="goPage(1)"><i
+              class='bx bx-right-arrow-alt me-2'></i></a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Filter -->
+<div class="modal fade" id="filterModal" tabindex="-1">
+  <div id="filterModalDialog" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><strong class="text-tpp">Filter</strong></h5>
+        <a data-bs-dismiss="modal" aria-label="Close"><i class='text-tpp font-size-5 bx bxs-x-circle'></i></a>
+      </div>
+      <div class="modal-body bg-modal-body">
+        <!-- <div class="row pb-2 border-bottom">
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="allRegion" (change)="selectAllRegionFilter($event)"
+                [checked]="filterOption.regionId.length == regionList.length">
+              <label class="form-check-label" for="allRegion">
+                <strong class="text-tpp">All Region</strong>
+              </label>
+            </div>
+            <div class="ps-3">
+              <div class="form-check" *ngFor="let region of regionList">
+                <input class="form-check-input" type="checkbox" id="region_{{region.regionId}}"
+                  [checked]="filterOption.regionId.includes(region.regionId)"
+                  (change)="selectRegionFilter($event,region)">
+                <label class="form-check-label" for="region_{{region.regionId}}">
+                  <strong class="text-tpp">{{region.regionName}}</strong>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="row mt-2">
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="allRole" (change)="selectAllRoleFilter($event)"
+                [checked]="filterOption.roleId.length == roleList.length">
+              <label class="form-check-label" for="allRole">
+                <strong class="text-tpp">All Role</strong>
+              </label>
+            </div>
+            <div class="ps-3">
+              <div class="form-check" *ngFor="let role of roleList">
+                <input class="form-check-input" type="checkbox" id="role_{{role.roleId}}"
+                  [checked]="filterOption.roleId.includes(role.roleId)" (change)="selectRoleFilter($event,role)">
+                <label class="form-check-label" for="role_{{role.roleId}}">
+                  <strong class="text-tpp">{{role.roleName}}</strong>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-tpp border-radius-6px w-100" (click)="clearFilter()">Clear
+          Filter</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal User From -->
+<div class="modal fade" id="userFromModal" tabindex="-1" aria-labelledby="userFromModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-radius-12px">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userFromModalLabel">
+          <strong class="text-tpp" *ngIf="!userForm.userId">Add User</strong>
+          <strong class="text-tpp" *ngIf="userForm.userId">Edit User</strong>
+        </h5>
+        <a data-bs-dismiss="modal" aria-label="Close"><i class='text-tpp font-size-5 bx bxs-x-circle'></i></a>
+      </div>
+      <div class="modal-body bg-modal-body">
+        <div class="row">
+          <div class="col-6">
+            <label for="inputUsername" class="form-label text-tpp"><strong>Username :</strong></label>
+            <input type="text" class="form-control" id="inputUsername" placeholder=""
+              [ngClass]="{'is-invalid': isVerify && !userForm.username}" [(ngModel)]="userForm.username">
+          </div>
+          <div class="col-6">
+            <label for="inputPassword" class="form-label text-tpp"><strong><span class="text-danger">*</span>Password : </strong></label>
+            <input type="password" class="form-control" id="inputPassword" placeholder=""
+              [(ngModel)]="userForm.password" [disabled]="userForm.userId">
+              <small *ngIf="chkPassword && !userForm.userId" class="text-danger">Password is required</small>
+          </div>
+          <div class="col-6 mt-3">
+            <label for="inputName" class="form-label text-tpp"><strong>Name :</strong></label>
+            <input type="text" class="form-control" id="inputName" placeholder=""
+              [(ngModel)]="userForm.name">
+          </div>
+          <div class="col-6 mt-3">
+            <label for="inputLastname" class="form-label text-tpp"><strong>Lastname :</strong></label>
+            <input type="text" class="form-control" id="inputLastname" placeholder=""
+              [(ngModel)]="userForm.lastname">
+          </div>
+          <div class="col-6 mt-3">
+            <label for="inputCompany" class="form-label text-tpp"><strong>Company :</strong></label>
+            <select class="form-select" id="inputCompany" aria-label="Please select" (change)="onSelectCompany()"
+              [ngClass]="{'is-invalid': isVerify && !userForm.companyId}" [(ngModel)]="userForm.companyId" [disabled]="isDisable">
+              <option selected value="">Please select</option>
+              <option value="{{company.companyId}}" *ngFor="let company of companyList">{{company.companyName}}</option>
+            </select>
+          </div>
+          <div class="col-6 mt-3">
+            <label for="inputRole" class="form-label text-tpp"><strong>Role :</strong></label>
+            <select class="form-select" id="inputRole" aria-label="Please select"
+              [ngClass]="{'is-invalid': isVerify && !userForm.roleId}" [(ngModel)]="userForm.roleId"
+              [disabled]="!userForm.companyId">
+              <option selected value="">Please select</option>
+              <option value="{{role.roleId}}" *ngFor="let role of roleList">{{role.roleName}}</option>
+            </select>
+          </div>
+          <div class="col-6 mt-3">
+            <label for="inputEmail" class="form-label text-tpp"><strong>E-mail :</strong></label>
+            <input type="text" class="form-control" id="inputEmail" placeholder=""
+              [(ngModel)]="userForm.email">
+          </div>
+          <div class="col-6 mt-3">
+            <label for="inputProvince" class="form-label text-tpp"><strong>Position :</strong></label>
+            <input type="text" class="form-control" id="inputProvince" placeholder="Position"
+              [(ngModel)]="userForm.position">
+          </div>
+          <div class="col-6 mt-3">
+            <label for="inputTel" class="form-label text-tpp"><strong>Tel :</strong></label>
+            <input type="text" class="form-control" id="inputTel" placeholder=""
+              [(ngModel)]="userForm.tel">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button style="width: 95px;" type="button" class="btn btn-outline-grey rounded-pill me-4"
+          data-bs-dismiss="modal">Cancel</button>
+        <button style="width: 95px;" type="button" class="btn btn-outline-blue rounded-pill"
+          (click)="openMessageSaveModal()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Message Modal -->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content border-radius-12px">
+      <div class="modal-body text-center">
+        <i *ngIf="messageAlert.type == 'error'" style="font-size: 64px;" class='bx bx-error-circle text-danger'></i>
+        <i *ngIf="messageAlert.type == 'success'" style="font-size: 64px;" class="bx bx-check-circle text-success"></i>
+        <h4 [ngClass]="{'text-danger': messageAlert.type == 'error','text-tpp': messageAlert.type == 'success'}">
+          {{messageAlert.title}}
+        </h4>
+        <p>{{messageAlert.detail}}</p>
+      </div>
+      <div class="modal-footer  d-flex justify-content-center">
+        <button type="button" class="btn rounded-pill mx-2 {{btn.class}}" *ngFor="let btn of messageAlert.buttonOption"
+          (click)="btn.action()">{{btn.label}}</button>
+      </div>
+    </div>
+  </div>
+</div>

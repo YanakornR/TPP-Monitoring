@@ -1,0 +1,674 @@
+<div class="container-fluid">
+  <div class="row body-add-device-out-side">
+    <div class="col-12 p-0">
+      <div class="row body-add-device-in-side m-4">
+        <div class="col-12">
+          <h5 class="text-center">
+            <strong class="title-add-device text-light rounded-pill">
+              <i class='bx bxs-plus-circle'></i>
+              ADD DEVICE
+            </strong>
+          </h5>
+          <!-- ------------------------------------- page 1 ------------------------------------- -->
+          <div [ngClass]="{'d-none': isPage != 'page-1', 'd-block': isPage == 'page-1'}">
+            <div class="menu-center">
+              <h5><strong class="text-tpp">Please add device or scan QR Code</strong></h5>
+              <div class="text-center mt-5">
+                <a class="btn btn-add-device me-5" (click)="goPage('page-2-add')">
+                  <i class='bx bxs-plus-circle icon-add-device mt-2'></i>
+                  <div class="mt-2">
+                    <strong>Add Device</strong>
+                  </div>
+                </a>
+                <a class="btn btn-add-device" (click)="goPage('page-2-scan')">
+                  <i class='bx bx-qr-scan icon-add-device mt-2'></i>
+                  <div class="mt-2">
+                    <strong>Scan</strong>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- ------------------------------------- page 2 add ------------------------------------- -->
+          <div [ngClass]="{'d-none': isPage != 'page-2-add', 'd-block': isPage == 'page-2-add'}">
+            <div>
+              <a style="width: 40px;height: 40px; font-size: 30px;" class="btn bg-tpp rounded-circle p-0"
+                (click)="goPage('page-1')">
+                <i class='text-light bx bx-chevron-left'></i>
+              </a>
+            </div>
+            <div class="test-center mt-5">
+              <div class="text-center">
+                <img width="750px" src="./../../../../../assets/img/add-device/part-1.png" alt="">
+              </div>
+              <h5 class="text-center">
+                <strong class="text-tpp">Please select device</strong>
+              </h5>
+              <div class="w-100 px-5 mt-3">
+                <div class="d-flex justify-content-center">
+                  <div style="width: 800px;" class="form-group has-search">
+                    <span class="fa fa-search form-control-feedback"></span>
+                    <input type="text" class="form-control rounded-pill border-tpp text-tpp" placeholder="Search">
+                  </div>
+                </div>
+              </div>
+              <div class="px-5 mt-3 d-flex justify-content-center">
+                <div class="accordion-m" id="option-connect-module">
+                  <div class="accordion-item border-0">
+                    <h2 class="accordion-header" id="heading-tpp-m-module">
+                      <button class="btn rounded-pill text-start" type="button"
+                        [ngClass]="{'btn-connect-module': connectModuleType == 'tpp-m-module','btn-connect-module-disable': connectModuleType != 'tpp-m-module'}"
+                        data-bs-toggle="collapse" data-bs-target="#collapse-tpp-m-module" aria-expanded="true"
+                        (click)="selectConnectModuleType('tpp-m-module')" aria-controls="collapse-tpp-m-module">
+                        TPP M Module
+                      </button>
+                    </h2>
+                    <div id="collapse-tpp-m-module" class="accordion-collapse collapse show"
+                      aria-labelledby="heading-tpp-m-module" data-bs-parent="#option-connect-module">
+                      <div class="accordion-body p-2">
+                        <div class="card w-100">
+                          <div class="row p-2">
+                            <div class="col-3 text-center">
+                              <a class="btn btn-select-module" (click)="goPage('page-3')">
+                                <img class="mt-2" src="./../../../../../assets/img/admin/nm-module-icon.png" alt="">
+                                <div class="mt-3">
+                                  <strong>Name Device</strong>
+                                </div>
+                              </a>
+                            </div>
+                            <div class="col-3 text-center">
+                              <a class="btn btn-select-module" (click)="goPage('page-3')">
+                                <img class="mt-2" src="./../../../../../assets/img/admin/nm-module-icon.png" alt="">
+                                <div class="mt-3">
+                                  <strong>Name Device</strong>
+                                </div>
+                              </a>
+                            </div>
+                            <div class="col-3 text-center">
+                              <a class="btn btn-select-module" (click)="goPage('page-3')">
+                                <img class="mt-2" src="./../../../../../assets/img/admin/nm-module-icon.png" alt="">
+                                <div class="mt-3">
+                                  <strong>Name Device</strong>
+                                </div>
+                              </a>
+                            </div>
+                            <div class="col-3 text-center">
+                              <a class="btn btn-select-module" (click)="goPage('page-3')">
+                                <img class="mt-2" src="./../../../../../assets/img/admin/nm-module-icon.png" alt="">
+                                <div class="mt-3">
+                                  <strong>Name Device</strong>
+                                </div>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item border-0">
+                    <h2 class="accordion-header" id="heading-other-m-module">
+                      <button class="btn rounded-pill text-start" type="button"
+                        [ngClass]="{'btn-connect-module': connectModuleType == 'other-m-module','btn-connect-module-disable': connectModuleType != 'other-m-module'}"
+                        data-bs-toggle="collapse" data-bs-target="#collapse-other-m-module" aria-expanded="true"
+                        (click)="selectConnectModuleType('other-m-module')" aria-controls="collapse-other-m-module">
+                        Other M-Module
+                      </button>
+                    </h2>
+                    <div id="collapse-other-m-module" class="accordion-collapse collapse"
+                      aria-labelledby="heading-other-m-module" data-bs-parent="#option-connect-module">
+                      <div class="accordion-body p-2">
+                        <div class="card w-100" style="height: 150px; overflow-y:auto;">
+                          <label class="text-center mt-5"><strong>not found</strong></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ------------------------------------- page 2 scan ------------------------------------- -->
+          <div [ngClass]="{'d-none': isPage != 'page-2-scan', 'd-block': isPage == 'page-2-scan'}">
+            <div>
+              <a style="width: 40px;height: 40px; font-size: 30px;" class="btn bg-tpp rounded-circle p-0"
+                (click)="goPage('page-1')">
+                <i class='text-light bx bx-chevron-left'></i>
+              </a>
+            </div>
+            <div class="menu-center">
+              <h5><strong class="text-tpp text-center">Please Scan the QR Code on the device or user manual</strong>
+              </h5>
+              <div class="text-center mt-5">
+                <i style="font-size: 175px;" class='bx bx-qr-scan text-tpp-two-tone'></i>
+              </div>
+              <div class="text-center mt-5">
+                <button style="width: 150px;" type="button" class="btn btn-outline-grey rounded-pill me-5">
+                  Select photo
+                </button>
+                <button style="width: 150px;" type="button" class="btn btn-outline-tpp-v2 rounded-pill"
+                  (click)="goPage('page-3')">
+                  Scan
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- ------------------------------------- page 3 ------------------------------------- -->
+          <div [ngClass]="{'d-none': isPage != 'page-3', 'd-block': isPage == 'page-3'}">
+            <div>
+              <a style="width: 40px;height: 40px; font-size: 30px;" class="btn bg-tpp rounded-circle p-0"
+                (click)="goPage('page-1')">
+                <i class='text-light bx bx-chevron-left'></i>
+              </a>
+            </div>
+            <div class="menu-center">
+              <h5 class="text-center">
+                <strong class="text-tpp">If you cannot connect to M-Module, please press the reset
+                  button
+                  as shown below for 5 second. The Wi-Fi will be reset automatically.</strong>
+              </h5>
+              <div class="mt-5">
+                <div class="row">
+                  <div class="col-12 text-center">
+                    <img height="175px;" width="auto" src="./../../../../../assets/img/add-device/icon-hand-click.png"
+                      alt="">
+                  </div>
+                  <div class="col-12 mt-5 d-flex justify-content-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="operationConfirmed">
+                      <label class="form-check-label" for="operationConfirmed">
+                        <strong class="text-tpp">Operation confirmed</strong>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center mt-5">
+                <button style="width: 150px;" type="button" class="btn btn-outline-grey rounded-pill me-5">
+                  Cancel
+                </button>
+                <button style="width: 150px;" type="button" class="btn btn-outline-tpp-v2 rounded-pill"
+                  (click)="goPage('page-4')">
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- ------------------------------------- page 4 ------------------------------------- -->
+          <div [ngClass]="{'d-none': isPage != 'page-4', 'd-block': isPage == 'page-4'}">
+            <div>
+              <a style="width: 40px;height: 40px; font-size: 30px;" class="btn bg-tpp rounded-circle p-0"
+                (click)="goPage('page-1')">
+                <i class='text-light bx bx-chevron-left'></i>
+              </a>
+            </div>
+            <div class="test-center mt-5">
+              <div class="text-center">
+                <img width="750px" src="./../../../../../assets/img/add-device/part-2.png" alt="">
+              </div>
+              <h5 class="text-center">
+                <strong class="text-tpp" *ngIf="!wifi">Please Connect device to internet by choosing channel
+                  below</strong>
+                <strong class="text-tpp" *ngIf="wifi">Connect to the M-Module Select Wi-Fi Network</strong>
+              </h5>
+              <div class="mt-5">
+                <div class="row">
+                  <div class="col-12 d-flex justify-content-center">
+                    <div class="accordion" id="option-connect-device">
+                      <div class="accordion-item border-0">
+                        <h2 class="accordion-header" id="heading-wifi">
+                          <button class="btn rounded-pill text-start"
+                            [ngClass]="{'btn-connect-device': connectType == 'wifi','btn-connect-device-disable': connectType != 'wifi'}"
+                            type="button" data-bs-toggle="collapse" data-bs-target="#collapse-wifi" aria-expanded="true"
+                            (click)="selectConnectType('wifi')" aria-controls="collapse-wifi">
+                            <i class='bx bx-wifi'></i> Wi-Fi
+                          </button>
+                        </h2>
+                        <div id="collapse-wifi" class="accordion-collapse collapse show" aria-labelledby="heading-wifi"
+                          data-bs-parent="#option-connect-device">
+                          <div class="accordion-body p-2">
+                            <div *ngIf="!wifi">
+                              <div class="card w-100" style="height: 150px; overflow-y:auto;">
+                                <a class="d-flex align-items-center mx-2 px-2 py-1 mt-1 item-wifi rounded-pill"
+                                  (click)="selectWifiName('wifi name')">
+                                  <span class="ms-3 me-auto d-flex align-items-center">
+                                    <i style="font-size: 18px;"
+                                      class='bx bx-wifi p-1 bg-light rounded-circle me-2 i-wifi'></i>
+                                    wifi name
+                                  </span>
+                                  <span class="me-3"><i class='bx bxs-lock-alt'></i></span>
+                                </a>
+                                <a class="d-flex align-items-center mx-2 px-2 py-1 mt-1 item-wifi rounded-pill"
+                                  (click)="selectWifiName('wifi name')">
+                                  <span class="ms-3 me-auto d-flex align-items-center">
+                                    <i style="font-size: 18px;"
+                                      class='bx bx-wifi p-1 bg-light rounded-circle me-2 i-wifi'></i>
+                                    wifi name
+                                  </span>
+                                  <span class="me-3"><i class='bx bxs-lock-alt'></i></span>
+                                </a>
+                                <a class="d-flex align-items-center mx-2 px-2 py-1 mt-1 item-wifi rounded-pill"
+                                  (click)="selectWifiName('wifi name')">
+                                  <span class="ms-3 me-auto d-flex align-items-center">
+                                    <i style="font-size: 18px;"
+                                      class='bx bx-wifi p-1 bg-light rounded-circle me-2 i-wifi'></i>
+                                    wifi name
+                                  </span>
+                                  <span class="me-3"><i class='bx bxs-lock-alt'></i></span>
+                                </a>
+                                <a class="d-flex align-items-center mx-2 px-2 py-1 mt-1 item-wifi rounded-pill"
+                                  (click)="selectWifiName('wifi name')">
+                                  <span class="ms-3 me-auto d-flex align-items-center">
+                                    <i style="font-size: 18px;"
+                                      class='bx bx-wifi p-1 bg-light rounded-circle me-2 i-wifi'></i>
+                                    wifi name
+                                  </span>
+                                  <span class="me-3"><i class='bx bxs-lock-alt'></i></span>
+                                </a>
+                                <a class="d-flex align-items-center mx-2 px-2 py-1 mt-1 item-wifi rounded-pill"
+                                  (click)="selectWifiName('wifi name')">
+                                  <span class="ms-3 me-auto d-flex align-items-center">
+                                    <i style="font-size: 18px;"
+                                      class='bx bx-wifi p-1 bg-light rounded-circle me-2 i-wifi'></i>
+                                    wifi name
+                                  </span>
+                                  <span class="me-3"><i class='bx bxs-lock-alt'></i></span>
+                                </a>
+                                <a class="d-flex align-items-center mx-2 px-2 py-1 mt-1 item-wifi rounded-pill"
+                                  (click)="selectWifiName('wifi name')">
+                                  <span class="ms-3 me-auto d-flex align-items-center">
+                                    <i style="font-size: 18px;"
+                                      class='bx bx-wifi p-1 bg-light rounded-circle me-2 i-wifi'></i>
+                                    wifi name
+                                  </span>
+                                  <span class="me-3"><i class='bx bxs-lock-alt'></i></span>
+                                </a>
+                                <a class="d-flex align-items-center mx-2 px-2 py-1 mt-1 item-wifi rounded-pill"
+                                  (click)="selectWifiName('wifi name')">
+                                  <span class="ms-3 me-auto d-flex align-items-center">
+                                    <i style="font-size: 18px;"
+                                      class='bx bx-wifi p-1 bg-light rounded-circle me-2 i-wifi'></i>
+                                    wifi name
+                                  </span>
+                                  <span class="me-3"><i class='bx bxs-lock-alt'></i></span>
+                                </a>
+                              </div>
+                            </div>
+                            <div *ngIf="wifi">
+                              <div class="card w-100" style="width: 18rem;">
+                                <span class="d-flex align-items-center mx-2 px-2 pb-2 mt-4 border-bottom">
+                                  <span class="ms-3 me-auto d-flex align-items-center">
+                                    <i style="font-size: 18px;" class='bx bx-wifi p-1 bg-light rounded-circle me-2'></i>
+                                    wifi name
+                                  </span>
+                                  <span class="me-3"><i class='bx bxs-lock-alt'></i></span>
+                                </span>
+                                <div class="text-center mx-2 mt-3 mb-4">
+                                  <mat-form-field appearance="fill" class="w-100 pb-2 border-bottom">
+                                    <input matInput [type]="(hide) ? 'password' : 'text'" placeholder="***********">
+                                    <button mat-icon-button matSuffix (click)="hide = !hide"
+                                      [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                      <mat-icon>{{(hide) ? 'visibility' : 'visibility_off'}}</mat-icon>
+                                    </button>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                              <div class="mt-3">
+                                <div class="row">
+                                  <div class="col-12 text-center">
+                                    <button style="width: 150px;" type="button"
+                                      class="btn btn-outline-grey rounded-pill me-5">
+                                      Cancel
+                                    </button>
+                                    <button style="width: 150px;" type="button"
+                                      class="btn btn-outline-tpp-v2 rounded-pill" (click)="goPage('page-5')">
+                                      Next
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="!wifi" class="accordion-item border-0">
+                          <h2 class="accordion-header" id="heading-lan">
+                            <button class="btn rounded-pill text-start" type="button"
+                              [ngClass]="{'btn-connect-device': connectType == 'lan','btn-connect-device-disable': connectType != 'lan'}"
+                              data-bs-toggle="collapse" data-bs-target="#collapse-lan" aria-expanded="true"
+                              (click)="selectConnectType('lan')" aria-controls="collapse-lan">
+                              <i class='bx bx-share-alt bx-rotate-90'></i> LAN
+                            </button>
+                          </h2>
+                          <div id="collapse-lan" class="accordion-collapse collapse" aria-labelledby="heading-lan"
+                            data-bs-parent="#option-connect-device">
+                            <div class="accordion-body p-2">
+                              <div class="card w-100" style="height: 150px; overflow-y:auto;">
+                                <label class="text-center mt-5"><strong>not found</strong></label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="!wifi" class="accordion-item border-0">
+                          <h2 class="accordion-header" id="heading-4g">
+                            <button class="btn rounded-pill text-start" type="button"
+                              [ngClass]="{'btn-connect-device': connectType == '4g','btn-connect-device-disable': connectType != '4g'}"
+                              data-bs-toggle="collapse" data-bs-target="#collapse-4g" aria-expanded="true"
+                              (click)="selectConnectType('4g')" aria-controls="collapse-4g">
+                              <i class='bx bx-signal-5'></i> 4G
+                            </button>
+                          </h2>
+                          <div id="collapse-4g" class="accordion-collapse collapse" aria-labelledby="heading-4g"
+                            data-bs-parent="#option-connect-device">
+                            <div class="accordion-body p-2">
+                              <div class="card w-100" style="height: 150px; overflow-y:auto;">
+                                <label class="text-center mt-5"><strong>not found</strong></label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ------------------------------------- page 5 ------------------------------------- -->
+          <div [ngClass]="{'d-none': isPage != 'page-5', 'd-block': isPage == 'page-5'}">
+            <div>
+              <a style="width: 40px;height: 40px; font-size: 30px;" class="btn bg-tpp rounded-circle p-0"
+                (click)="goPage('page-4')">
+                <i class='text-light bx bx-chevron-left'></i>
+              </a>
+            </div>
+            <div class="test-center mt-5">
+              <div class="text-center">
+                <img width="750px" src="./../../../../../assets/img/add-device/part-3.png" alt="">
+              </div>
+              <h5 class="text-center">
+                <strong class="text-tpp">M-Module is connecting please wait untill connect</strong>
+              </h5>
+              <div class="mt-3">
+                <h1 class="text-tpp-two-tone text-center"><strong>00:{{time}}:00</strong></h1>
+              </div>
+              <div class="mt-3 text-center">
+                <img class="img-loader" src="./../../../../../assets/img/add-device/gradient-loader.png" alt="">
+
+                <img class="img-loader-logo" src="./../../../../../assets/img/add-device/tpp-logo-loader.png" alt="">
+              </div>
+            </div>
+          </div>
+          <!-- ------------------------------------- page 6 ------------------------------------- -->
+          <div [ngClass]="{'d-none': isPage != 'page-6', 'd-block': isPage == 'page-6'}">
+            <div class="d-flex">
+              <a style="width: 40px;height: 40px; font-size: 30px;" class="btn bg-tpp rounded-circle p-0 me-auto"
+                (click)="goPage('page-5')">
+                <i class='text-light bx bx-chevron-left'></i>
+              </a>
+              <a class="btn btn-outline-tpp rounded-pill px-4" (click)="saveAddress()">
+                Save
+              </a>
+            </div>
+            <div class="test-center mt-5">
+              <div class="text-center">
+                <img width="750px" src="./../../../../../assets/img/add-device/part-4.png" alt="">
+              </div>
+              <h5 class="text-center">
+                <strong class="text-tpp">Please fill in detail</strong>
+              </h5>
+              <div class="row">
+                <div class="col-3 d-flex justify-content-center">
+                  <img height="230px" src="./../../../../../assets/img/add-device/tpp-device-logo.png" alt="">
+                </div>
+                <div class="col-9">
+                  <div class="row">
+                    <div class="col-6 px-4">
+                      <div class="mb-3 row">
+                        <label for="inputMmoduleName" class="col-sm-5 col-form-label">Create your M-module name<span
+                            class="text-danger">*</span></label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="inputMmoduleName"
+                            value="">
+                        </div>
+                      </div>
+                      <div class="mb-3 row">
+                        <label for="inputModuleSN" class="col-sm-5 col-form-label">M-module S/N</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="inputModuleSN"
+                            value="">
+                        </div>
+                      </div>
+                      <div class="mb-3 row">
+                        <label for="inputSiteName" class="col-sm-5 col-form-label">Site name<span
+                            class="text-danger">*</span></label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="inputSiteName"
+                            value="">
+                        </div>
+                      </div>
+                      <div class="mb-3 row">
+                        <label for="inputCustomerName" class="col-sm-5 col-form-label">Customer name<span
+                            class="text-danger">*</span></label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="inputCustomerName"
+                            value="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-6 px-4">
+                      <div class="mb-3 row">
+                        <label for="inputLocationType" class="col-sm-5 col-form-label">Location type</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="inputLocationType"
+                            value="">
+                        </div>
+                      </div>
+                      <div class="mb-3 row">
+                        <label for="inputNote1" class="col-sm-5 col-form-label">Note 1</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="inputNote1" value="">
+                        </div>
+                      </div>
+                      <div class="mb-3 row">
+                        <label for="inputNote2" class="col-sm-5 col-form-label">Note 2</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="inputNote2" value="">
+                        </div>
+                      </div>
+                      <div class="mb-3 row">
+                        <label for="inputQBattery" class="col-sm-5 col-form-label">Q'ty battery (intial time)</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" id="inputQBattery"
+                            value="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 px-4">
+                      <div class="mb-3 row">
+                        <label for="inputLocation" class="col-sm-2 col-form-label">Location<span
+                            class="text-danger">*</span></label>
+                        <div class="col-sm-10 ps-5 d-flex">
+                          <button type="button"
+                            class="btn btn-outline-blue me-2 d-flex align-items-center rounded-pill">
+                            <i class='bx bx-current-location me-1'></i> Use current location
+                          </button>
+                          <button type="button"
+                            class="btn btn-outline-grey me-2 d-flex align-items-center rounded-pill">
+                            <i class='bx bx-world me-1'></i> See on map
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 px-4">
+                      <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-10 ps-5">
+                          <div class="card bg-grey rounded-3 p-2">
+                            <div class="row">
+                              <div class="col-12 d-flex">
+                                <span class="me-auto">Address 1</span>
+                                <div *ngIf="editAddress" class="d-flex align-items-center">
+                                  <i class='bx bx-save text-tpp me-1' (click)="saveAddress()"></i>
+                                  <i class='bx bx-x-circle text-tpp' (click)="editAddress = false"></i>
+                                </div>
+                                <div *ngIf="!editAddress" class="d-flex align-items-center">
+                                  <i class='bx bxs-pencil text-tpp me-1' (click)="editAddress = true"></i>
+                                  <i class='bx bx-trash text-tpp' (click)="deleteAddress()"></i>
+                                </div>
+                              </div>
+                              <div class="col-12">
+                                <div class="w-100 border-top my-1"></div>
+                                <div class="mb-1 input-address-1 row">
+                                  <div class="col-sm-5 col-form-label d-flex">
+                                    <span class="ms-auto me-auto">Address</span>
+                                    <span> : </span>
+                                  </div>
+                                  <div class="col-sm-7">
+                                    <input type="text" id="inputAddress" [readonly]="!editAddress"
+                                      [ngClass]="{'form-control-plaintext': !editAddress , 'form-control': editAddress }"
+                                      placeholder="">
+                                  </div>
+                                </div>
+                                <div class="mb-1 input-address-1 row">
+                                  <div class="col-sm-5 col-form-label d-flex">
+                                    <span class="ms-auto me-auto">Road</span>
+                                    <span> : </span>
+                                  </div>
+                                  <div class="col-sm-7">
+                                    <input type="text" id="inputRoad" [readonly]="!editAddress"
+                                      [ngClass]="{'form-control-plaintext': !editAddress , 'form-control': editAddress }"
+                                      placeholder="">
+                                  </div>
+                                </div>
+                                <div class="mb-1 input-address-1 row">
+                                  <div class="col-sm-5 col-form-label d-flex">
+                                    <span class="ms-auto me-auto">District</span>
+                                    <span> : </span>
+                                  </div>
+                                  <div class="col-sm-7">
+                                    <input type="text" id="inputDistrict" [readonly]="!editAddress"
+                                      [ngClass]="{'form-control-plaintext': !editAddress , 'form-control': editAddress }"
+                                      placeholder="">
+                                  </div>
+                                </div>
+                                <div class="mb-1 input-address-1 row">
+                                  <div class="col-sm-5 col-form-label d-flex">
+                                    <span class="ms-auto me-auto">Province</span>
+                                    <span> : </span>
+                                  </div>
+                                  <div class="col-sm-7">
+                                    <input type="text" id="inputProvince" [readonly]="!editAddress"
+                                      [ngClass]="{'form-control-plaintext': !editAddress , 'form-control': editAddress }"
+                                      placeholder="">
+                                  </div>
+                                </div>
+                                <div class="mb-1 input-address-1 row">
+                                  <div class="col-sm-5 col-form-label d-flex">
+                                    <span class="ms-auto me-auto">Postcode</span>
+                                    <span> : </span>
+                                  </div>
+                                  <div class="col-sm-7">
+                                    <input type="text" id="inputPostcode" [readonly]="!editAddress"
+                                      [ngClass]="{'form-control-plaintext': !editAddress , 'form-control': editAddress }"
+                                      placeholder="">
+                                  </div>
+                                </div>
+                                <div class="mb-1 input-address-1 row">
+                                  <div class="col-sm-5 col-form-label d-flex">
+                                    <span class="ms-auto me-auto">Lat, Long</span>
+                                    <span> : </span>
+                                  </div>
+                                  <div class="col-sm-7">
+                                    <input type="text" id="inputLatLong" [readonly]="!editAddress"
+                                      [ngClass]="{'form-control-plaintext': !editAddress , 'form-control': editAddress }"
+                                      placeholder="">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ------------------------------------- page 7 ------------------------------------- -->
+          <div [ngClass]="{'d-none': isPage != 'page-7', 'd-block': isPage == 'page-7'}">
+            <div class="d-flex">
+              <a style="width: 40px;height: 40px; font-size: 30px;" class="btn bg-tpp rounded-circle p-0 me-auto"
+                (click)="goPage('page-6')">
+                <i class='text-light bx bx-chevron-left'></i>
+              </a>
+            </div>
+            <div class="test-center mt-5">
+              <div class="text-center">
+                <img width="750px" src="./../../../../../assets/img/add-device/part-5.png" alt="">
+
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col-12 d-flex justify-content-center">
+                <div class="card shadow w-25">
+                  <div class="card-body">
+                    <div class="text-center">
+                      <i style="font-size: 72px;" class="bx bx-check-circle text-success"></i>
+                      <h3 class="text-tpp">You're all set!</h3>
+                      <p>M-module is now connected.</p>
+                    </div>
+                    <div class="border-bottom pb-2">
+                      <div class="row px-4">
+                        <div class="col-6 col-form-label text-center">
+                          <strong>Module S/N</strong>
+                        </div>
+                        <div class="col-6">
+                          <button style="padding: 2px 10px;"
+                            class="btn btn-tpp-v2 w-100 rounded-pill">ABCDEFGHIJK</button>
+                        </div>
+                      </div>
+                      <div class="row px-4">
+                        <div class="col-6 col-form-label text-center">
+                          <strong>M-Module name</strong>
+                        </div>
+                        <div class="col-6">
+                          <button style="padding: 2px 10px;"
+                            class="btn btn-tpp-v2 w-100 rounded-pill">ABCDEFGHIJK</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-center mt-2">
+                      <a class="btn btn-outline-tpp px-4 rounded-pill" [routerLink]="['/admin/nm-module']">OK</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message Modal -->
+  <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content border-radius-12px">
+        <div class="modal-body text-center">
+          <i *ngIf="messageAlert.type == 'error'" style="font-size: 64px;" class='bx bx-error-circle text-danger'></i>
+          <i *ngIf="messageAlert.type == 'success'" style="font-size: 64px;"
+            class="bx bx-check-circle text-success"></i>
+          <h4 [ngClass]="{'text-danger': messageAlert.type == 'error','text-tpp': messageAlert.type == 'success'}">
+            {{messageAlert.title}}
+          </h4>
+          <p>{{messageAlert.detail}}</p>
+        </div>
+        <div class="modal-footer  d-flex justify-content-center">
+          <button type="button" class="btn rounded-pill mx-2 {{btn.class}}"
+            *ngFor="let btn of messageAlert.buttonOption" (click)="btn.action()">{{btn.label}}</button>
+        </div>
+      </div>
+    </div>
+  </div>

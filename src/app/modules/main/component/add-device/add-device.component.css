@@ -1,0 +1,161 @@
+.body-add-device-out-side {
+  position: absolute;
+  width: 96%;
+  margin: 2%;
+  background: linear-gradient(#59CDE9 -85.48%, #0A2A88 178.89%);
+  border-radius: 12px;
+}
+
+.body-add-device-in-side {
+  background: #FFFFFF;
+  border-radius: 10px;
+  height: 720px;
+}
+
+.title-add-device {
+  background: #3F96C7;
+  padding: 5px 15px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.menu-center {
+  left: 50%;
+  top: 45%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.btn-add-device {
+  width: 125px;
+  height: 125px;
+  color: #3676B4;
+  box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+}
+
+.btn-add-device:hover {
+  color: #FFFFFF;
+  background: linear-gradient(#59CDE9 -85.48%, #0A2A88 178.89%);
+}
+
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #3676B4;
+}
+
+.btn-select-module {
+  width: 130px;
+  height: 130px;
+  color: #3676B4;
+  box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+}
+
+.btn-select-module:hover {
+  color: #FFFFFF;
+  background: linear-gradient(#59CDE9 -85.48%, #0A2A88 178.89%);
+}
+
+.icon-add-device {
+  font-size: 51px;
+}
+
+.text-tpp-two-tone {
+  background: -webkit-linear-gradient(357.85deg, #59CDE9 -85.48%, #0A2A88 178.89%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-connect-module {
+  background: linear-gradient(#59CDE9 -85.48%, #0A2A88 178.89%);
+  color: #FFFFFF;
+  width: 800px;
+  height: 38px;
+}
+
+.btn-connect-module-disable {
+  background: linear-gradient(#DCDDDE -85.48%, #898A8B 178.89%);
+  color: #FFFFFF;
+  width: 800px;
+  height: 38px;
+}
+
+.accordion-m {
+  width: 800px;
+}
+
+.btn-connect-device {
+  background: linear-gradient(#59CDE9 -85.48%, #0A2A88 178.89%);
+  color: #FFFFFF;
+  width: 375px;
+  height: 38px;
+}
+
+.btn-connect-device-disable {
+  background: linear-gradient(#DCDDDE -85.48%, #898A8B 178.89%);
+  color: #FFFFFF;
+  width: 375px;
+  height: 38px;
+}
+
+.accordion {
+  width: 375px;
+}
+
+.item-wifi {
+  color: black;
+}
+
+.item-wifi:hover {
+  background: #3676B4;
+  color: #FFFFFF;
+}
+
+.item-wifi:hover .i-wifi {
+  color: #3676B4;
+}
+
+.img-loader {
+  width: 265px;
+  height: 265px;
+  animation: loader 2s;
+  transform: rotate(-90deg);
+  animation-iteration-count: infinite;
+}
+
+.img-loader-logo {
+  position: absolute;
+  transform: translate(-100%, 0%);
+  width: 265px;
+  height: 265px;
+}
+
+@keyframes loader {
+  from {
+    transform: rotate(-90deg);
+  }
+
+  to {
+    transform: rotate(270deg);
+  }
+}
+
+.input-address-1 input {
+  padding: 2px 10px;
+}
+
+.input-address-1 .col-form-label {
+  padding: 2px 10px;
+}

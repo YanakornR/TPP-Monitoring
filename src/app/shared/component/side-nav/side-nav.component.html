@@ -1,0 +1,223 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top p-0">
+  <div class="container-fluid">
+    <div class="navbar-brand m-0 border-end" href="#">
+      <button class="btn d-flex" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu"
+        aria-controls="sidebarMenu">
+        <i class='bx bx-menu list-icon align-items-center' style="color: #3577b4;font-size: 30px;"></i>
+      </button>
+    </div>
+    <ul class="navbar-nav me-auto">
+      <li class="nav-item border-end">
+        <a class="nav-link active p-2" [routerLink]="['/home']" style="display: flex;align-items: center;">
+          <img src="assets/img/TPP-blue-logo.png" class="d-inline-block align-text-top img-logo">
+          <span class="text-logo">TPP Power Monitoring</span>
+        </a>
+      </li>
+      <li class="nav-item" *ngIf="!regionNavigat && !mobile">
+        <a *ngIf="titleNavigat === 'Home'" class="nav-link active p-2" [routerLink]="['/home']" style="display: flex;align-items: center;margin-top: 3px;">
+          <img src="assets/img/home-icon.png" class="d-inline-block align-text-top img-logo" style="width: 20px;height: auto;">
+          <span class="text-logo">{{titleNavigat}}</span>
+        </a>
+
+        <a *ngIf="titleNavigat === 'Profile'"  class="nav-link active p-2" [routerLink]="['/edit-profile']" style="display: flex;align-items: center;margin-top: 3px;">
+          <img src="assets/img/profile-icon.png" class="d-inline-block align-text-top img-logo" style="width: 20px;height: auto;">
+          <span class="text-logo">{{titleNavigat}}</span>
+        </a>
+
+        <a *ngIf="titleNavigat === 'Add device'" class="nav-link active p-2" [routerLink]="['/add-device']" style="display: flex;align-items: center;margin-top: 3px;">
+          <img  src="assets/img/addDevice-icon.png" class="d-inline-block align-text-top img-logo"
+            style="width: 20px;height: auto;">
+          <span class="text-logo">{{titleNavigat}}</span>
+        </a>
+
+        <a *ngIf="titleNavigat === 'Energy Saving'" class="nav-link active p-2" [routerLink]="['/energy-saving']" style="display: flex;align-items: center;margin-top: 3px;">
+          <img  src="assets/img/report-icon.png" class="d-inline-block align-text-top img-logo"
+            style="width: 15px;height: auto;">
+          <span class="text-logo">{{titleNavigat}}</span>
+        </a>
+
+        <a *ngIf="titleNavigat === 'Report'" class="nav-link active p-2" [routerLink]="['/report']" style="display: flex;align-items: center;margin-top: 3px;">
+          <img  src="assets/img/report-icon.png" class="d-inline-block align-text-top img-logo" style="width: 15px;height: auto;">
+          <span class="text-logo">{{titleNavigat}}</span>
+        </a>
+
+        <a *ngIf="titleNavigat === 'Support'" class="nav-link active p-2" [routerLink]="['/support']" style="display: flex;align-items: center;margin-top: 3px;">
+          <img  src="assets/img/report-icon.png" class="d-inline-block align-text-top img-logo" style="width: 15px;height: auto;">
+          <span class="text-logo">{{titleNavigat}}</span>
+        </a>
+        
+        <a *ngIf="titleNavigat === 'Admin'" class="nav-link active p-2" [routerLink]="['/admin/nm-module']" style="display: flex;align-items: center;margin-top: 3px;">
+         <img *ngIf="titleNavigat === 'Admin'" src="assets/img/admin-icon.png" class="d-inline-block align-text-top img-logo" style="width: 20px;height: auto;">
+          <span class="text-logo">{{titleNavigat}}</span>
+        </a>
+      </li>
+      
+      <li class="nav-item" *ngIf="regionNavigat && !mobile">
+        <a class="nav-link active p-2" style="display: flex;align-items: center;margin-top: 3px;">
+          <img src="assets/img/back-icon.png" class="d-inline-block align-text-top img-logo"
+            style="width: 20px;height: auto;">
+          <span class="text-logo">
+            <a *ngIf="regionNavigat" [routerLink]="['/home']"><span style="text-transform: capitalize; color: black" >All Region</span></a>
+            <a *ngIf="regionNavigat" [routerLink]="['/region/' , regionNavigat.regionId]"><span style="text-transform: capitalize; color: black" > / {{regionNavigat.regionName}}</span></a>
+            <a *ngIf="provinceNavigat" [routerLink]="['/region/', regionNavigat.regionId, provinceNavigat.provinceId ]"><span style="text-transform: capitalize; color: black"> / {{provinceNavigat.provinceName}}</span></a>
+            <a *ngIf="siteNavigat" [routerLink]="['/region/', regionNavigat.regionId, provinceNavigat.provinceId, siteNavigat.siteId ]"><span style="color: black"> / {{siteNavigat.siteName}}</span></a>
+            <a *ngIf="summaryNavigat" [routerLink]="['/region/', regionNavigat.regionId, provinceNavigat.provinceId, siteNavigat.siteId, 'summary' ]"><span style="color: black"> / Summary</span></a>
+          </span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="dropdown">
+      <a class="btn dropdown-toggle" type="button" id="dropdownProfile" data-bs-toggle="dropdown" aria-expanded="false">
+        <img [src]="'data:image/jpg;base64,'+profileImg" class="profile-img me-2" /> <span *ngIf="!this.mobile">Hi,
+          {{profileName}} <strong style="margin: 0px 5px;"
+            [ngClass]="{'label-role-superadmin': labelProfileRole === 'S' ,
+            'label-role-master': labelProfileRole === 'M' ,
+            'label-role-admin': labelProfileRole === 'A' ,
+            'label-role-user': labelProfileRole === 'U'}">{{labelProfileRole}}</strong></span>
+      </a>
+      <div class="dropdown-menu dropdown-menu-end profile-popup p-0" aria-labelledby="dropdownProfile">
+        <div class="m-2">
+          <div>
+            <div class="row m-0 header-popup">
+              <div class="col-6 p-0">
+                <label class="text-title ms-2">Welcome!</label>
+                <label class="text-name ms-2">{{profileName}}.</label>
+              </div>
+              <div class="col-6 d-flex align-items-center justify-content-end p-0">
+                <a class="d-flex align-items-center">
+                  <i class='bx bxs-x-circle text-close me-2'></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="row mt-3">
+              <div class="col-12 d-flex justify-content-center">
+                <div class="div-img-user">
+                  <img class="img-user" [src]="'data:image/jpg;base64,'+profileImg" />
+                  <div class="status-user">
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <label class="text-center w-100 text-name mt-4">
+                  <strong
+                    [ngClass]="{'role-master': labelProfileRole === 'M' ,
+                  'role-superadmin': labelProfileRole === 'S' , 'role-admin': labelProfileRole === 'A' ,'role-user': labelProfileRole === 'U'}">{{ profileRoleName | titlecase }} ({{ profileRole | titlecase }})</strong>
+                </label>
+              </div>
+              <div class="col-12">
+                <label class="text-center w-100 text-name mt-4">
+                  <span><strong>{{profileFullname}}</strong> <strong
+                      [ngClass]="{'label-role-superadmin': labelProfileRole === 'S' , 'label-role-master': labelProfileRole === 'M' , 'label-role-admin': labelProfileRole === 'A' , 'label-role-user': labelProfileRole === 'U'}">{{labelProfileRole}}</strong></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="border-top mt-3 pt-2">
+            <a class="btn w-100 color-tpp" [routerLink]="['/edit-profile']" (click)="setTitel('Profile')">
+              <strong class="d-flex align-items-center">
+                <i class='bx bxs-message-square-edit text-title me-2'></i>
+                Edit Profile
+              </strong>
+            </a>
+            <a class="btn w-100 color-tpp" (click)="logout()">
+              <strong class="d-flex align-items-center">
+                <i class='bx bx-log-in-circle text-title me-2'></i>
+                Log out
+              </strong>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="offcanvas offcanvas-start sidebar-menu" data-bs-backdrop="false" tabindex="-1" id="sidebarMenu"
+  aria-labelledby="sidebarMenu">
+  <div class="offcanvas-header pb-0">
+    <h6 class="offcanvas-title">Menu</h6>
+  </div>
+  <div class="offcanvas-body pt-0">
+    <div>
+      <a class="mt-2 w-100 text-start sidebar-text d-flex align-items-center text-dark py-1" data-bs-toggle="offcanvas"
+        data-bs-target="#sidebarMenu" [routerLink]="['/home']" (click)="setTitel('Home')">
+        <i class='bx bx-desktop sidebar-icon me-1'></i> Home
+      </a>
+    </div>
+    <div class="accordion" id="reginonMenu">
+      <div class="accordion-item border-0 bg-sidebar py-1">
+        <div class="accordion-header" id="reginon-menu">
+          <a class="mt-2 w-100 text-start sidebar-text d-flex align-items-center text-dark" data-bs-toggle="collapse"
+            data-bs-target="#reginon-menu-collapse" aria-expanded="false" aria-controls="reginon-menu-collapse">
+            <i class='bx bxs-down-arrow me-1' style="color: #A6ABC8;"></i>
+            <i class='bx bx-world sidebar-icon me-1'></i>
+            All Region
+          </a>
+        </div>
+        <div id="reginon-menu-collapse" class="accordion-collapse collapse" aria-labelledby="reginon-menu"
+          data-bs-parent="#reginonMenu">
+          <div class="accordion-body py-0">
+            <ul class="sidebar-text mb-0">
+              <li *ngIf="accessPage.northern" style="color: #A6ABC8; margin-top: 0.5rem;"><a class="text-dark" data-bs-toggle="offcanvas"
+                  data-bs-target="#sidebarMenu" [routerLink]="['/region/1']" (click)="sendRegionNav('Northern')">Northern</a></li>
+              <li *ngIf="accessPage.central" style="color: #A6ABC8; margin-top: 0.5rem;"><a class="text-dark" data-bs-toggle="offcanvas"
+                  data-bs-target="#sidebarMenu" [routerLink]="['/region/2']" (click)="sendRegionNav('Central')">Central</a></li>
+              <li *ngIf="accessPage.western" style="color: #A6ABC8; margin-top: 0.5rem;"><a class="text-dark" data-bs-toggle="offcanvas"
+                  data-bs-target="#sidebarMenu" [routerLink]="['/region/3']" (click)="sendRegionNav('Western')">Western</a></li>
+              <li *ngIf="accessPage.northeastern" style="color: #A6ABC8; margin-top: 0.5rem;"><a class="text-dark" data-bs-toggle="offcanvas"
+                  data-bs-target="#sidebarMenu" [routerLink]="['/region/4']" (click)="sendRegionNav('Northeastern')">Northeastern</a></li>
+              <li *ngIf="accessPage.eastern" style="color: #A6ABC8; margin-top: 0.5rem;"><a class="text-dark" data-bs-toggle="offcanvas"
+                  data-bs-target="#sidebarMenu" [routerLink]="['/region/5']" (click)="sendRegionNav('Eastern')">Eastern</a></li>
+              <li *ngIf="accessPage.southern" style="color: #A6ABC8; margin-top: 0.5rem;"><a class="text-dark" data-bs-toggle="offcanvas"
+                  data-bs-target="#sidebarMenu" [routerLink]="['/region/6']" (click)="sendRegionNav('Southern')">Southern</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <a *ngIf="accessPage.report" class="mt-2 w-100 text-start sidebar-text d-flex align-items-center text-dark py-1" data-bs-toggle="offcanvas"
+        data-bs-target="#sidebarMenu" [routerLink]="['/report']" (click)="setTitel('Report')">
+        <i class='bx bxs-report sidebar-icon me-1'></i>Report
+      </a>
+      <a class="mt-2 w-100 text-start sidebar-text d-flex align-items-center text-dark py-1" data-bs-toggle="offcanvas"
+        data-bs-target="#sidebarMenu" [routerLink]="['/add-device']" (click)="setTitel('Add device')">
+        <i class='bx bxs-plus-circle sidebar-icon me-1'></i>Add device
+      </a>
+      <a class="mt-2 w-100 text-start sidebar-text d-flex align-items-center text-dark py-1" data-bs-toggle="offcanvas"
+        data-bs-target="#sidebarMenu" [routerLink]="['/energy-saving']" (click)="setTitel('Energy Saving')">
+        <i class='bx bxs-report sidebar-icon me-1'></i>Energy Saving Summary
+      </a>
+    </div>
+    <div class="accordion mt-2" id="othersListMenu">
+      <div class="accordion-item border-0 bg-sidebar py-1">
+        <div class="accordion-header" id="others-list-menu">
+          <a class="w-100 text-start sidebar-text d-flex align-items-center text-dark" type="button"
+            data-bs-toggle="collapse" data-bs-target="#others-list-menu-collapse" aria-expanded="false"
+            aria-controls="others-list-menu-collapse">
+            <i class='bx bxs-down-arrow me-1' style="color: #A6ABC8;"></i>Others
+          </a>
+        </div>
+        <div id="others-list-menu-collapse" class="accordion-collapse collapse" aria-labelledby="others-list-menu"
+          data-bs-parent="#othersListMenu">
+          <div class="accordion-body py-0">
+            <ul class="sidebar-text list-unstyled p-0">
+              <li><a class="mt-2 d-flex align-items-center text-dark" data-bs-toggle="offcanvas"
+                  data-bs-target="#sidebarMenu" [routerLink]="['/contact-us']" (click)="setTitel('Contact us')"><i
+                    class='bx bxs-contact sidebar-icon me-1' ></i>Contact us</a></li>
+              <li *ngIf="accessPage.admin"><a class="mt-2 d-flex align-items-center text-dark" data-bs-toggle="offcanvas"
+                  data-bs-target="#sidebarMenu" [routerLink]="['/admin/nm-module']" (click)="setTitel('Admin')"><i
+                    class='bx bxs-user sidebar-icon me-1' ></i>Admin</a></li>
+              <li><a class="mt-2 d-flex align-items-center text-dark" data-bs-toggle="offcanvas"
+                  data-bs-target="#sidebarMenu" [routerLink]="['/support']" (click)="setTitel('Support')"><i
+                    class='bx bxs-message-detail sidebar-icon me-1' ></i>Support</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

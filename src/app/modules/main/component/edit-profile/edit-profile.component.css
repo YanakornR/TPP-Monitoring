@@ -1,0 +1,182 @@
+.card-cs {
+  border-radius: 25px;
+  background-color: white;
+  margin-top: 25px;
+  margin-left: 1%;
+  margin-right: 1%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  -o-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  overflow: hidden;
+}
+
+.img-report {
+  width: 30px;
+  height: 30px;
+  vertical-align: sub;
+}
+
+.img-profile {
+  width: 100px;
+  height: 100px !important;
+  vertical-align: sub;
+  object-fit: fill;
+  object-position: center center;
+  border-radius: 10rem;
+}
+
+.title {
+  width: fit-content;
+  margin-left: 30px;
+  margin-right: 20px;
+  position: relative;
+}
+
+.row-title {
+  margin-top: 20px;
+}
+
+.text-report-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 20px;
+  color: #0072be;
+}
+
+.hr-info-body {
+  margin-left: 12px;
+  margin-right: 15px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  height: 0.5px;
+}
+
+.btn-tpp {
+  margin: 0px 10px;
+  width: 100px;
+  background-color: #3676b4;
+  border-color: #3676b4;
+  border-radius: 20px;
+}
+
+.btn-tpp-cancel {
+  margin: 0px 10px;
+  width: 100px;
+  border-radius: 20px;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.container img {
+  /* width: 100%; */
+  height: auto;
+}
+
+.container .btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  /* background-color: #555; */
+  color: white;
+  font-size: 30px;
+  /* padding: 12px 24px; */
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.container .btn:hover {
+  background-color: #fff0;
+}
+
+.invalid {
+  border-color: red;
+}
+
+.valid{
+  order: 1px solid #ced4da;
+}
+
+.role-master {
+  text-transform: capitalize;
+  background: linear-gradient(to right, #FF0001, #FF8F28);
+  border-radius: 15px;
+  padding: 5px 10px;
+  color: white;
+  border: none;
+}
+
+.label-role-master {
+  padding: 2px 4.5px;
+  background: linear-gradient(to right, #FF0001, #FF8F28);
+  border-radius: 10px;
+  color: white;
+  margin-left: 10px;
+  padding-bottom: 4.5px;
+  border: none;
+}
+
+.role-superadmin {
+  text-transform: capitalize;
+  background: linear-gradient(to right, #59CDE9, #0A2A88);
+  border-radius: 15px;
+  padding: 5px 10px;
+  color: white;
+  border: none;
+}
+
+.label-role-superadmin {
+  padding: 2px 4.5px;
+  background: linear-gradient(to right, #59CDE9, #0A2A88);
+  border-radius: 10px;
+  color: white;
+  margin-left: 10px;
+  padding-bottom: 4.5px;
+  border: none;
+}
+
+.role-admin {
+  text-transform: capitalize;
+  background: linear-gradient(to right, #B5FFAE, #16A7C7);
+  border-radius: 15px;
+  padding: 5px 10px;
+  color: white;
+  border: none;
+}
+
+.label-role-admin {
+  padding: 2px 4.5px;
+  background: linear-gradient(to right, #B5FFAE, #16A7C7);
+  border-radius: 10px;
+  color: white;
+  margin-left: 10px;
+  padding-bottom: 4.5px;
+  border: none;
+}
+
+.role-user {
+  text-transform: capitalize;
+  background: linear-gradient(to right, #DCDDDE, #898A8B);
+  border-radius: 15px;
+  padding: 5px 10px;
+  color: white;
+  border: none;
+}
+
+.label-role-user {
+  padding: 2px 4.5px;
+  background: linear-gradient(to right, #DCDDDE, #898A8B);
+  border-radius: 10px;
+  color: white;
+  margin-left: 10px;
+  padding-bottom: 4.5px;
+  border: none;
+}

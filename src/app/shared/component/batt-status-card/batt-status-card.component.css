@@ -1,0 +1,155 @@
+.card-batt-status {
+    width: 80%;
+    height: 140px;
+    border: none;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    background: linear-gradient(to left, #ececec, #fafafa);
+}
+
+
+.batt-card-hover-alert {
+    box-shadow: rgb(207 0 0 / 45%) 0px 1px 14px, rgb(214 37 5 / 40%) 0px 2px 15px !important;
+    -webkit-box-shadow: rgb(207 0 0 / 45%) 0px 1px 14px, rgb(214 37 5 / 40%) 0px 2px 15px !important;
+    -o-box-shadow: rgb(207 0 0 / 45%) 0px 1px 14px, rgb(214 37 5 / 40%) 0px 2px 15px !important;
+    -moz-box-shadow: rgb(207 0 0 / 45%) 0px 1px 14px, rgb(214 37 5 / 40%) 0px 2px 15px !important;
+}
+
+.batt-card-hover-active {
+    box-shadow: rgba(0, 97, 207, 0.377) 0px 1px 14px, rgba(5, 120, 214, 0.452) 0px 2px 15px !important;
+    -webkit-box-shadow: rgba(0, 97, 207, 0.377) 0px 1px 14px, rgba(5, 120, 214, 0.452) 0px 2px 15px !important;
+    -o-box-shadow: rgba(0, 97, 207, 0.377) 0px 1px 14px, rgba(5, 120, 214, 0.452) 0px 2px 15px !important;
+    -moz-box-shadow: rgba(0, 97, 207, 0.377) 0px 1px 14px, rgba(5, 120, 214, 0.452) 0px 2px 15px !important;
+}
+
+.batt-card-hover-inactive {
+    box-shadow: rgba(94, 94, 94, 0.377) 0px 1px 14px, rgba(116, 116, 116, 0.452) 0px 2px 15px !important;
+    -webkit-box-shadow: rgba(94, 94, 94, 0.377) 0px 1px 14px, rgba(116, 116, 116, 0.452) 0px 2px 15px !important;
+    -o-box-shadow: rgba(94, 94, 94, 0.377) 0px 1px 14px, rgba(116, 116, 116, 0.452) 0px 2px 15px !important;
+    -moz-box-shadow: rgba(94, 94, 94, 0.377) 0px 1px 14px, rgba(116, 116, 116, 0.452) 0px 2px 15px !important;
+}
+
+
+.text-no {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 2px;
+}
+
+.text-no-active {
+    color: #0d72c5;
+}
+
+.text-no-inactive {
+    color: #c7c7c7;
+}
+
+.text-no-alert {
+    color: #f10000;
+}
+
+.div-status {
+    font-size: 8px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    width: 64px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    border-radius: 20px;
+}
+
+.div-status-active {
+    background-color: #0d72c5;
+}
+
+.div-status-alert {
+    background: linear-gradient(to left, #fa4700, rgb(247, 49, 0));
+}
+
+.div-status-inactive {
+    background-color: #c7c7c7;
+}
+
+.img-batt {
+    margin-top: 9px;
+    width: 80px;
+}
+
+.text-soc {
+    position: absolute;
+    right: 3px;
+    bottom: 11px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.progress-point {
+    position: absolute;
+    top: -2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: solid #FFF 3px;
+}
+
+.progress-point-active {
+    background: linear-gradient(to left, #184598, #48AAD4);
+}
+
+.progress-point-alert {
+    background: linear-gradient(to left, #fa4700, rgb(247, 49, 0));
+    margin-left: 10px;
+}
+
+.progress-point-inactive {
+    background-color: #b1b1b1;
+}
+
+.progress-active {
+    background: linear-gradient(to left, #184598, #48AAD4);
+}
+
+.progress-inactive {
+    background: #b1b1b1;
+}
+
+.progress-alert {
+    background: rgb(247, 49, 0);
+}
+
+.progress {
+    border: solid #ececec 2px;
+}
+
+.progress-bar {
+    border-radius: 10px;
+}
+
+.img-right-top {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    top: -10px;
+    right: -15px;
+}
+
+.hr-card {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.text-small {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.col-card-batt {
+    margin-top: 2px;
+    line-height: 14px;
+    margin-bottom: 2px;
+}

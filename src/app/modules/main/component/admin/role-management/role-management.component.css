@@ -1,0 +1,91 @@
+.body-admin {
+  position: absolute;
+  width: 92%;
+  margin-top: 10px;
+  margin-left: 95px;
+  padding: 12px;
+  background: #FFFFFF;
+  border-radius: 10px;
+}
+
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
+
+.row-selected {
+  color: #FFFFFF;
+  background-color: #3676B4;
+  color: var(#FFFFFF);
+}
+
+.tr-odd {
+  background-color: #F5F5F5;
+}
+
+.line-cut {
+  height: 1px;
+  background-color: #C8CBD9;
+}
+
+.group-ptt {
+  width: 150px;
+  background-color: #3676B4;
+}
+
+.border-radius-6px {
+  border-radius: 6px;
+}
+
+.border-radius-12px {
+  border-radius: 12px;
+}
+
+.bg-modal-body {
+  background-color: #F7F8FA;
+}
+
+#filterModalDialog.modal-dialog {
+  max-width: 250px;
+  margin: 0px;
+  top: 10%;
+  left: 100%;
+  transform: translate(-106%, 0);
+}
+
+#filterModal.fade:not(.show) {
+  transform: translate(50%);
+  opacity: 1;
+  transition: .40s;
+}
+
+#filterModal.fade.show {
+  transform: translate(0 50%);
+  opacity: 1;
+  transition: .40s;
+}
+
+.bg-role-name{
+  background: linear-gradient(90deg, #59CDE9 -31.27%, #0A2A88 123%);
+border-radius: 5px;
+}
+
+@media only screen and (max-width: 992px) {
+  .body-admin {
+    position: absolute;
+    width: 96%;
+    padding: 12px;
+    margin: 10px;
+  }
+}

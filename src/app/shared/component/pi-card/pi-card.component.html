@@ -1,0 +1,51 @@
+<div class="row row-width row-width-gutter" style="justify-content: center;">
+    <div class="card card-pi">
+        <div class="row row-title row-width-gutter">
+            <div class="col-1">
+                <img class="img-fav" [src]="imageSrc" (click)="onClick(_piId)">
+            </div>
+            <div class="col-11">
+                <div class="row" style="margin-left: 14px;">
+                    <div class="line" [ngClass]="{'line-active': _status === 'N' || _status === 'B' || _status === 'D', 'line-alert' : _status === 'A', 'line-inactive' : _status === 'I'}"></div>
+                </div>
+                <div class="row" style="margin-left: 1px;">
+                    <span class="text-pi" [ngClass]="{'text-pi-active': _status === 'N' || _status === 'B' || _status === 'D', 'text-pi-alert' : _status === 'A', 'text-pi-inactive' : _status === 'I'}">{{_piName}}</span>
+                </div>
+                <div class="row" style="margin-left: 1px; margin-top: -6px;">
+                    <span class="text-node-no">Node no.</span>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="justify-content: center;">
+            <img *ngIf="_status === 'N' || _status === 'B' || _status === 'D'" class="img-pi" src="assets/img/pi-active.png">
+            <img *ngIf="_status === 'I'" class="img-pi" src="assets/img/pi-inactive.png">
+            <img *ngIf="_status === 'A'" class="img-pi" src="assets/img/pi-alert.png">
+        </div>
+        <hr style="margin-bottom: 0;">
+        <div class="row row-margin">
+            <div class="col-4">
+                <div class="row">
+                    <span class="text-batt">Batt. count</span>
+                </div>
+                <div class="row">
+                    <span class="text-count" [ngClass]="{'text-pi-active': _status === 'N' || _status === 'B' || _status === 'D', 'text-pi-alert' : _status === 'A', 'text-pi-inactive' : _status === 'I'}">{{_battCount}}</span>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="vertical-line"></div>
+                <div class="row row-width-gutter">
+                    <div class="col-6">
+                        <button class="btn btn-status" [routerLink]="['/region/', _region, _province, _site, _piId, 'status']">Status</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-evaluate" [routerLink]="['/region/', _region, _province, _site, _piId, 'evaluate']">Evaluate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <img *ngIf="_status === 'A'" class="img-right-top" src="assets/img/alert-red.png">
+        <img *ngIf="_status === 'B'" class="img-right-top" src="assets/img/recovery.png">
+        <img *ngIf="_status === 'I'" class="img-right-top" src="assets/img/inactive.png">
+        <img *ngIf="_status === 'D'" class="img-right-top" src="assets/img/charge.png">
+    </div>
+</div>

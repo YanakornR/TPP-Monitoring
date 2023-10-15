@@ -1,0 +1,166 @@
+<div class="card card-cs">
+  <div class="row row-title">
+    <div class="title" style="display: flex;align-items: center;">
+      <img class="img-report" src="assets/img/icon-edit-profile.png"><span class="text-report-title">Edit-Profile</span>
+    </div>
+  </div>
+  <hr class="hr-info-body">
+  <div class="row mt-4 mb-4">
+    <div class="col-12 col-md-4 col-lg-4 text-center border-end " style="padding: 0px 90px;">
+      <h3 style="font-size: 22px; font-weight: bold; color: #0072be; margin-top: 50px;">Profile</h3>
+      <div class="container">
+        <img id="myImg" [src]="(displayUploadImage)? displayUploadImage: 'data:image/jpg;base64,'+profileImg"
+          class="img-profile mb-4">
+        <button class="btn" (click)="openEditModal()"><i class='bx bxs-camera' style='color:#ffffff'></i></button>
+      </div>
+
+      <p style="margin-bottom: 90px;"><span style="color: red;">*</span> The uploaded image must be 500px wide and 500px
+        long</p>
+      <span style="width: 65px;" [ngClass]="{
+                                        'role-superadmin': labelProfileRole === 'S',
+                                        'role-master': labelProfileRole === 'M' ,
+                                        'role-admin': labelProfileRole === 'A' ,
+                                        'role-user': labelProfileRole === 'U' }"> {{profileRole}} </span>
+      <p style="margin-top: 10px; font-size: 18px; font-weight: bold; color: #0072be; margin-bottom: 10px;">
+        {{profileName}}
+        <strong style="margin: 0px 5px; font-size: 17px;" [ngClass]="{'label-role-superadmin': labelProfileRole === 'S' ,
+                    'label-role-master': labelProfileRole === 'M' ,
+                    'label-role-admin': labelProfileRole === 'A' ,
+                    'label-role-user': labelProfileRole === 'U'}">{{labelProfileRole}}</strong>
+      </p>
+      <p>{{profileEmail}}</p>
+    </div>
+    <div class="col-12 col-md-8 col-lg-8">
+      <h3 style="font-size: 22px; font-weight: bold; color: #0072be; padding-left: 10px;">Basic Info</h3>
+      <hr class="hr-info-body">
+      <div class="row ps-5 pe-5">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="exampleInputEmail1"
+              style="font-size: 18px; font-weight: bold; color: #0072be; margin: 10px 0px;">Name</label>
+            <input [(ngModel)]="profileFirstName" type="text" class="form-control" id="exampleInputEmail1"
+              aria-describedby="basic-addon3" placeholder="Name">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="exampleInputEmail1"
+              style="font-size: 18px; font-weight: bold; color: #0072be; margin: 10px 0px;">Lastname</label>
+            <input [(ngModel)]="profileLastName" type="text" class="form-control" id="exampleInputEmail1"
+              aria-describedby="basic-addon4" placeholder="Lastname">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="exampleInputEmail1"
+              style="font-size: 18px; font-weight: bold; color: #0072be; margin: 10px 0px;">Email</label>
+            <input [(ngModel)]="profileEmail" type="email" class="form-control" id="exampleInputEmail1"
+              aria-describedby="basic-addon5" placeholder="Email">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="exampleInputEmail1"
+              style="font-size: 18px; font-weight: bold; color: #0072be; margin: 10px 0px;">Phone</label>
+            <input [(ngModel)]="profilePhone" type="text" class="form-control" id="exampleInputEmail1"
+              aria-describedby="basic-addon6" placeholder="+66000000000">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="exampleInputEmail1"
+              style="font-size: 18px; font-weight: bold; color: #0072be; margin: 10px 0px;">Position</label>
+            <input [(ngModel)]="profilePosition" type="text" class="form-control" id="exampleInputEmail1"
+              aria-describedby="basic-addon7" placeholder="Position">
+          </div>
+        </div>
+      </div>
+      <h3 style="font-size: 22px; font-weight: bold; color: #0072be; margin-top: 30px; padding-left: 10px;">Password
+      </h3>
+      <hr class="hr-info-body ">
+      <div class="row ps-5 pe-5">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="exampleInputEmail1"
+              style="font-size: 18px; font-weight: bold; color: #0072be; margin: 10px 0px;">Current
+              Password<span style="color: red;">*</span></label>
+            <input [(ngModel)]="profileCurrentPassword" autocomplete="false" type="password" class="form-control"
+              [ngClass]="{'invalid': invalidCurrentPassword}" id="inputPassword" placeholder="Password">
+            <small *ngIf="invalidCurrentPassword" id="basic-addon1" class="form-text text-muted"
+              style="color: #1C8DE2 !important;"><a [routerLink]="['/reset-password']">Forgot
+                your password?</a></small>
+          </div>
+        </div>
+        <div class="col-6">
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="inputPassword"
+              style="font-size: 18px; font-weight: bold; color: #0072be; margin: 10px 0px;">New
+              Password</label>
+            <input [(ngModel)]="profilePassword" autocomplete="false" type="password" class="form-control"
+              [ngClass]="{'invalid': invalidPassword}" id="inputPassword" placeholder="Password">
+            <span *ngIf="invalidPassword" id="basic-addon8" class="form-text text-muted"
+              style="color: red !important;">
+              Invalid password</span>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="inputPassword2"
+              style="font-size: 18px; font-weight: bold; color: #0072be; margin: 10px 0px;">Confirm
+              Password </label>
+            <input [(ngModel)]="profileConfirmPassword" autocomplete="false" type="password" class="form-control"
+              [ngClass]="{'invalid': invalidConfirmPassword}" id="inputPassword2" placeholder="Password">
+              <span *ngIf="invalidConfirmPassword" id="basic-addon2" class="form-text text-muted"
+                style="color: red !important;">
+              Invalid password</span>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mb-2 mt-5">
+        <button type="button" class="btn btn-secondary btn-tpp-cancel">Cancel</button>
+        <button type="button" class="btn btn-primary btn-tpp" (click)="openModal()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Message Modal -->
+<div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content border-radius-12px">
+      <div class="modal-body text-center">
+        <i style="font-size: 64px;" class='bx bx-error-circle text-danger'></i>
+        <h5 class="text-danger mt-2">Do you want to save?</h5>
+        <p>Do you sure want to save changes?</p>
+      </div>
+      <div class="modal-footer  d-flex justify-content-center">
+        <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-tpp" style="width: 30%; padding: 4px 0px; color: white;"
+          (click)="saveEditProfile()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- editImageModal Modal -->
+<div class="modal fade" id="editImageModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content border-radius-12px">
+      <div class="modal-header">
+        <h5 class="modal-title">Edite Image</h5>
+      </div>
+      <div class="modal-body text-center">
+        <img [(ngModel)]="uploadImage" id="myimage" width="100%" class="mb-3">
+        <input id="uploadInputFile" class="form-control" type="file" accept="image/png, image/jpeg"
+          [(ngModel)]="chooseImageCard" (change)="fileChangeEvent($event)" />
+      </div>
+      <div class="modal-footer  d-flex justify-content-center">
+        <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-tpp" style="width: 30%; padding: 4px 0px; color: white;"
+          (click)="getNewImage()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

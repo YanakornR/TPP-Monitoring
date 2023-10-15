@@ -1,0 +1,70 @@
+<div class="card card-table-cs" style="padding: 20px;">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-2"
+      style="display: flex;align-content: flex-end;flex-direction: row;flex-wrap: wrap;justify-content: flex-start;align-items: center;">
+      <img style="width: 40px;" src="assets/img/map-icon.png"><span class="topic" style="margin-left: 8px; color: #3676B4 !important;">
+        Battery Backup Activity</span>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6"
+      style="display: flex;align-content: center;flex-direction: row;flex-wrap: wrap;justify-content: flex-end;align-items: center;">
+      <button type="button" class="btn btn-outline-green me-2 d-flex align-items-center border-radius-6px" (click)="openFilterModal()">
+        <i class='bx bx-filter-alt me-1'></i> Filter
+      </button>
+      <button type="button" class="btn  d-flex align-items-center border-radius-6px"
+        style="color: #fff;background-color: #eb3c28;border-color: #eb3d29;">
+        <i class='bx bxs-plus-circle me-1'></i> All Province
+      </button>
+
+    </div>
+  </div>
+
+  <div style="display: block;" class="chart chart-margin">
+    <div style="overflow-x:scroll;">
+      <div class="chart-wrapper" style="height:450px; width: 1300px">
+        <canvas #canvasBackup width="1250px" height="400px" baseChart [datasets]="Data" [labels]="ChartLabels"
+          [options]="barChartOptions" [chartType]="barChartType" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+        <!-- <img style="width: 80%;" src="assets/img/graph-battery.png"> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Filter -->
+<div class="modal fade" id="filterBatteryBackupProvinceModal" tabindex="-1">
+  <div id="filterModalDialog" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><strong class="text-tpp">Filter</strong></h5>
+        <a data-bs-dismiss="modal" aria-label="Close"><i class='text-tpp font-size-5 bx bxs-x-circle'></i></a>
+      </div>
+      <div class="modal-body bg-modal-body">
+        <div class="row pb-2 border-bottom">
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="allProvinceBatt"
+              (change)="selectAllProvinceFilterBatt($event)"
+              [checked]="filterOption.province.length == defaultProvince.length">
+              <label class="form-check-label ms-2" for="allProvinceBatt">
+                <strong class="text-tpp">All Province</strong>
+              </label>
+            </div>
+            <div class="ps-3">
+              <div class="form-check" *ngFor="let province of defaultProvince">
+                <input class="form-check-input" type="checkbox" id="provinceBatt_{{province.provinceName}}"
+                  [checked]="filterOption.province.includes(province.provinceId)" (change)="selectProvinceFilterBatt($event,province.provinceId)">
+                <label class="form-check-label ms-2" for="provinceBatt_{{province.provinceName}}">
+                  <strong class="text-tpp">{{province.provinceName}}</strong>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-tpp border-radius-6px w-100" (click)="clearFilter()">Clear
+          Filter</button>
+      </div>
+    </div>
+  </div>
+</div>

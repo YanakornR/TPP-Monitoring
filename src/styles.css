@@ -1,0 +1,236 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~ng-zorro-antd/style/index.min.css";
+/* Import base styles */
+@import "~ng-zorro-antd/button/style/index.min.css";
+/* Import one component's styles */
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url("https://use.fontawesome.com/releases/v5.13.0/css/all.css");
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~@ng-select/ng-select/themes/material.theme.css";
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background-color: #F8FAFF !important;
+  font-family: "Roboto-Light" !important;
+}
+
+.sum-alert-earth {
+  background-image: url('./assets/img/summary-alert-earth.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 200px;
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 10px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgb(189, 189, 189);
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  background: rgb(0, 119, 230);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+  background: #007bce;
+}
+
+/* width */
+
+::ng-deep nz-table-inner-scroll ::-webkit-scrollbar {
+  width: 7px;
+  height: 10px;
+}
+
+/* Track */
+
+::ng-deep nz-table-inner-scroll ::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgb(189, 189, 189);
+}
+
+/* Handle */
+
+::ng-deep nz-table-inner-scroll ::-webkit-scrollbar-thumb {
+  background: rgb(0, 119, 230);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+
+::ng-deep nz-table-inner-scroll ::-webkit-scrollbar-thumb:hover {
+  background: #007bce;
+}
+
+.ant-table {
+  background: transparent !important;
+}
+
+.ant-table-content {
+  background: transparent !important;
+}
+
+.table-paging-span {
+  height: 24px;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.border-tpp {
+  border-color: #3676B4 !important;
+}
+
+.text-tpp {
+  color: #3676B4;
+}
+
+.bg-tpp {
+  background-color: #3676B4;
+}
+
+.bg-grey {
+  background: #F7F9FC;
+}
+
+.font-size-1 {
+  font-size: 10px;
+}
+
+.font-size-2 {
+  font-size: 14px;
+}
+
+.font-size-3 {
+  font-size: 18px;
+}
+
+.font-size-4 {
+  font-size: 22px;
+}
+
+.font-size-5 {
+  font-size: 26px;
+}
+
+.btn-outline-green {
+  color: #fff;
+  background-color: #1ABC9C;
+  border-color: #1ABC9C;
+}
+
+.btn-outline-green:hover {
+  color: #1ABC9C;
+  background-color: #fff;
+}
+
+.btn-outline-green span {
+  height: 15px;
+  width: 15px;
+  border-radius: 50% 50%;
+  color: #1ABC9C;
+  background-color: #fff;
+}
+
+.btn-outline-green:hover span {
+  color: #fff;
+  background-color: #1ABC9C;
+  border-color: #1ABC9C;
+}
+
+.btn-outline-grey {
+  color: #fff;
+  background-color: #969696;
+  border-color: #969696;
+}
+
+.btn-outline-grey:hover {
+  color: #969696;
+  background-color: #fff;
+}
+
+.btn-outline-blue {
+  color: #fff;
+  background-color: #3A8DC3;
+  border-color: #3A8DC3;
+}
+
+.btn-outline-blue:hover {
+  color: #3A8DC3;
+  background-color: #fff;
+}
+
+.btn-outline-sky {
+  color: #fff;
+  background-color: #1C8DE2;
+  border-color: #1C8DE2;
+}
+
+.btn-outline-sky:hover {
+  color: #1C8DE2;
+  background-color: #fff;
+}
+
+.btn-outline-rad {
+  color: #fff;
+  background-color: #E34444;
+  border-color: #E34444;
+}
+
+.btn-outline-rad:hover {
+  color: #E34444;
+  background-color: #fff;
+}
+
+.btn-outline-tpp {
+  color: #fff;
+  background-color: #3676B4;
+  border-color: #3676B4;
+}
+
+.btn-outline-tpp:hover {
+  color: #3676B4;
+  background-color: #fff;
+}
+
+.btn-tpp-v2 {
+  color: #fff;
+  background: linear-gradient(357.85deg, #59CDE9 -85.48%, #0A2A88 178.89%);
+}
+
+.btn-tpp-v2:hover {
+  color: #fff;
+  background: linear-gradient(357.85deg, #59CDE9 -85.48%, #0A2A88 178.89%);
+}
+
+.btn-outline-tpp-v2 {
+  color: #fff;
+  background: linear-gradient(357.85deg, #59CDE9 -85.48%, #0A2A88 178.89%);
+}
+
+.btn-outline-tpp-v2:hover {
+  color: #0A2A88;
+  border-color: #0A2A88;
+  background: #fff;
+}
+
+.table>:not(caption)>*>* {
+  padding: 3px 0.2rem 0px 0.2rem !important;
+  vertical-align: middle;
+}

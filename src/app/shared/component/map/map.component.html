@@ -1,0 +1,10 @@
+<!-- <div #mapContainer id="map"></div> -->
+<div *ngIf="filtersLoaded | async">
+    <agm-map [style.height.px]="heightAgm" [zoom]="zoom" [latitude]="_lat" [longitude]="_lng" (mapReady)="mapReady($event)"
+    [disableDefaultUI]="false">
+        <button id="largerMap" class="toogle-button controls button btn-map" (click)="viewLargerMap()">
+            View larger map
+        </button>
+        <agm-marker [latitude]="_lat" [longitude]="_lng" title={{title}}></agm-marker>
+    </agm-map>
+</div>

@@ -1,0 +1,418 @@
+<div class="container-fluid no-padding" *ngIf="filtersLoaded | async">
+    <div class="row justify-content-start row-width">
+        <!-- side -->
+        <div class="col-width-2 col-xl-2 d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block"
+            style="padding-right: 0;">
+            <div class="card"
+                style="border: 1px solid rgb(255 255 255);margin: 10px 10px 10px 25px; border-radius: 10px; height: 90vh;">
+                <div style="margin: 10px;">
+                    <div class="form-group has-search">
+                        <span class="fa fa-search form-control-feedback"></span>
+                        <input class="form-control" placeholder="Search Favorite Site"
+                            style="border-radius: 6px;width: 100%;" type="text" [(ngModel)]="mySearchSiteText"
+                            (keyup)="searchSiteFilter()">
+                    </div>
+                </div>
+                <div class="font-size-region" style="background: #69b7f24d;">
+                    <div class="row" style="color: #3676B4;font-size: 16px;margin: 2px 15px;">Favorite</div>
+                </div>
+                <div style="margin: 10px 10px 10px 30px;">
+                    <div *ngFor="let site of siteList"
+                        style="margin-bottom: 0px; display: flex;flex-direction: row;flex-wrap: wrap;justify-content: space-between;align-items: center;">
+                        <div *ngIf="site.favFalg === 'Y'">
+                            <p style="margin-bottom: 0px;display: flex;justify-content: center;align-items: center;">
+                                <span style="font-size: 23px;color: #A6ABC8;margin-right: 5px;">&bull;</span>
+                                <a (click)="gotoSite(site)"><span>{{site.siteName}}</span></a>
+                            </p>
+                        </div>
+                        <div *ngIf="site.favFalg === 'Y'">
+                            <i class='bx bx-dots-vertical-rounded'
+                                style='color:#a6abc8;font-size: 18px; margin-top: 4px;'></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- <input (click)="gotoGoogleMaps()" type="image" src="assets/img/side-map.png"
+                    style="width: 100%;margin-bottom: 0px;margin-top: auto;" /> -->
+                <!-- <img class="img" src="assets/img/side-map.png" style="width: 100%;margin-bottom: 0px;margin-top: auto;"> -->
+                <tpp-map [lat]="lat" [lng]="lng" style="margin-bottom: 10px;margin-top: auto;"></tpp-map>
+            </div>
+        </div>
+        <!-- main -->
+        <div class="col-width-10 col-xl-10" style="padding-right: 0; height: fit-content;">
+            <div class="card card-table-cs">
+                <div class="row" style="padding: 10px;">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2 mb-2"
+                        style="padding-right: 10px; display: flex;flex-direction: column;justify-content: center;">
+                        <div *ngIf="siteInfo"
+                            style="text-transform: uppercase; background: linear-gradient(to right, #184598, #48AAD4);color: white;text-align: center; border-radius: 10px;padding: 10px 0px;font-size: 20px;">
+                            {{siteInfo.siteName}}
+                        </div>
+                    </div>
+                    <div
+                        class="col-12 d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none mt-1 border border-1">
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-4 d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+                        <div class="row px-2 row-width">
+                            <div class="col-4 test-center">
+                                <img class="img" src="assets/img/summary-alert-earth.png" style="width: 35px;">
+                            </div>
+                            <div class="col-8 text-end"><span class="total-text-span sm-font">Region</span><br><span
+                                    class="total-text"
+                                    style="font-size: 12px;color: #3676B4;">{{siteInfo.regionName}}</span></div>
+                        </div>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-4 d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none"
+                        style="border-left: 1px solid #C8CBD9!important;">
+                        <div class="row px-2 row-width">
+                            <div class="col-4 test-center">
+                                <img class="img" src="assets/img/map.png" style="width: 45px;">
+                            </div>
+                            <div class="col-8 text-end"><span class="total-text-span sm-font">Province</span><br><span
+                                    class="total-text"
+                                    style="font-size: 12px;color: #3676B4;">{{siteInfo.provinceName}}</span></div>
+                        </div>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 col-xxl-2"
+                        style="border-left: 1px solid #C8CBD9!important;">
+                        <div class="row px-2 row-width">
+                            <div class="col-4 test-center">
+                                <img class="img" src="assets/img/total-devices.png" style="width: 45px;">
+                            </div>
+                            <div class="col-8 text-end"><span class="total-text-span sm-font">Total
+                                    Devices</span><br><span class="total-text"
+                                    style="font-size: 18px;color: #3676B4;">{{siteInfo.totalDevice}}</span></div>
+                        </div>
+                    </div>
+                    <div class="col-4 d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block"
+                        style="border-left: 1px solid #C8CBD9!important;">
+
+                    </div>
+                    <div class="col-1 d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block"
+                        style="border-left: 1px solid #C8CBD9!important; display: flex;justify-content: center;flex-direction: column;">
+                        <div class="row row-width">
+                            <div class="col-6 pt-2"
+                                style="display: flex;justify-content: flex-end;align-items: center;padding-right: 5px;">
+                                <a (click)="display('icon')">
+                                    <img *ngIf="displaySelect === 'icon'" class="img" src="assets/img/iconClick.png"
+                                        style="width: 30px;">
+                                    <img *ngIf="displaySelect === 'list'" class="img" src="assets/img/iconUnclick.png"
+                                        style="width: 30px;">
+                                </a>
+                            </div>
+                            <div class="col-6 pt-2"
+                                style="display: flex;justify-content: flex-start;align-items: center;padding-left: 5px;">
+                                <a (click)="display('list')">
+                                    <img *ngIf="displaySelect === 'list'" class="img" src="assets/img/listClick.png"
+                                        style="width: 30px;">
+                                    <img *ngIf="displaySelect === 'icon'" class="img" src="assets/img/listUnclick.png"
+                                        style="width: 30px;">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3 d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block"
+                        style="border-left: 1px solid #C8CBD9!important; display: flex;justify-content: center;flex-direction: column;padding-left: 10px;">
+                        <div class="col-12" style="padding-left: 5px;padding-top: 3px;">
+                            <div class="row ">
+                                <div class="form-group has-search">
+                                    <span class="fa fa-search form-control-feedback"></span><input class="form-control"
+                                        placeholder="Search Pi" style="border-radius: 6px;width: 100%;" type="text"
+                                        [(ngModel)]="mySearchPiText" (keyup)="searchPiFilter()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="row m-1 p-2 rounded-3 bg-white bg-w d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+                <div class="col-12">
+                    <!-- <tpp-map [lat]="lat" [lng]="lng"></tpp-map> -->
+                    <tpp-map [lat]="lat" [lng]="lng" style="width: 100%; margin-left: 10px;"></tpp-map>
+                    <!-- <input (click)="gotoGoogleMaps()" type="image" src="assets/img/minimaps.png"
+                        style="width: 100%; margin-left: 10px;" /> -->
+                </div>
+            </div>
+            <div
+                class="row m-1 p-2 rounded-3 bg-white bg-w d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-8 d-flex align-items-center">
+                            <div class="form-group has-search">
+                                <span class="fa fa-search form-control-feedback"></span><input class="form-control"
+                                    placeholder="Search Pi" style="border-radius: 6px;" type="text"
+                                    [(ngModel)]="mySearchPiText" (keyup)="searchPiFilter()">
+                            </div>
+                        </div>
+                        <div class="col-4 d-flex align-items-center">
+                            <a class="ms-2" (click)="display('icon')">
+                                <img *ngIf="displaySelect === 'icon'" class="img" src="assets/img/iconClick.png"
+                                    style="width: 30px;">
+                                <img *ngIf="displaySelect === 'list'" class="img" src="assets/img/iconUnclick.png"
+                                    style="width: 30px;">
+                            </a>
+                            <a class="ms-2" (click)="display('list')">
+                                <img *ngIf="displaySelect === 'list'" class="img" src="assets/img/listClick.png"
+                                    style="width: 30px;">
+                                <img *ngIf="displaySelect === 'icon'" class="img" src="assets/img/listUnclick.png"
+                                    style="width: 30px;">
+                            </a>
+                            <button type="button" class="btn" data-bs-toggle="offcanvas" data-bs-target="#canvasSideBar"
+                                aria-controls="canvasSideBar">
+                                <i class='bx bx-dots-horizontal-rounded mt-1'></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="displaySelect === 'icon'" class="row mt-2" style="margin-left: 1%;margin-right: 1%;">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="padding: 0px 10px; margin-bottom: 15px;"
+                    *ngFor="let data of piInfo">
+
+                    <div class="card card-region card-region-active">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="font-size-region"
+                                    [ngClass]="{'pi-active': data.status === 'A' , 'pi-inactive': data.status === 'I' ,'pi-alert': data.status === 'W'}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="padding: 10px 0px; margin: 0px 9px;">
+                            <div class="col-12">
+                                <div class="row row-width">
+                                    <div class="col-12 text-start">
+                                        <span class="total-text"
+                                            [ngClass]="{'text-pi-active': data.status === 'A' ,'text-pi-inactive': data.status === 'I' , 'text-pi-alert': data.status === 'W'}">{{data.deviceName}}</span><br>
+                                        <div class="total-line-right" style="height: 1px;margin: 5px 0px;"></div>
+                                        <span class="total-text-span" style="font-size: 12px;color: #969696;">Node
+                                            no.</span>
+                                        <div *ngIf="data.status === 'A'" class="card noti-circle noti-circle-hover"
+                                            style="padding: 6px;">
+                                            <img class="img" src="assets/img/tick.png" style="width: 11px; align-self: center;">
+                                        </div>
+                                        <div *ngIf="data.status === 'W'"
+                                            class="card noti-circle-alert noti-circle-hover"
+                                            style="padding: 6px;font-size: 20px;">!</div>
+                                        <div *ngIf="data.status === 'I'"
+                                            class="card noti-circle-inactive noti-circle-hover"
+                                            style="padding: 6px;font-size: 20px;">?</div>
+                                    </div>
+                                    <div class="col-12 text-start text-center">
+                                        <img *ngIf="data.status === 'A'" class="img" src="assets/img/rack-active.png"
+                                            style="width: 80%;">
+                                        <img *ngIf="data.status === 'W'" class="img" src="assets/img/rack-inactive.png"
+                                            style="width: 80%;">
+                                        <img *ngIf="data.status === 'I'" class="img" src="assets/img/third-party.png"
+                                            style="width: 80%;">
+                                        <div class="total-line-right" style="height: 1px;margin-bottom:10px;"></div>
+                                        <a *ngIf="data.deviceType === 'NMModule' || data.deviceType === 'Rectifier'"
+                                            [routerLink]="['/region', regionId, provinceId, siteId, data.deviceId, 'summary', data.deviceRoute]">
+                                            <button type="button" class="btn"
+                                                style="padding: 1px 12px; background: #1C8DE2;border-radius: 20px;color: white;font-size: 14px;">Summary</button>
+                                        </a>
+                                        <a *ngIf="data.deviceType === '3rdParty'">
+                                            <button type="button" class="btn" (click)="openDetailModal(data)"
+                                                style="padding: 1px 12px; background: #1C8DE2;border-radius: 20px;color: white;font-size: 14px;">Detail</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="displaySelect === 'list'">
+                <div class="col-12">
+                    <div class="card card-table-cs ps-3 pe-3 pb-3">
+                        <div style="overflow-x:scroll;">
+                            <table class="table table-striped mt-4">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="border: #f2f2f2 1px solid;">
+                                        </th>
+                                        <th scope="col" style="border: #f2f2f2 1px solid;">
+                                            <div class="d-flex justify-content-center">
+                                                <span class="me-1">Node no.</span>
+                                                <a class="text-body d-flex align-items-center"><i
+                                                        class='font-size-3 bx bx-sort-down'></i></a>
+                                            </div>
+                                        </th>
+                                        <th scope="col" style="border: #f2f2f2 1px solid;">
+                                            <div class="d-flex justify-content-center">
+                                                <span class="me-1">Item count</span>
+                                                <a class="text-body d-flex align-items-center"><i
+                                                        class='font-size-3 bx bx-sort-down'></i></a>
+                                            </div>
+                                        </th>
+                                        <th scope="col" style="border: #f2f2f2 1px solid;">
+                                            <div class="d-flex justify-content-center">
+                                                <span class="me-1">Dashboard</span>
+                                                <a class="text-body d-flex align-items-center"><i
+                                                        class='font-size-3 bx bx-sort-down'></i></a>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of dataSet; let i = index">
+                                        <td scope="row"
+                                            style="width: 40px; text-align: center;color: #3676B4;border: #f2f2f2 1px solid;">
+                                            <img *ngIf="data.status === 'A'" class="img"
+                                                src="assets/img/alert-active.png" style="width: 20px;">
+                                            <img *ngIf="data.status === 'W'" class="img"
+                                                src="assets/img/alert-inactive.png" style="width: 20px;">
+                                        </td>
+                                        <td style="text-align: center;color: #3676B4; border: #f2f2f2 1px solid;">
+                                            <a *ngIf="data.deviceType === 'NMModule' || data.deviceType === 'Rectifier'"
+                                                [routerLink]="['/region', regionId, provinceId, siteId, data.deviceId, 'summary', data.deviceRoute]">
+                                                {{data.deviceId}}
+                                            </a>
+                                            <a *ngIf="data.deviceType === '3rdParty'" (click)="openDetailModal(data)">
+                                                {{data.deviceId}}
+                                            </a>
+                                        </td>
+                                        <td style="text-align: center;color: #3676B4;border: #f2f2f2 1px solid;">
+                                            {{data.totalItem}}</td>
+                                        <td style="text-align: center;color: #3676B4;border: #f2f2f2 1px solid;">
+                                            <a *ngIf="data.deviceType === 'NMModule' || data.deviceType === 'Rectifier'"
+                                                [routerLink]="['/region', regionId, provinceId, siteId, data.deviceId, 'summary', data.deviceRoute]">
+                                                <button type="button" class="btn"
+                                                    style="padding: 1px 12px; background: #1C8DE2;border-radius: 20px;color: white;font-size: 14px;">Summary</button>
+                                            </a>
+                                            <a *ngIf="data.deviceType === '3rdParty'">
+                                                <button type="button" class="btn" (click)="openDetailModal(data)"
+                                                    style="padding: 1px 12px; background: #1C8DE2;border-radius: 20px;color: white;font-size: 14px;">Detail</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6 d-flex justify-content-start align-items-center">
+                                <strong class="me-2">Rows per page</strong>
+                                <select style="width: 70px;" class="form-select me-2">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                </select>
+                                <strong class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">Showing
+                                    {{start}} - {{end}} of results
+                                    {{totalRecord}}</strong>
+                            </div>
+                            <div class="col-6">
+                                <div class="rounded-pill d-flex group-ptt float-end">
+                                    <div><a class="font-size-3 text-light text-center float-start pt-1"
+                                            style="width: 50px;"><i class='bx bx-left-arrow-alt ms-2'></i></a>
+                                    </div>
+                                    <div class="font-size-2  text-center text-light pt-1"
+                                        style="border-right: 1px solid white;border-left: 1px solid white;width: 60px;">
+                                        1 of 1</div>
+                                    <div><a class="font-size-3 text-light text-center float-end pt-1"
+                                            style="width: 50px;"><i class='bx bx-right-arrow-alt me-2'></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="canvasSideBar" aria-labelledby="canvasSideBarLabel"
+    *ngIf="filtersLoaded | async">
+    <div class="offcanvas-header py-0">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Search</h5>
+        <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
+            <i class='text-tpp font-size-5 bx bxs-x-circle'></i>
+        </button>
+    </div>
+    <div class="offcanvas-body pt-0">
+        <div style="margin: 10px;">
+            <div class="form-group has-search">
+                <span class="fa fa-search form-control-feedback"></span><input class="form-control" placeholder="Search"
+                    style="border-radius: 6px;width: 100%;" type="text" [(ngModel)]="mySearchSiteText"
+                    (keyup)="searchSiteFilter()">
+            </div>
+        </div>
+        <div class="font-size-region" style="background: #69b7f24d;">
+            <div class="row" style="color: #3676B4;font-size: 16px;margin: 2px 15px;">Favorite</div>
+        </div>
+        <div style="margin: 10px 10px 10px 30px;">
+            <div *ngFor="let site of provinceInfo.sites"
+                style="margin-bottom: 0px; display: flex;flex-direction: row;flex-wrap: wrap;justify-content: space-between;align-items: center;">
+                <div *ngIf="site.favFalg === 'Y'">
+                    <p style="margin-bottom: 0px;display: flex;justify-content: center;align-items: center;">
+                        <span style="font-size: 23px;color: #A6ABC8;margin-right: 5px;">&bull;</span>
+                        <span>{{site.siteName}}</span>
+                    </p>
+                </div>
+                <div *ngIf="site.favFalg === 'Y'">
+                    <i class='bx bx-dots-vertical-rounded' style='color:#a6abc8;font-size: 18px; margin-top: 4px;'></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="gotoMapModal" tabindex="-1" aria-labelledby="gotoMapModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h5></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you want to go Google Maps?
+            </div>
+            <div class="modal-footer border-top-0">
+                <a target="_blank" rel="noopener noreferrer"
+                    href="https://www.google.com/maps/search/?api=1&query={{lat}},{{lng}}">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="showDetailModal" tabindex="-1" aria-labelledby="showDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header pb-1">
+                <h5 class="mb-0">{{piSnModal}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    style="border-radius: 50% !important;"></button>
+            </div>
+            <div class="modal-body pt-1">
+                <p>Node no.</p>
+                <div class="ms-4" style="border-left: solid 7px #DCDDDE;">
+                    <div class="ms-3">
+                        <p class="mb-0">Product Type :</p>
+                        <h5>{{piSnModalDetail[pageModal-1].productType}}</h5>
+                        <p class="mb-0">Model :</p>
+                        <h5>{{piSnModalDetail[pageModal-1].model}}</h5>
+                        <p class="mb-0">Q’ty Battery :</p>
+                        <h5>{{piSnModalDetail[pageModal-1].battery}}</h5>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer border-top-0">
+                <button [disabled]="pageModal === 1" (click)="backPageModal()" type="button"
+                    class="btn btn btn-light p-0" style="border-radius: 50% !important;">
+                    <img class="img" src="assets/img/btn-back.png" style="width: 35px; border-radius: 50%;">
+                </button>
+                <p>{{pageModal}}/{{piSnModalDetail.length}}</p>
+                <button [disabled]="pageModal === piSnModalDetail.length" (click)="nextPageModal()" type="button"
+                    class="btn btn btn-light p-0" style="border-radius: 50% !important;">
+                    <img class="img" src="assets/img/btn-next.png" style="width: 35px; border-radius: 50%;">
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

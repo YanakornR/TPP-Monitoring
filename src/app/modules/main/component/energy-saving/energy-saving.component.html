@@ -1,0 +1,327 @@
+<div class="col-12" style="padding-right: 0; height: fit-content;">
+    <div class="card card-main">
+        <div class="row" style="margin-top: 18px; margin-bottom: 15px; padding-left: 25px;">
+            <div class="col-12">
+                <img src="assets/img/en-save.png" style="width: 18px;" />
+                <span class="text-head">Energy Saving Summary</span>
+            </div>
+        </div>
+        <div class="row" style="padding: 10px;">
+            <div class="col-md-12 col-lg-12 col-xl-7" style="margin-bottom: 10px;">
+                <div class="row">
+                    <!-- Node Active -->
+                    <div class="col-12 col-md-6 col-lg-4" style="margin-bottom: 10px;">
+                        <div class="card card-sub card-node-active">
+                            <div class="hr-white"></div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <span class="text-sub-head">Node Active</span>
+                                </div>
+                                <div class="col-12">
+                                    <span class="text-sub-data">100 / 100</span>
+                                </div>
+                            </div>
+                            <img src="assets/img/admin/nm-module-icon-xl.png" class="img-right img-node-active" />
+                        </div>
+                    </div>
+                    <!-- Saving Time -->
+                    <div class="col-12 col-md-6 col-lg-4" style="margin-bottom: 10px;">
+                        <div class="card card-sub card-saving-time">
+                            <div class="hr-white"></div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <span class="text-sub-head">Saving Time</span>
+                                </div>
+                                <div class="col-12">
+                                    <span class="text-sub-data">4,800 mins</span>
+                                </div>
+                            </div>
+                            <img src="assets/img/saving-time.png" class="img-right img-saving-time" />
+                        </div>
+                    </div>
+                    <!-- Consumption -->
+                    <div class="col-12 col-md-12 col-lg-4" style="margin-bottom: 10px;">
+                        <div class="card card-sub card-consumption">
+                            <div class="hr-white"></div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <span class="text-sub-head">Consumption</span>
+                                </div>
+                                <div class="col-12">
+                                    <span class="text-sub-data">164.84 kwh</span>
+                                </div>
+                            </div>
+                            <img src="assets/img/consumption.png" class="img-right img-consumption" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-12">
+                        <div class="card card-manage">
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 10px;">
+                                    <span class="text-head text-head-graph">Energy Management</span>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                                    <div class="row" style="margin-right: 8px; margin-left: 8px;">
+                                        <div class="col-6 col-sm-3 col-md-3" style="margin-bottom: 10px;">
+                                            <button class="btn btn-energy-manage" (click)="setGraph('DAY')"
+                                                [ngClass]="{'btn-energy-manage-active': isDay}">Day</button>
+                                        </div>
+                                        <div class="col-6 col-sm-3 col-md-3" style="margin-bottom: 10px;">
+                                            <button class="btn btn-energy-manage" (click)="setGraph('MONTH')"
+                                                [ngClass]="{'btn-energy-manage-active': isMonth}">Month</button>
+                                        </div>
+                                        <div class="col-6 col-sm-3 col-md-3" style="margin-bottom: 10px;">
+                                            <button class="btn btn-energy-manage" (click)="setGraph('YEAR')"
+                                                [ngClass]="{'btn-energy-manage-active': isYear}">Year</button>
+                                        </div>
+                                        <div class="col-6 col-sm-3 col-md-3" style="margin-bottom: 10px;">
+                                            <button class="btn btn-energy-manage" (click)="setGraph('LIFETIME')"
+                                                [ngClass]="{'btn-energy-manage-active': isLifetime}">Lifetime</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 15px;">
+                                <div class="col-6">
+                                    <button class="btn btn-filter" (click)="openFilterEnergyModal()">
+                                        <img class="img-filter" src="assets/img/filter-blue.png" />
+                                        <span class="text-filter">Filter</span>
+                                        <img class="img-filter-arrow" src="assets/img/arrow-filter.png" />
+                                    </button>
+                                </div>
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-12" style="position: relative;">
+                                            <div style="display: flex; float: right; margin-right: 20px;">
+                                                <button class="btn btn-arrow">
+                                                    <img src="assets/img/arrow-grey-left.png" class="img-arrow" />
+                                                </button>
+                                                <span *ngIf="isDay" class="span-text-date">{{currentDate |
+                                                    date:'dd/MM/yyyy' }}</span>
+                                                <span *ngIf="!isDay"
+                                                    class="span-text-date span-text-date-month">{{currentDate |
+                                                    date:'MM/yyyy' }}</span>
+                                                <input type="date" class="form-control date-form-control"
+                                                    name="currentDate" [(ngModel)]='currentDate'
+                                                    (change)="checkDate()" />
+                                                <button class="btn btn-arrow">
+                                                    <img src="assets/img/arrow-grey-right.png" class="img-arrow" />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 15px; margin-bottom: 15px;">
+                                <div class="col-12" style="text-align-last: center;">
+                                    <img *ngIf="isDay" src="assets/img/draft/graph-day.png" width="90%" />
+                                    <img *ngIf="isMonth" src="assets/img/draft/graph-month.png" width="90%" />
+                                    <img *ngIf="isYear" src="assets/img/draft/graph-year.png" width="90%" />
+                                    <img *ngIf="isLifetime" src="assets/img/draft/graph-lifetime.png" width="90%" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-xl-5">
+                <div class="card card-manage">
+                    <div class="row" style="margin-top: 20px; margin-bottom: 25px;">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="margin-bottom: 10px;">
+                            <span class="text-head text-head-graph">Revenue</span>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12  ">
+                            <div class="row" style="margin-right: 8px; margin-left: 7px; margin-top: 6px;">
+                                <div class="col-6 col-sm-3 col-md-3 col-lg-6 col-xl-3" style="margin-bottom: 10px;">
+                                    <button class="btn btn-energy-manage" (click)="setGraphRevenue('DAY')"
+                                        [ngClass]="{'btn-energy-manage-active': isReDay}">Day</button>
+                                </div>
+                                <div class="col-6 col-sm-3 col-md-3 col-lg-6 col-xl-3" style="margin-bottom: 10px;">
+                                    <button class="btn btn-energy-manage" (click)="setGraphRevenue('MONTH')"
+                                        [ngClass]="{'btn-energy-manage-active': isReMonth}">Month</button>
+                                </div>
+                                <div class="col-6 col-sm-3 col-md-3 col-lg-6 col-xl-3" style="margin-bottom: 10px;">
+                                    <button class="btn btn-energy-manage" (click)="setGraphRevenue('YEAR')"
+                                        [ngClass]="{'btn-energy-manage-active': isReYear}">Year</button>
+                                </div>
+                                <div class="col-6 col-sm-3 col-md-3 col-lg-6 col-xl-3" style="margin-bottom: 10px;">
+                                    <button class="btn btn-energy-manage" (click)="setGraphRevenue('LIFETIME')"
+                                        [ngClass]="{'btn-energy-manage-active': isReLifetime}">Lifetime</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card card-manage" style="margin: 10px;">
+                                <div class="row" style="margin-top: 15px; margin-bottom: 20px;">
+                                    <div class="col-6">
+                                        <button class="btn btn-filter" (click)="openFilterEnergyModal()">
+                                            <img class="img-filter" src="assets/img/filter-blue.png" />
+                                            <span class="text-filter">Filter</span>
+                                            <img class="img-filter-arrow" src="assets/img/arrow-filter.png" />
+                                        </button>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-12" style="position: relative;">
+                                                <div style="display: flex; float: right; margin-right: 20px;">
+                                                    <button class="btn btn-arrow">
+                                                        <img src="assets/img/arrow-grey-left.png" class="img-arrow" />
+                                                    </button>
+                                                    <span *ngIf="isReDay" class="span-text-date">{{revenueDate |
+                                                        date:'dd/MM/yyyy' }}</span>
+                                                    <span *ngIf="!isReDay"
+                                                        class="span-text-date span-text-date-month">{{revenueDate |
+                                                        date:'MM/yyyy' }}</span>
+                                                    <input type="date" class="form-control date-form-control"
+                                                        name="revenueDate" [(ngModel)]='revenueDate'
+                                                        (change)="checkDateRevenue()" />
+                                                    <button class="btn btn-arrow">
+                                                        <img src="assets/img/arrow-grey-right.png" class="img-arrow" />
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hr-grey"></div>
+                                <div class="row" style="padding-left: 18px; padding-right: 18px; margin-bottom: 15px;">
+                                    <div class="col-7">
+                                        <span class="text-total-revenue">Total Revenue : 888,999.55 Baht</span>
+                                    </div>
+                                    <div class="col-5">
+                                        <div style="float: right;">
+                                            <img src="assets/img/revenue-point.png"
+                                                style="width: 20px; margin-right: 5px; margin-bottom: 2px;" />
+                                            <span class="text-total-revenue">Revenue</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <img *ngIf="isReDay" src="assets/img/draft/graph-revenue-day.png" style="width: 90%;" />
+                                    <img *ngIf="isReMonth" src="assets/img/draft/graph-revenue-month.png" style="width: 90%;" />
+                                    <img *ngIf="isReYear" src="assets/img/draft/graph-revenue-year.png" style="width: 90%;" />
+                                    <img *ngIf="isReLifetime" src="assets/img/draft/graph-revenue-lifetime.png" style="width: 90%;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Module From -->
+    <div class="modal fade" id="filterEnergyModal" tabindex="-1" aria-labelledby="moduleFromModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content border-radius-12px">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="moduleFromModalLabel"><strong class="text-tpp">Filter</strong></h5>
+                    <a data-bs-dismiss="modal" aria-label="Close"><i
+                            class='text-tpp font-size-5 bx bsm-x-circle'></i></a>
+                </div>
+                <div class="modal-body text-filter-body">
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-12">
+                            <span class="text-sort-by">Sort By:</span>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 5px;">
+                        <div class="col-12">
+                            <span class="text-body">Regions :</span>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-12">
+                            <nz-select nzMode="multiple" nzPlaceHolder="Select Regions"
+                                [(ngModel)]="listOfRegionSelectedValue">
+                                <nz-option *ngFor="let option of listOfRegion" [nzLabel]="option" [nzValue]="option"
+                                    [nzHide]="!isNotRegionSelected(option)"></nz-option>
+                            </nz-select>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 5px;">
+                        <div class="col-12">
+                            <span class="text-body">Sub Regions :</span>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-4">
+                            <nz-select [(ngModel)]="subRegionValue" (ngModelChange)="selectSubRegion($event)"
+                                nzPlaceHolder="Select Regions" nzAllowClear>
+                                <nz-option *ngFor="let s of listOfSubRegion" [nzValue]="s.region"
+                                    [nzLabel]="s.region"></nz-option>
+                            </nz-select>
+                        </div>
+                        <div class="col-8">
+                            <nz-select nzMode="multiple" nzPlaceHolder="Select Sub Regions"
+                                [(ngModel)]="listOfSubRegionSelectedValue">
+                                <nz-option *ngFor="let option of listOfSubRegionSelected" [nzLabel]="option"
+                                    [nzValue]="option" [nzHide]="!isNotSubRegionSelected(option)"></nz-option>
+                            </nz-select>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 5px;">
+                        <div class="col-12">
+                            <span class="text-body">Provinces :</span>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-12">
+                            <nz-select nzMode="multiple" nzPlaceHolder="Select Provinces"
+                                [(ngModel)]="listOfProvinceSelectedValue">
+                                <nz-option *ngFor="let option of listOfProvince" [nzLabel]="option.provinceName"
+                                    [nzValue]="option.provinceId"
+                                    [nzHide]="!isNotProvinceSelected(option.provinceId)"></nz-option>
+                            </nz-select>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 5px;">
+                        <div class="col-12">
+                            <span class="text-body">Sites :</span>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-12">
+                            <nz-select nzMode="multiple" nzPlaceHolder="Select Sites"
+                                [(ngModel)]="listOfSiteSelectedValue">
+                                <nz-option *ngFor="let option of listOfSite" [nzLabel]="option.siteName"
+                                    [nzValue]="option.siteId" [nzHide]="!isNotSiteSelected(option.siteId)"></nz-option>
+                            </nz-select>
+                        </div>
+                    </div>
+                    <div class="row" style="justify-content: center; padding-top: 10px;">
+                        <div class="hr-grey"></div>
+                    </div>
+                    <div class="row" style="margin-bottom: 5px;">
+                        <div class="col-12">
+                            <span class="text-body">Period :</span>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 10px;">
+                        <nz-slider nzRange [(ngModel)]="periodValue"></nz-slider>
+                    </div>
+                    <div class="row" style="margin-bottom: 25px;">
+                        <div class="col-6">
+                            <nz-input-number nzPlaceHolder="0 min" [(ngModel)]="minVal" [nzMin]="0" [nzMax]="1000" [nzStep]="1"></nz-input-number>
+                        </div>
+                        <div class="col-6">
+                            <nz-input-number nzPlaceHolder="0 max" [(ngModel)]="maxVal" [nzMin]="0" [nzMax]="1000" [nzStep]="1"></nz-input-number>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="align-self: center;">
+                    <button style="width: 95px; box-shadow: 0px 2px 10px rgba(133, 133, 133, 0.5);" type="button" class="btn btn-outline-grey rounded-pill me-4"
+                        data-bs-dismiss="modal" (click)="resetFilter()">Reset</button>
+                    <button style="width: 95px; box-shadow: 0px 2px 10px rgba(101, 192, 237, 0.5);" type="button" class="btn btn-outline-blue rounded-pill"
+                        (click)="submitFilter()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

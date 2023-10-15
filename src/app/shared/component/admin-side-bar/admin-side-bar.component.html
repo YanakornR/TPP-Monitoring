@@ -1,0 +1,91 @@
+<div class="body-admin-sidebar d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block" *ngIf="filtersLoaded | async">
+  <div class="admin-sidebar">
+    <div class="border-bottom border-2 border-light pb-1">
+      <img class="img-fluid w-100" src="./../../../../assets/img/admin/admin-icon.png">
+      <h6 class="text-light text-center mt-2">Admin</h6>
+    </div>
+    <div>
+      <div id="adminMenuNmModule" [ngClass]="{'active': nowMenu == 'nm-module'}" class="icon-admin-menu mt-3">
+        <a class="text-center w-100" [routerLink]="['/admin/nm-module']" (click)="onClickAdminMenu('nm-module')">
+          <img src="./../../../../assets/img/admin/nm-module-icon.png">
+        </a>
+      </div>
+      <div *ngIf="role != 'U'" id="adminMenuUserAccount" [ngClass]="{'active': nowMenu == 'user-account'}" class="icon-admin-menu mt-3">
+        <a class="text-center w-100" [routerLink]="['/admin/user-account']" (click)="onClickAdminMenu('user-account')">
+          <img src="./../../../../assets/img/admin/user-account-icon.png">
+        </a>
+      </div>
+      <div *ngIf="role != 'U'" id="adminMenuRole" [ngClass]="{'active': nowMenu == 'role'}" class="icon-admin-menu mt-3">
+        <a class="text-center w-100" [routerLink]="['/admin/role']" (click)="onClickAdminMenu('role')">
+          <img src="./../../../../assets/img/admin/role-icon.png">
+        </a>
+      </div>
+      <div *ngIf="role != 'U'" id="adminMenuSite" [ngClass]="{'active': nowMenu == 'site'}" class="icon-admin-menu mt-3">
+        <a class="text-center w-100" [routerLink]="['/admin/site']" (click)="onClickAdminMenu('site')">
+          <img src="./../../../../assets/img/admin/site-icon.png">
+        </a>
+      </div>
+      <div *ngIf="role != 'U'" id="adminMenuSubRegion" [ngClass]="{'active': nowMenu == 'sub-region'}" class="icon-admin-menu mt-3">
+        <a class="text-center w-100" [routerLink]="['/admin/sub-region']" (click)="onClickAdminMenu('sub-region')">
+          <img src="./../../../../assets/img/admin/sub-region-icon.png">
+        </a>
+      </div>
+      <div *ngIf="role === 'M'" id="adminMenuAccountLevel" [ngClass]="{'active': nowMenu == 'account-level'}" class="icon-admin-menu mt-3">
+        <a class="text-center w-100" [routerLink]="['/admin/account-level']"
+          (click)="onClickAdminMenu('account-level')">
+          <img src="./../../../../assets/img/admin/account-level-icon.png">
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="body-admin-sidebar-mobile  d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+  <div class="admin-sidebar-mobile">
+    <div class="row">
+      <div class="col-2">
+        <div id="adminMenuNmModule" [ngClass]="{'active': nowMenu == 'nm-module'}" class="icon-admin-menu ms-1 my-1">
+          <a class="text-center w-100" [routerLink]="['/admin/nm-module']" (click)="onClickAdminMenu('nm-module')">
+            <img src="./../../../../assets/img/admin/nm-module-icon.png">
+          </a>
+        </div>
+      </div>
+      <div class="col-2 p-0">
+        <div *ngIf="role != 'U'" id="adminMenuUserAccount" [ngClass]="{'active': nowMenu == 'user-account'}" class="icon-admin-menu my-1">
+          <a class="text-center w-100" [routerLink]="['/admin/user-account']"
+            (click)="onClickAdminMenu('user-account')">
+            <img src="./../../../../assets/img/admin/user-account-icon.png">
+          </a>
+        </div>
+      </div>
+      <div class="col-2 p-0">
+        <div *ngIf="role != 'U'" id="adminMenuRole" [ngClass]="{'active': nowMenu == 'role'}" class="icon-admin-menu my-1">
+          <a class="text-center w-100" [routerLink]="['/admin/role']" (click)="onClickAdminMenu('role')">
+            <img src="./../../../../assets/img/admin/role-icon.png">
+          </a>
+        </div>
+      </div>
+      <div class="col-2 p-0">
+        <div *ngIf="role != 'U'" id="adminMenuSite" [ngClass]="{'active': nowMenu == 'site'}" class="icon-admin-menu my-1">
+          <a class="text-center w-100" [routerLink]="['/admin/site']" (click)="onClickAdminMenu('site')">
+            <img src="./../../../../assets/img/admin/site-icon.png">
+          </a>
+        </div>
+      </div>
+      <div class="col-2 p-0">
+        <div *ngIf="role != 'U'" id="adminMenuSubRegion" [ngClass]="{'active': nowMenu == 'sub-region'}" class="icon-admin-menu my-1">
+          <a class="text-center w-100" [routerLink]="['/admin/sub-region']" (click)="onClickAdminMenu('sub-region')">
+            <img src="./../../../../assets/img/admin/sub-region-icon.png">
+          </a>
+        </div>
+      </div>
+      <div *ngIf="role === 'M'" class="col-2 p-0">
+        <div id="adminMenuAccountLevel" [ngClass]="{'active': nowMenu == 'account-level'}" class="icon-admin-menu my-1">
+          <a class="text-center w-100" [routerLink]="['/admin/account-level']"
+            (click)="onClickAdminMenu('account-level')">
+            <img src="./../../../../assets/img/admin/account-level-icon.png">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

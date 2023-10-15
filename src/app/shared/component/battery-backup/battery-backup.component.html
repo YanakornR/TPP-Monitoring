@@ -1,0 +1,70 @@
+<div class="card card-table-cs" style="padding: 20px;">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-2"
+      style="display: flex;align-content: flex-end;flex-direction: row;flex-wrap: wrap;justify-content: flex-start;align-items: center;">
+      <img style="width: 40px;" src="assets/img/summary-alert-earth.png"><span class="topic" style="margin-left: 20px;">
+        Battery Backup Activity</span>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6"
+      style="display: flex;align-content: center;flex-direction: row;flex-wrap: wrap;justify-content: flex-end;align-items: center;">
+      <button type="button" class="btn btn-outline-green me-2 d-flex align-items-center border-radius-6px"
+        (click)="openFilterModal()">
+        <i class='bx bx-filter-alt me-1'></i> Filter
+      </button>
+      <button (click)="clearFilter()" type="button" class="btn  d-flex align-items-center border-radius-6px"
+        style="color: #fff;background-color: #eb3c28;border-color: #eb3d29;">
+        <i class='bx bxs-plus-circle me-1'></i> All Region
+      </button>
+    </div>
+  </div>
+
+  <div style="display: block;" class="chart chart-margin">
+    <div style="overflow-x:scroll;">
+      <div class="chart-wrapper" style="height:450px; width: 1300px">
+        <canvas #canvasBackup width="1250px" height="400px" baseChart [datasets]="Data" [labels]="ChartLabels"
+          [options]="barChartOptions" [chartType]="barChartType" [colors]="ChartColor"
+          (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+        <!-- <img style="width: 80%;" src="assets/img/graph-battery.png"> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Filter -->
+<div class="modal fade" id="filterBatteryBackupModal" tabindex="-1">
+  <div id="filterModalDialog" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><strong class="text-tpp">Filter</strong></h5>
+        <a data-bs-dismiss="modal" aria-label="Close"><i class='text-tpp font-size-5 bx bxs-x-circle'></i></a>
+      </div>
+      <div class="modal-body bg-modal-body">
+        <div class="row pb-2 border-bottom">
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="allRegionBatt"
+                (change)="selectAllRegionFilter($event)"
+                [checked]="filterOption.region.length == defaultRegion.length">
+              <label class="form-check-label ms-2" for="allRegionBatt">
+                <strong class="text-tpp">All Region</strong>
+              </label>
+            </div>
+            <div class="ps-3">
+              <div class="form-check" *ngFor="let region of defaultRegion">
+                <input class="form-check-input" type="checkbox" id="regionBatt_{{region}}"
+                  [checked]="filterOption.region.includes(region)" (change)="selectRegionFilter($event,region)">
+                <label class="form-check-label ms-2" for="regionBatt_{{region}}">
+                  <strong class="text-tpp">{{region}}</strong>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-tpp border-radius-6px w-100" (click)="clearFilter()">Clear
+          Filter</button>
+      </div>
+    </div>
+  </div>
+</div>

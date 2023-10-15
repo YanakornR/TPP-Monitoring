@@ -1,0 +1,699 @@
+<div class="container-fluid no-padding" *ngIf="filtersLoaded | async">
+  <!-- PART 1 -->
+  <div class="row justify-content-start row-width">
+    <div class="col-width-10 col-xl-10 order-xl-1 padding-right-0">
+      <div class="card card-table-cs ">
+        <div class="row">
+          <!-- Map -->
+          <div class="col-lg-4 order-md-1 order-lg-2" style="text-align: -webkit-center;">
+            <div class="img-div">
+              <img class="img-map" src="assets/img/map/th-map.png">
+              <img *ngIf="central.regionStatus === 'A' || central.regionStatus === 'W'" class="img-map-region"
+                src="assets/img/map/th-central.png">
+              <img *ngIf="eastern.regionStatus === 'A' || eastern.regionStatus === 'W'" class="img-map-region"
+                src="assets/img/map/th-eastern.png">
+              <img *ngIf="northeastern.regionStatus === 'A' || northeastern.regionStatus === 'W'" class="img-map-region"
+                src="assets/img/map/th-northeastern.png">
+              <img *ngIf="northern.regionStatus === 'A' || northern.regionStatus === 'W'" class="img-map-region"
+                src="assets/img/map/th-northern.png">
+              <img *ngIf="southern.regionStatus === 'A' || southern.regionStatus === 'W'" class="img-map-region"
+                src="assets/img/map/th-southern.png">
+              <img *ngIf="western.regionStatus === 'A' || western.regionStatus === 'W'" class="img-map-region"
+                src="assets/img/map/th-western.png">
+
+            </div>
+          </div>
+          <!-- region left -->
+          <div class="col-md-6 col-lg-4 order-md-2 order-lg-1">
+            <a [routerLink]="northern.regionStatus === 'I' || !accessPage.northern ? null : ['/region/', northern.regionId]" (click)="sendRegionNav('northern')" [routerLinkActive]="northern.regionStatus === 'I' || !accessPage.northern ? 'is_disabled' : 'is_active'">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card card-region "
+                    [ngClass]="{'card-bg-region-inactive': northern.regionStatus === 'I' , 'card-bg-region-active': northern.regionStatus === 'A' || northern.regionStatus === 'W'}">
+                    <!-- Region Name Card -->
+                    <div class="row">
+                      <div class="col-12 mb-2">
+                        <div class="font-size-region"
+                          [ngClass]="{'region-name-card-inactive': northern.regionStatus === 'I' , 'region-name-card-active': northern.regionStatus === 'A' || northern.regionStatus === 'W'}">
+                          <div class="row centered" style="color: white;">Northern</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="margin-cs">
+                      <!-- Col Left -->
+                      <div class="row ">
+                        <div class="col-4">
+                          <div class="row" style="position: relative;">
+                            <div class="card card-region-sub-custom "
+                              [ngClass]="{'card-bg-color-inactive': northern.regionStatus === 'I' , 'card-bg-color-active': northern.regionStatus === 'A' || northern.regionStatus === 'W'}">
+                              <span class="card-reion-span">Province</span>
+                            </div>
+                            <div class="card card-region-sub-total-custom ">
+                              <span class="card-reion-span ">{{northern.infomation.provinces}}</span>
+                            </div>
+                          </div>
+                          <div class="row" style="position: relative;">
+                            <div class="card card-region-sub-custom"
+                              [ngClass]="{'card-bg-color-inactive': northern.regionStatus === 'I' , 'card-bg-color-active': northern.regionStatus === 'A' || northern.regionStatus === 'W'}">
+                              <span class="card-reion-span">Total Site</span>
+                            </div>
+                            <div class="card card-region-sub-total-custom">
+                              <span class="card-reion-span ">{{northern.infomation.totalSite}}</span>
+                            </div>
+                          </div>
+                          <div class="row" style="position: relative;">
+                            <div class="card card-region-sub-custom  card-region-sub-margin-bottom"
+                              [ngClass]="{'card-bg-color-inactive': northern.regionStatus === 'I' , 'card-bg-color-active': northern.regionStatus === 'A' || northern.regionStatus === 'W'}">
+                              <span class="card-reion-span ">Total Devices</span>
+                            </div>
+                            <div class="card card-region-sub-total-custom">
+                              <span class="card-reion-span ">{{northern.infomation.totalDevice}}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-8" style="padding-left: 5px;padding-top: 3px;">
+                          <div class="row ">
+                            <div class="col-3 ">
+                              <div class="card card-region-status " [ngClass]="{ 'status-inactive' : northern.infomation.commStatus === 'I'  , 'status-active' : northern.infomation.commStatus != 'I'}">
+                                <div class="row centered">
+                                  <img *ngIf="northern.infomation.commStatus === 'I'" class="img" style="width: 70%;"
+                                    src="assets/img/icon-inactive.png">
+                                  <img
+                                    *ngIf="northern.infomation.commStatus === 'W' || northern.infomation.commStatus === 'A'"
+                                    class="img" style="width: 70%;" src="assets/img/icon-active.png">
+                                </div>
+                                <div class="row centered">Comm.</div>
+                                <div class="row centered">Status</div>
+                              </div>
+                            </div>
+                            <div class="col-3 ">
+                              <div class="card card-region-status " [ngClass]="{ 'status-inactive' : northern.infomation.deviceStatus === 'I'  , 'status-active' : northern.infomation.deviceStatus != 'I'}">
+                                <div class="row centered">
+                                  <img *ngIf="northern.infomation.deviceStatus === 'I'" class="img" style="width: 70%;"
+                                    src="assets/img/icon-inactive.png">
+                                  <img *ngIf="northern.infomation.deviceStatus === 'A'" class="img" style="width: 70%;"
+                                    src="assets/img/icon-active.png">
+                                </div>
+                                <div class="row centered">Device1</div>
+                                <div class="row centered">Status</div>
+                              </div>
+                            </div>
+                            <div class="col-3 ">
+                              <div class="card card-region-status " style="background: #ABABAC;">
+
+                              </div>
+                            </div>
+                            <div class="col-3 ">
+                              <div class="card card-region-status " style="background: #ABABAC;">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <!-- Central -->
+            <a [routerLink]="central.regionStatus === 'I' || !accessPage.central ? null : ['/region/', central.regionId]" (click)="sendRegionNav('central')" [routerLinkActive]="central.regionStatus === 'I' || !accessPage.central ? 'is_disabled' : 'is_active'">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card card-region "
+                    [ngClass]="{'card-bg-region-inactive': central.regionStatus === 'I' , 'card-bg-region-active': central.regionStatus === 'A' || central.regionStatus === 'W'}">
+                    <!-- Region Name Card -->
+                    <div class="row">
+                      <div class="col-12 mb-2">
+                        <div class="font-size-region"
+                          [ngClass]="{'region-name-card-inactive': central.regionStatus === 'I' , 'region-name-card-active': central.regionStatus === 'A' || central.regionStatus === 'W'}">
+                          <div class="row centered" style="color: white;">Central</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="margin-cs">
+                      <div class="row ">
+                        <div class="col-4">
+                          <div class="row" style="position: relative;">
+                            <div class="card card-region-sub-custom "
+                              [ngClass]="{'card-bg-color-inactive': central.regionStatus === 'I' , 'card-bg-color-active': central.regionStatus === 'A' || central.regionStatus === 'W'}">
+                              <span class="card-reion-span">Province</span>
+                            </div>
+                            <div class="card card-region-sub-total-custom ">
+                              <span class="card-reion-span ">{{central.infomation.provinces}}</span>
+                            </div>
+                          </div>
+                          <div class="row" style="position: relative;">
+                            <div class="card card-region-sub-custom"
+                              [ngClass]="{'card-bg-color-inactive': central.regionStatus === 'I' , 'card-bg-color-active': central.regionStatus === 'A' || central.regionStatus === 'W'}">
+                              <span class="card-reion-span">Total Site</span>
+                            </div>
+                            <div class="card card-region-sub-total-custom">
+                              <span class="card-reion-span ">{{central.infomation.totalSite}}</span>
+                            </div>
+                          </div>
+                          <div class="row" style="position: relative;">
+                            <div class="card card-region-sub-custom  card-region-sub-margin-bottom"
+                              [ngClass]="{'card-bg-color-inactive': central.regionStatus === 'I' , 'card-bg-color-active': central.regionStatus === 'A' || central.regionStatus === 'W'}">
+                              <span class="card-reion-span ">Total Devices</span>
+                            </div>
+                            <div class="card card-region-sub-total-custom">
+                              <span class="card-reion-span ">{{central.infomation.totalDevice}}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-8" style="padding-left: 5px;padding-top: 3px;">
+                          <div class="row ">
+                            <div class="col-3 ">
+                              <div class="card card-region-status " [ngClass]="{ 'status-inactive' : central.infomation.commStatus === 'I'  , 'status-active' : central.infomation.commStatus != 'I'}">
+                                <div class="row centered">
+                                  <img *ngIf="central.infomation.commStatus === 'I'" class="img" style="width: 70%;"
+                                    src="assets/img/icon-inactive.png">
+                                  <img
+                                    *ngIf="central.infomation.commStatus === 'W' || central.infomation.commStatus === 'A'"
+                                    class="img" style="width: 70%;" src="assets/img/icon-active.png">
+                                </div>
+                                <div class="row centered">Comm.</div>
+                                <div class="row centered">Status</div>
+                              </div>
+                            </div>
+                            <div class="col-3 ">
+                              <div class="card card-region-status " [ngClass]="{ 'status-inactive' : central.infomation.deviceStatus === 'I'  , 'status-active' : central.infomation.deviceStatus != 'I'}">
+                                <div class="row centered">
+                                  <img *ngIf="central.infomation.deviceStatus === 'I'" class="img" style="width: 70%;"
+                                    src="assets/img/icon-inactive.png">
+                                  <img *ngIf="central.infomation.deviceStatus === 'A'" class="img" style="width: 70%;"
+                                    src="assets/img/icon-active.png">
+                                </div>
+                                <div class="row centered">Device1</div>
+                                <div class="row centered">Status</div>
+                              </div>
+                            </div>
+                            <div class="col-3 ">
+                              <div class="card card-region-status " style="background: #ABABAC;">
+                              </div>
+                            </div>
+                            <div class="col-3 ">
+                              <div class="card card-region-status " style="background: #ABABAC;">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <!-- Western -->
+            <a [routerLink]="western.regionStatus === 'I' || !accessPage.western ? null : ['/region/', western.regionId]" (click)="sendRegionNav('western')" [routerLinkActive]="western.regionStatus === 'I' || !accessPage.western ? 'is_disabled' : 'is_active'">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card card-region "
+                    [ngClass]="{'card-bg-region-inactive': western.regionStatus === 'I' , 'card-bg-region-active': western.regionStatus === 'A' || western.regionStatus === 'W'}">
+                    <!-- Region Name Card -->
+                    <div class="row">
+                      <div class="col-12 mb-2">
+                        <div class="font-size-region"
+                          [ngClass]="{'region-name-card-inactive': western.regionStatus === 'I' , 'region-name-card-active': western.regionStatus === 'A' || western.regionStatus === 'W'}">
+                          <div class="row centered" style="color: white;">Western</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="margin-cs">
+                      <div class="row ">
+                        <div class="col-4">
+                          <div class="row" style="position: relative;">
+                            <div class="card card-region-sub-custom "
+                              [ngClass]="{'card-bg-color-inactive': western.regionStatus === 'I' , 'card-bg-color-active': western.regionStatus === 'A' || western.regionStatus === 'W'}">
+                              <span class="card-reion-span">Province</span>
+                            </div>
+                            <div class="card card-region-sub-total-custom ">
+                              <span class="card-reion-span ">{{western.infomation.provinces}}</span>
+                            </div>
+                          </div>
+                          <div class="row" style="position: relative;">
+                            <div class="card card-region-sub-custom"
+                              [ngClass]="{'card-bg-color-inactive': western.regionStatus === 'I' , 'card-bg-color-active': western.regionStatus === 'A' || western.regionStatus === 'W'}">
+                              <span class="card-reion-span">Total Site</span>
+                            </div>
+                            <div class="card card-region-sub-total-custom">
+                              <span class="card-reion-span ">{{western.infomation.totalSite}}</span>
+                            </div>
+                          </div>
+                          <div class="row" style="position: relative;">
+                            <div class="card card-region-sub-custom  card-region-sub-margin-bottom"
+                              [ngClass]="{'card-bg-color-inactive': western.regionStatus === 'I' , 'card-bg-color-active': western.regionStatus === 'A' || western.regionStatus === 'W'}">
+                              <span class="card-reion-span ">Total Devices</span>
+                            </div>
+                            <div class="card card-region-sub-total-custom">
+                              <span class="card-reion-span ">{{western.infomation.totalDevice}}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-8" style="padding-left: 5px;padding-top: 3px;">
+                          <div class="row ">
+                            <div class="col-3 ">
+                              <div class="card card-region-status " [ngClass]="{ 'status-inactive' : western.infomation.commStatus === 'I'  , 'status-active' : western.infomation.commStatus != 'I'}">
+                                <div class="row centered">
+                                  <img *ngIf="western.infomation.commStatus === 'I'" class="img" style="width: 70%;"
+                                    src="assets/img/icon-inactive.png">
+                                  <img
+                                    *ngIf="western.infomation.commStatus === 'W' || western.infomation.commStatus === 'A'"
+                                    class="img" style="width: 70%;" src="assets/img/icon-active.png">
+                                </div>
+                                <div class="row centered">Comm.</div>
+                                <div class="row centered">Status</div>
+                              </div>
+                            </div>
+                            <div class="col-3 ">
+                              <div class="card card-region-status " [ngClass]="{ 'status-inactive' : western.infomation.deviceStatus === 'I'  , 'status-active' : western.infomation.deviceStatus != 'I'}">
+                                <div class="row centered">
+                                  <img *ngIf="western.infomation.deviceStatus === 'I'" class="img" style="width: 70%;"
+                                    src="assets/img/icon-inactive.png">
+                                  <img *ngIf="western.infomation.deviceStatus === 'A'" class="img" style="width: 70%;"
+                                    src="assets/img/icon-active.png">
+                                </div>
+                                <div class="row centered">Device1</div>
+                                <div class="row centered">Status</div>
+                              </div>
+                            </div>
+                            <div class="col-3 ">
+                              <div class="card card-region-status " style="background: #ABABAC;">
+                              </div>
+                            </div>
+                            <div class="col-3 ">
+                              <div class="card card-region-status " style="background: #ABABAC;">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- region right -->
+          <div class="col-md-6 col-lg-4 order-md-3 order-lg-3">
+            <!-- Northeasthern -->
+            <a [routerLink]="northeastern.regionStatus === 'I' || !accessPage.northeastern ? null : ['/region/', northeastern.regionId]" (click)="sendRegionNav('northeastern')" [routerLinkActive]="northeastern.regionStatus === 'I' || !accessPage.northeastern ? 'is_disabled' : 'is_active'">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card card-region "
+                    [ngClass]="{'card-bg-region-inactive': northeastern.regionStatus === 'I' , 'card-bg-region-active': northeastern.regionStatus === 'A' || northeastern.regionStatus === 'W'}">
+                    <!-- Region Name Card -->
+                    <div class="row">
+                      <div class="col-12 mb-2">
+                        <div class="font-size-region"
+                          [ngClass]="{'region-name-card-inactive': northeastern.regionStatus === 'I' , 'region-name-card-active': northeastern.regionStatus === 'A' || northeastern.regionStatus === 'W'}">
+                          <div class="row centered" style="color: white;">Northeasthern</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="margin-cs">
+                      <div class="row ">
+                        <div class="col-4">
+                          <div class="row" style="position: relative;">
+                            <div class="card card-region-sub-custom "
+                              [ngClass]="{'card-bg-color-inactive': northeastern.regionStatus === 'I' , 'card-bg-color-active': northeastern.regionStatus === 'A' || northeastern.regionStatus === 'W'}">
+                              <span class="card-reion-span">Province</span>
+                            </div>
+                            <div class="card card-region-sub-total-custom ">
+                              <span class="card-reion-span ">{{northeastern.infomation.provinces}}</span>
+                            </div>
+                          </div>
+                          <div class="row" style="position: relative;">
+                            <div class="card card-region-sub-custom"
+                              [ngClass]="{'card-bg-color-inactive': northeastern.regionStatus === 'I' , 'card-bg-color-active': northeastern.regionStatus === 'A' || northeastern.regionStatus === 'W'}">
+                              <span class="card-reion-span">Total Site</span>
+                            </div>
+                            <div class="card card-region-sub-total-custom">
+                              <span class="card-reion-span ">{{northeastern.infomation.totalSite}}</span>
+                            </div>
+                          </div>
+                          <div class="row" style="position: relative;">
+                            <div class="card card-region-sub-custom  card-region-sub-margin-bottom"
+                              [ngClass]="{'card-bg-color-inactive': northeastern.regionStatus === 'I' , 'card-bg-color-active': northeastern.regionStatus === 'A' || northeastern.regionStatus === 'W'}">
+                              <span class="card-reion-span ">Total Devices</span>
+                            </div>
+                            <div class="card card-region-sub-total-custom">
+                              <span class="card-reion-span ">{{northeastern.infomation.totalDevice}}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-8" style="padding-left: 5px;padding-top: 3px;">
+                          <div class="row ">
+                            <div class="col-3 ">
+                              <div class="card card-region-status " [ngClass]="{ 'status-inactive' : northeastern.infomation.commStatus === 'I'  , 'status-active' : northeastern.infomation.commStatus != 'I'}">
+                                <div class="row centered">
+                                  <img *ngIf="northeastern.infomation.commStatus === 'I'" class="img"
+                                    style="width: 70%;" src="assets/img/icon-inactive.png">
+                                  <img
+                                    *ngIf="northeastern.infomation.commStatus === 'W' || northeastern.infomation.commStatus === 'A'"
+                                    class="img" style="width: 70%;" src="assets/img/icon-active.png">
+                                </div>
+                                <div class="row centered">Comm.</div>
+                                <div class="row centered">Status</div>
+                              </div>
+                            </div>
+                            <div class="col-3 ">
+                              <div class="card card-region-status " [ngClass]="{ 'status-inactive' : northeastern.infomation.deviceStatus === 'I'  , 'status-active' : northeastern.infomation.deviceStatus != 'I'}">
+                                <div class="row centered">
+                                  <img *ngIf="northeastern.infomation.deviceStatus === 'I'" class="img"
+                                    style="width: 70%;" src="assets/img/icon-inactive.png">
+                                  <img *ngIf="northeastern.infomation.deviceStatus === 'A'" class="img"
+                                    style="width: 70%;" src="assets/img/icon-active.png">
+                                </div>
+                                <div class="row centered">Device1</div>
+                                <div class="row centered">Status</div>
+                              </div>
+                            </div>
+                            <div class="col-3 ">
+                              <div class="card card-region-status " style="background: #ABABAC;">
+                              </div>
+                            </div>
+                            <div class="col-3 ">
+                              <div class="card card-region-status " style="background: #ABABAC;">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <!-- Eastern -->
+            <a [routerLink]="eastern.regionStatus === 'I' || !accessPage.eastern ? null : ['/region/', eastern.regionId]" (click)="sendRegionNav('eastern')" [routerLinkActive]="eastern.regionStatus === 'I' || !accessPage.eastern ? 'is_disabled' : 'is_active'">
+               <div class="row">
+                <div class="col-12">
+                  <div class="card card-region "
+                    [ngClass]="{'card-bg-region-inactive': eastern.regionStatus === 'I' , 'card-bg-region-active': eastern.regionStatus === 'A' || eastern.regionStatus === 'W'}">
+                    <!-- Region Name Card -->
+                    <div class="row">
+                      <div class="col-12 mb-2">
+                        <div class="font-size-region"
+                          [ngClass]="{'region-name-card-inactive': eastern.regionStatus === 'I' , 'region-name-card-active': eastern.regionStatus === 'A' || eastern.regionStatus === 'W'}">
+                          <div class="row centered" style="color: white;">Eastern</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="margin-cs">
+                      <div class="row ">
+                        <div class="col-4">
+                          <div class="row" style="position: relative;">
+                            <div class="card card-region-sub-custom "
+                              [ngClass]="{'card-bg-color-inactive': eastern.regionStatus === 'I' , 'card-bg-color-active': eastern.regionStatus === 'A' || eastern.regionStatus === 'W'}">
+                              <span class="card-reion-span">Province</span>
+                            </div>
+                            <div class="card card-region-sub-total-custom ">
+                              <span class="card-reion-span ">{{eastern.infomation.provinces}}</span>
+                            </div>
+                          </div>
+                          <div class="row" style="position: relative;">
+                            <div class="card card-region-sub-custom"
+                              [ngClass]="{'card-bg-color-inactive': eastern.regionStatus === 'I' , 'card-bg-color-active': eastern.regionStatus === 'A' || eastern.regionStatus === 'W'}">
+                              <span class="card-reion-span">Total Site</span>
+                            </div>
+                            <div class="card card-region-sub-total-custom">
+                              <span class="card-reion-span ">{{eastern.infomation.totalSite}}</span>
+                            </div>
+                          </div>
+                          <div class="row" style="position: relative;">
+                            <div class="card card-region-sub-custom  card-region-sub-margin-bottom"
+                              [ngClass]="{'card-bg-color-inactive': eastern.regionStatus === 'I' , 'card-bg-color-active': eastern.regionStatus === 'A' || eastern.regionStatus === 'W'}">
+                              <span class="card-reion-span ">Total Devices</span>
+                            </div>
+                            <div class="card card-region-sub-total-custom">
+                              <span class="card-reion-span ">{{eastern.infomation.totalDevice}}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-8" style="padding-left: 5px;padding-top: 3px;">
+                          <div class="row ">
+                            <div class="col-3 ">
+                              <div class="card card-region-status " [ngClass]="{ 'status-inactive' : eastern.infomation.commStatus === 'I'  , 'status-active' : eastern.infomation.commStatus != 'I'}">
+                                <div class="row centered">
+                                  <img *ngIf="eastern.infomation.commStatus === 'I'" class="img" style="width: 70%;"
+                                    src="assets/img/icon-inactive.png">
+                                  <img
+                                    *ngIf="eastern.infomation.commStatus === 'W' || eastern.infomation.commStatus === 'A'"
+                                    class="img" style="width: 70%;" src="assets/img/icon-active.png">
+                                </div>
+                                <div class="row centered">Comm.</div>
+                                <div class="row centered">Status</div>
+                              </div>
+                            </div>
+                            <div class="col-3 ">
+                              <div class="card card-region-status " [ngClass]="{ 'status-inactive' : eastern.infomation.deviceStatus === 'I'  , 'status-active' : eastern.infomation.deviceStatus != 'I'}">
+                                <div class="row centered">
+                                  <img *ngIf="eastern.infomation.deviceStatus === 'I'" class="img" style="width: 70%;"
+                                    src="assets/img/icon-inactive.png">
+                                  <img *ngIf="eastern.infomation.deviceStatus === 'A'" class="img" style="width: 70%;"
+                                    src="assets/img/icon-active.png">
+                                </div>
+                                <div class="row centered">Device1</div>
+                                <div class="row centered">Status</div>
+                              </div>
+                            </div>
+                            <div class="col-3 ">
+                              <div class="card card-region-status " style="background: #ABABAC;">
+                              </div>
+                            </div>
+                            <div class="col-3 ">
+                              <div class="card card-region-status " style="background: #ABABAC;">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <!-- Southern -->
+            <a [routerLink]="southern.regionStatus === 'I' || !accessPage.southern ? null : ['/region/', southern.regionId]" (click)="sendRegionNav('southern')" [routerLinkActive]="southern.regionStatus === 'I' || !accessPage.southern ? 'is_disabled' : 'is_active'">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card card-region "
+                    [ngClass]="{'card-bg-region-inactive': southern.regionStatus === 'I' , 'card-bg-region-active': southern.regionStatus === 'A' || southern.regionStatus === 'W'}">
+                    <!-- Region Name Card -->
+                    <div class="row">
+                      <div class="col-12 mb-2">
+                        <div class="font-size-region"
+                          [ngClass]="{'region-name-card-inactive': southern.regionStatus === 'I' , 'region-name-card-active': southern.regionStatus === 'A' || southern.regionStatus === 'W'}">
+                          <div class="row centered" style="color: white;">Southern</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="margin-cs">
+                      <div class="row ">
+                        <div class="col-4">
+                          <div class="row" style="position: relative;">
+                            <div class="card card-region-sub-custom "
+                              [ngClass]="{'card-bg-color-inactive': southern.regionStatus === 'I' , 'card-bg-color-active': southern.regionStatus === 'A' || southern.regionStatus === 'W'}">
+                              <span class="card-reion-span">Province</span>
+                            </div>
+                            <div class="card card-region-sub-total-custom ">
+                              <span class="card-reion-span ">{{southern.infomation.provinces}}</span>
+                            </div>
+                          </div>
+                          <div class="row" style="position: relative;">
+                            <div class="card card-region-sub-custom"
+                              [ngClass]="{'card-bg-color-inactive': southern.regionStatus === 'I' , 'card-bg-color-active': southern.regionStatus === 'A' || southern.regionStatus === 'W'}">
+                              <span class="card-reion-span">Total Site</span>
+                            </div>
+                            <div class="card card-region-sub-total-custom">
+                              <span class="card-reion-span ">{{southern.infomation.totalSite}}</span>
+                            </div>
+                          </div>
+                          <div class="row" style="position: relative;">
+                            <div class="card card-region-sub-custom  card-region-sub-margin-bottom"
+                              [ngClass]="{'card-bg-color-inactive': southern.regionStatus === 'I' , 'card-bg-color-active': southern.regionStatus === 'A' || southern.regionStatus === 'W'}">
+                              <span class="card-reion-span ">Total Devices</span>
+                            </div>
+                            <div class="card card-region-sub-total-custom">
+                              <span class="card-reion-span ">{{southern.infomation.totalDevice}}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-8" style="padding-left: 5px;padding-top: 3px;">
+                          <div class="row ">
+                            <div class="col-3 ">
+                              <div class="card card-region-status " [ngClass]="{ 'status-inactive' : southern.infomation.commStatus === 'I'  , 'status-active' : southern.infomation.commStatus != 'I'}">
+                                <div class="row centered">
+                                  <img *ngIf="southern.infomation.commStatus === 'I'" class="img" style="width: 70%;"
+                                    src="assets/img/icon-inactive.png">
+                                  <img
+                                    *ngIf="southern.infomation.commStatus === 'W' || southern.infomation.commStatus === 'A'"
+                                    class="img" style="width: 70%;" src="assets/img/icon-active.png">
+                                </div>
+                                <div class="row centered">Comm.</div>
+                                <div class="row centered">Status</div>
+                              </div>
+                            </div>
+                            <div class="col-3 ">
+                              <div class="card card-region-status " [ngClass]="{ 'status-inactive' : southern.infomation.deviceStatus === 'I'  , 'status-active' : southern.infomation.deviceStatus != 'I'}">
+                                <div class="row centered">
+                                  <img *ngIf="southern.infomation.deviceStatus === 'I'" class="img" style="width: 70%;"
+                                    src="assets/img/icon-inactive.png">
+                                  <img *ngIf="southern.infomation.deviceStatus === 'A'" class="img" style="width: 70%;"
+                                    src="assets/img/icon-active.png">
+                                </div>
+                                <div class="row centered">Device1</div>
+                                <div class="row centered">Status</div>
+                              </div>
+                            </div>
+                            <div class="col-3 ">
+                              <div class="card card-region-status " style="background: #ABABAC;">
+                              </div>
+                            </div>
+                            <div class="col-3 ">
+                              <div class="card card-region-status " style="background: #ABABAC;">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Sidebar-->
+    <div class="col-width-4 col-xl-2 col-lg-12 order-md-11 order-xl-12 padding-right-0">
+      <div class="row row-width">
+        <div class="col-12">
+          <div class="card card-total card-total-left">
+            <div class="row row-width">
+              <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-12 col-xxl-12 px-1 border-end-ms mb-2">
+                <div class="row">
+                  <div class="col-8">
+                    <span class="total-text-span">Total Site</span><br>
+                    <span class="total-text" style="font-size: 24px;">{{allInfo.site.total}}</span>
+                  </div>
+                  <div class="col-4 text-end">
+                    <img class="img" style="width: 80%;" src="assets/img/site-cut.png">
+                  </div>
+                  <div class="total-line-right d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block"></div>
+                </div>
+              </div>
+              <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-12 col-xxl-12 px-1">
+                <div class="row">
+                  <div class="col-4">
+                    <img class="img" style="width: 100%;" src="assets/img/total-devices.png">
+                  </div>
+                  <div class="col-8 text-end">
+                    <span class="total-text-span">Total Devices</span><br>
+                    <span class="total-text" style="font-size: 24px;">{{allInfo.device.total}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+          <div class="card card-total card-total-left h-auto">
+            <div class="row row-width">
+              <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-12 col-xxl-12 px-1 border-end-ms pb-2">
+                <div class="row">
+                  <div class="col-4 ">
+                    <img class="img" style="width: 75%;" src="assets/img/total-region.png">
+                  </div>
+                  <div class="col-8 text-start">
+                    <span class="total-text-span">Total Region</span><br>
+                    <span class="total-text" style="font-size: 24px;">{{allInfo.totalRegions}}</span>
+                  </div>
+                </div>
+                <div class="total-line-right d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block pb-2"></div>
+              </div>
+              <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-12 col-xxl-12 px-1">
+                <div class="row">
+                  <div class="col-4 ">
+                    <img class="img" style="width: 75%;" src="assets/img/total-province.png">
+                  </div>
+                  <div class="col-8 text-start">
+                    <span class="total-text-span">Total Province</span><br>
+                    <span class="total-text" style="font-size: 24px;">{{allInfo.totalProvinces}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="total-line-right"></div>
+            <div class="row row-width">
+              <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-12 col-xxl-12 px-1 border-end-ms">
+                <div class="row">
+                  <div class="col-12 ">
+                    <span class="total-text-span">Active / Total Sites</span><br>
+                    <span class="total-text" style="font-size: 24px;">{{allInfo.site.active}} /
+                      {{allInfo.site.total}}</span>
+                  </div>
+                </div>
+                <div class="total-line-right d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block mb-2"></div>
+              </div>
+              <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-12 col-xxl-12 px-1">
+                <div class="row row-width">
+                  <div class="col-12 ">
+                    <span class="total-text-span">Active / Total Devices</span><br>
+                    <span class="total-text" style="font-size: 24px;">{{allInfo.device.active}} /
+                      {{allInfo.device.total}}</span>
+                  </div>
+                </div>
+                <div class="total-line-right d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="role === 'M'" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+          <div class="card card-total card-total-left h-auto">
+
+            <div class="row row-width">
+              <div class="col-12 mb-2">
+                <span class="total-text-span">Customer Company</span><br>
+              </div>
+            </div>
+            <div class="row row-width">
+              <div class="col-8">
+                <select [disabled]="!allCompany"
+                  style="color: #3570c5; background-color: #ffffff; border-color: #8d8d8d; font-size: 14px; margin-left: 13px;width: 120px;margin-top: 7px;"
+                  class="form-select me-2" (change)="onChangeCompany($event.target.value)" [(ngModel)]="customerCompany">
+                  <option *ngFor="let company of allCompany" value={{company.companyId}}>{{company.companyName}}</option>
+                </select>
+              </div>
+              <div class="col-4 text-end">
+                <img class="img img-customer-company" src="assets/img/customer-company.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- PART 2 -->
+  <div #target id="target"></div>
+  <div class="row justify-content-start row-width mt-2">
+    <div class="col-width-4 col-xl-2 order-xl-12  padding-right-0">
+    </div>
+    <div class="col-width-10 col-xl-10 order-xl-1 padding-right-0" [ngClass]="{'master-div' : role === 'M'}">
+      <tpp-summary-alert [selectRegion]="region" [selectStatus]="status" #summaryAlert></tpp-summary-alert>
+      <tpp-battery-backup [selectRegion]="regionBackup" #batteryBackup></tpp-battery-backup>
+    </div>
+  </div>
+</div>
